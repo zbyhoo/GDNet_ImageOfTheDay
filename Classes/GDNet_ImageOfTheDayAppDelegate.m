@@ -3,7 +3,7 @@
 //  GDNet_ImageOfTheDay
 //
 //  Created by Zbigniew Kominek on 1/26/11.
-//  Copyright __MyCompanyName__ 2011. All rights reserved.
+//  Copyright zbyhoo 2011. All rights reserved.
 //
 
 #import "GDNet_ImageOfTheDayAppDelegate.h"

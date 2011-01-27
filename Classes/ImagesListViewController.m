@@ -3,15 +3,16 @@
 //  GDNet_ImageOfTheDay
 //
 //  Created by Zbigniew Kominek on 1/26/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 zbyhoo. All rights reserved.
 //
 
 #import "ImagesListViewController.h"
+#import "ImageDetailViewController.h"
 
 int delete_me = 4;
 
-@implementation ImagesListViewController
 
+@implementation ImagesListViewController
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -153,7 +154,14 @@ int delete_me = 4;
 	 [detailViewController release];
 	 */
     
-    //TODO push view controller here
+    ImageDetailViewController *imageDetailViewController = [[ImageDetailViewController alloc] 
+                                                            initWithNibName:@"ImageDetailViewController" bundle:nil];
+    imageDetailViewController.title = @"TODO: post title";
+    
+    //TODO set all neccessary date
+    
+    [self.navigationController pushViewController:imageDetailViewController animated:YES];
+    [imageDetailViewController release];
 }
 
 

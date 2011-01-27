@@ -11,6 +11,10 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		265F737F12F21A6100DF9DF4 /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737C12F21A6100DF9DF4 /* GDPicture.m */; };
+		265F738012F21A6100DF9DF4 /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737E12F21A6100DF9DF4 /* GDImagePost.m */; };
+		265F738512F21B8200DF9DF4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
+		265F738D12F21C1600DF9DF4 /* GDHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */; };
 		26DEDD4312F0B77E003BBAEC /* ImagesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */; };
 		26DEDD4412F0B77E003BBAEC /* ImagesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */; };
 		26DEDDC512F0BFF2003BBAEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */; };
@@ -29,6 +33,15 @@
 		1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNet_ImageOfTheDayAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDNet_ImageOfTheDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		265F737B12F21A6100DF9DF4 /* GDPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPicture.h; sourceTree = "<group>"; };
+		265F737C12F21A6100DF9DF4 /* GDPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPicture.m; sourceTree = "<group>"; };
+		265F737D12F21A6100DF9DF4 /* GDImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDImagePost.h; sourceTree = "<group>"; };
+		265F737E12F21A6100DF9DF4 /* GDImagePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDImagePost.m; sourceTree = "<group>"; };
+		265F738312F21B8200DF9DF4 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		265F738412F21B8200DF9DF4 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		265F738A12F21BFD00DF9DF4 /* GDDataConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDDataConverter.h; sourceTree = "<group>"; };
+		265F738B12F21C1600DF9DF4 /* GDHtmlStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHtmlStringConverter.h; sourceTree = "<group>"; };
+		265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHtmlStringConverter.m; sourceTree = "<group>"; };
 		26DEDD4012F0B77E003BBAEC /* ImagesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesListViewController.h; sourceTree = "<group>"; };
 		26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesListViewController.m; sourceTree = "<group>"; };
 		26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ImagesListViewController.xib; path = Classes/ImagesListViewController.xib; sourceTree = "<group>"; };
@@ -65,7 +78,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				265F736712F212D100DF9DF4 /* Model */,
 				26DEDD3212F0B47A003BBAEC /* View */,
+				265F736612F212AF00DF9DF4 /* Controller */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -76,6 +91,26 @@
 				1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		265F736612F212AF00DF9DF4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				265F738312F21B8200DF9DF4 /* DataManager.h */,
+				265F738412F21B8200DF9DF4 /* DataManager.m */,
+				265F738A12F21BFD00DF9DF4 /* GDDataConverter.h */,
+				265F738B12F21C1600DF9DF4 /* GDHtmlStringConverter.h */,
+				265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		265F736712F212D100DF9DF4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		26DEDD3212F0B47A003BBAEC /* View */ = {
@@ -121,7 +156,6 @@
 				26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */,
 				26DEDE6712F0CD9D003BBAEC /* ImageDetailViewController.xib */,
 				26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */,
-				2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */,
 				8D1107310486CEB800E47090 /* GDNet_ImageOfTheDay-Info.plist */,
 			);
 			name = Resources;
@@ -163,6 +197,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = zbyhoo;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GDNet_ImageOfTheDay" */;
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 1;
@@ -200,6 +237,10 @@
 				26DEDD4312F0B77E003BBAEC /* ImagesListViewController.m in Sources */,
 				26DEDDC512F0BFF2003BBAEC /* SettingsViewController.m in Sources */,
 				26DEDE6812F0CD9D003BBAEC /* ImageDetailViewController.m in Sources */,
+				265F737F12F21A6100DF9DF4 /* GDPicture.m in Sources */,
+				265F738012F21A6100DF9DF4 /* GDImagePost.m in Sources */,
+				265F738512F21B8200DF9DF4 /* DataManager.m in Sources */,
+				265F738D12F21C1600DF9DF4 /* GDHtmlStringConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,10 +328,15 @@
 		2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				265F737B12F21A6100DF9DF4 /* GDPicture.h */,
+				265F737C12F21A6100DF9DF4 /* GDPicture.m */,
+				265F737D12F21A6100DF9DF4 /* GDImagePost.h */,
+				265F737E12F21A6100DF9DF4 /* GDImagePost.m */,
 				28C3AD890F43EF2300507BA6 /* GDNet_ImageOfTheDay.xcdatamodel */,
 			);
 			currentVersion = 28C3AD890F43EF2300507BA6 /* GDNet_ImageOfTheDay.xcdatamodel */;
-			path = GDNet_ImageOfTheDay.xcdatamodeld;
+			name = GDNet_ImageOfTheDay.xcdatamodeld;
+			path = ../GDNet_ImageOfTheDay.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
