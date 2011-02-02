@@ -11,6 +11,9 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		263E3F5712F9F6E3006E5721 /* test_GDHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 263E3F5612F9F6E3006E5721 /* test_GDHtmlStringConverter.m */; };
+		263E3F9312F9FA97006E5721 /* GDHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */; };
+		263E3FC112F9FDD9006E5721 /* test_DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 263E3FC012F9FDD9006E5721 /* test_DataManager.m */; };
 		265F737F12F21A6100DF9DF4 /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737C12F21A6100DF9DF4 /* GDPicture.m */; };
 		265F738012F21A6100DF9DF4 /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737E12F21A6100DF9DF4 /* GDImagePost.m */; };
 		265F738512F21B8200DF9DF4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
@@ -27,12 +30,28 @@
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		263E3F6012F9F73F006E5721 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 263E3F4612F9F6A2006E5721 /* unit_tests */;
+			remoteInfo = unit_tests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDNet_ImageOfTheDayAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNet_ImageOfTheDayAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDNet_ImageOfTheDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		263E3F4712F9F6A2006E5721 /* unit_tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = unit_tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		263E3F4812F9F6A2006E5721 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		263E3F5512F9F6E3006E5721 /* test_GDHtmlStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_GDHtmlStringConverter.h; sourceTree = "<group>"; };
+		263E3F5612F9F6E3006E5721 /* test_GDHtmlStringConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test_GDHtmlStringConverter.m; sourceTree = "<group>"; };
+		263E3FBF12F9FDD9006E5721 /* test_DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test_DataManager.h; sourceTree = "<group>"; };
+		263E3FC012F9FDD9006E5721 /* test_DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test_DataManager.m; sourceTree = "<group>"; };
 		265F737B12F21A6100DF9DF4 /* GDPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPicture.h; sourceTree = "<group>"; };
 		265F737C12F21A6100DF9DF4 /* GDPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPicture.m; sourceTree = "<group>"; };
 		265F737D12F21A6100DF9DF4 /* GDImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDImagePost.h; sourceTree = "<group>"; };
@@ -72,6 +91,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		263E3F4412F9F6A2006E5721 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -89,13 +115,26 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */,
+				263E3F4712F9F6A2006E5721 /* unit_tests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		263E3F3912F9F597006E5721 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				263E3F5512F9F6E3006E5721 /* test_GDHtmlStringConverter.h */,
+				263E3F5612F9F6E3006E5721 /* test_GDHtmlStringConverter.m */,
+				263E3FBF12F9FDD9006E5721 /* test_DataManager.h */,
+				263E3FC012F9FDD9006E5721 /* test_DataManager.m */,
+			);
+			name = test;
 			sourceTree = "<group>";
 		};
 		265F736612F212AF00DF9DF4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				263E3F3912F9F597006E5721 /* test */,
 				265F738312F21B8200DF9DF4 /* DataManager.h */,
 				265F738412F21B8200DF9DF4 /* DataManager.m */,
 				265F738A12F21BFD00DF9DF4 /* GDDataConverter.h */,
@@ -136,6 +175,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				263E3F4812F9F6A2006E5721 /* UnitTests-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -186,11 +226,30 @@
 			buildRules = (
 			);
 			dependencies = (
+				263E3F6112F9F73F006E5721 /* PBXTargetDependency */,
 			);
 			name = GDNet_ImageOfTheDay;
 			productName = GDNet_ImageOfTheDay;
 			productReference = 1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */;
 			productType = "com.apple.product-type.application";
+		};
+		263E3F4612F9F6A2006E5721 /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 263E3F4B12F9F6A3006E5721 /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				263E3F4212F9F6A2006E5721 /* Resources */,
+				263E3F4312F9F6A2006E5721 /* Sources */,
+				263E3F4412F9F6A2006E5721 /* Frameworks */,
+				263E3F4512F9F6A2006E5721 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTests;
+			productName = unit_tests;
+			productReference = 263E3F4712F9F6A2006E5721 /* unit_tests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -208,6 +267,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* GDNet_ImageOfTheDay */,
+				263E3F4612F9F6A2006E5721 /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -224,7 +284,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		263E3F4212F9F6A2006E5721 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		263E3F4512F9F6A2006E5721 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -244,7 +327,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		263E3F4312F9F6A2006E5721 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				263E3F9312F9FA97006E5721 /* GDHtmlStringConverter.m in Sources */,
+				263E3F5712F9F6E3006E5721 /* test_GDHtmlStringConverter.m in Sources */,
+				263E3FC112F9FDD9006E5721 /* test_DataManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		263E3F6112F9F73F006E5721 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 263E3F4612F9F6A2006E5721 /* UnitTests */;
+			targetProxy = 263E3F6012F9F73F006E5721 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -271,6 +372,64 @@
 				INFOPLIST_FILE = "GDNet_ImageOfTheDay-Info.plist";
 				PRODUCT_NAME = GDNet_ImageOfTheDay;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		263E3F4912F9F6A3006E5721 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = unit_tests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		263E3F4A12F9F6A3006E5721 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = unit_tests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -309,6 +468,15 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		263E3F4B12F9F6A3006E5721 /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				263E3F4912F9F6A3006E5721 /* Debug */,
+				263E3F4A12F9F6A3006E5721 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
