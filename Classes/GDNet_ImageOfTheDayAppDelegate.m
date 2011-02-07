@@ -9,6 +9,7 @@
 #import "GDNet_ImageOfTheDayAppDelegate.h"
 #import "ImagesListViewController.h"
 #import "SettingsViewController.h"
+#import "DataManager.h"
 
 
 @implementation GDNet_ImageOfTheDayAppDelegate
@@ -22,6 +23,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
     // Override point for customization after application launch.
+    
+    // Setting up data manager
+    [DataManager instance].managedObjectContext = [self managedObjectContext];
     
     // Initializing Images list view controller
     ImagesListViewController *imagesListViewController = [[ImagesListViewController alloc] 
@@ -215,6 +219,7 @@
     /*
      Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
      */
+    //TODO delete something from DataManager
 }
 
 
@@ -229,6 +234,7 @@
     [persistentStoreCoordinator_ release];
     
     [window release];
+    [DataManager destoryInstance];
     [super dealloc];
 }
 

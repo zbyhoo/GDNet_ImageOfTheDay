@@ -7,10 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <CoreData/CoreData.h>
+#import "ImagesListViewController.h"
 
 @interface DataManager : NSObject {
-
+@private
+    NSManagedObjectContext *managedObjectContext_;
+    NSMutableArray *_posts;
 }
+
+@property (assign) NSManagedObjectContext *managedObjectContext;
+
++ (DataManager*) instance;
++ (void) destoryInstance;
+
+- (void) preloadData;
+- (NSUInteger) postsCount;
+- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(UITableViewCell*)cell view:(ImagesListViewController*)view;
+- (void) deletePost:(NSUInteger)position;
 
 @end

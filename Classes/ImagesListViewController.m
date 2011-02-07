@@ -8,8 +8,7 @@
 
 #import "ImagesListViewController.h"
 #import "ImageDetailViewController.h"
-
-int delete_me = 4;
+#import "DataManager.h"
 
 
 @implementation ImagesListViewController
@@ -61,13 +60,13 @@ int delete_me = 4;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1; //TODO
+    return 1; //TODO probably it will stay this way
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return delete_me; //TODO
+    return [[DataManager instance] postsCount];
 }
 
 
@@ -82,8 +81,18 @@ int delete_me = 4;
     }
     
     // Configure the cell...
+    //TODO look and style if needed
+    [[DataManager instance] updatePostAtIndex:indexPath cell:cell view:self];
     
     return cell;
+}
+
+- (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath
+{
+    UITableView* tableView = (UITableView*) self.view;
+    NSArray* array = [[NSArray alloc] initWithObjects:indexPath,nil];
+    [tableView reloadRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationFade];
+    [array release];
 }
 
 
@@ -102,9 +111,8 @@ int delete_me = 4;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         
-        //TODO delete from database (mark as deleted, but not delete if is in favourites)
+        [[DataManager instance] deletePost:indexPath.row];
         
-        --delete_me;
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         
     }   

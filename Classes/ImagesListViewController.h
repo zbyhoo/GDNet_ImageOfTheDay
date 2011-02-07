@@ -13,4 +13,6 @@
 
 }
 
+- (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath;
+
 @end
