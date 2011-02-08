@@ -24,6 +24,9 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     [backButton release];
+    
+    //TODO remove, should be triggered elsewere (or only during very first time run)
+    [[DataManager instance] refreshFromWeb];
 }
 
 /*

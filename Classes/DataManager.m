@@ -7,6 +7,7 @@
 //
 
 #import "DataManager.h"
+#import "Constants.h"
 
 @interface PostUpdateData : NSObject {
 @public
@@ -35,6 +36,7 @@
 static DataManager* _dataManager = nil;
 
 @synthesize managedObjectContext = managedObjectContext_;
+@synthesize converter = _converter;
 
 + (DataManager*) instance
 {
@@ -60,6 +62,15 @@ static DataManager* _dataManager = nil;
 + (id) allocWithZone:(NSZone *)zone { return [self instance]; }
 
 - (id) copyWithZone:(NSZone *)zone  { return self; }
+
+- (id) init
+{
+    if ([super init] != nil)
+    {
+        self.converter = nil;
+    }
+    return self;
+}
 
 - (id) retain                       { return self; }
 
@@ -135,6 +146,14 @@ static DataManager* _dataManager = nil;
 - (void) deletePost:(NSUInteger)position
 {
     //TODO delete from database (mark as deleted, but not delete if is in favourites)
+}
+
+- (void) refreshFromWeb //TODO in seperate thread !!!
+{
+    NSArray *webPosts = [_converter convertGallery:GD_IOTD_PAGE_URL];
+
+    //TODO verify if retrived posts are already in core data 
+    _posts = [webPosts retain]; //TODO temporary
 }
 
 @end

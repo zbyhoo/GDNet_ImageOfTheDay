@@ -9,14 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "ImagesListViewController.h"
+#import "GDDataConverter.h"
 
 @interface DataManager : NSObject {
 @private
     NSManagedObjectContext *managedObjectContext_;
     NSMutableArray *_posts;
+    NSObject<GDDataConverter> *_converter;
 }
 
 @property (assign) NSManagedObjectContext *managedObjectContext;
+@property (retain) NSObject<GDDataConverter> *converter;
 
 + (DataManager*) instance;
 + (void) destoryInstance;
@@ -25,5 +28,7 @@
 - (NSUInteger) postsCount;
 - (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(UITableViewCell*)cell view:(ImagesListViewController*)view;
 - (void) deletePost:(NSUInteger)position;
+
+- (void) refreshFromWeb;
 
 @end
