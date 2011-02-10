@@ -49,6 +49,7 @@ static DataManager* _dataManager = nil;
                 _dataManager = [[super allocWithZone:NULL] init];
                 if (_dataManager == nil)
                 {
+                    LogError(@"unable to create DataManager object");
                     //TODO error handling
                     return nil;
                 }
@@ -69,6 +70,10 @@ static DataManager* _dataManager = nil;
     {
         self.converter = nil;
     }
+    else
+    {
+        LogError(@"initialization of parent class (%@) failed", super.class);
+    }
     return self;
 }
 
@@ -86,6 +91,7 @@ static DataManager* _dataManager = nil;
     {
         @synchronized(self)
         {
+            LogInfo(@"creating instance of DataManager"); 
             if (_dataManager != nil)
             {
                 [_dataManager dealloc];
@@ -113,6 +119,7 @@ static DataManager* _dataManager = nil;
 {
     if (_posts != nil)
     {
+        LogInfo(@"removing old stuff");
         [_posts release];
     }
     _posts = [[NSMutableArray alloc] init];

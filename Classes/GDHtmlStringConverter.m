@@ -9,10 +9,15 @@
 #import "GDHtmlStringConverter.h"
 #import "Constants.h"
 
-
 @implementation GDHtmlStringConverter
 
 - (NSArray*)convertGallery:(NSString*)data {
+    
+    if (data == nil)
+    {
+        LogWarning(@"nil data argument passed");
+        return nil;
+    }
     
     NSError *error = nil;
     NSURL *url = [NSURL URLWithString:data];
@@ -33,6 +38,7 @@
 }
 
 - (GDImagePost*)convertPost:(NSString*)data {
+    LogError(@"method not implemented");
     return nil;
 }
 

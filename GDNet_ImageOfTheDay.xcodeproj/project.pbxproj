@@ -22,6 +22,8 @@
 		2648D10F1301FEF4006941E9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
 		2648D1101301FEF4006941E9 /* GDHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */; };
 		2648D1111301FEF4006941E9 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648CFE91301EF49006941E9 /* Constants.m */; };
+		265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
+		265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265F737F12F21A6100DF9DF4 /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737C12F21A6100DF9DF4 /* GDPicture.m */; };
 		265F738012F21A6100DF9DF4 /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737E12F21A6100DF9DF4 /* GDImagePost.m */; };
 		265F738512F21B8200DF9DF4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
@@ -51,6 +53,9 @@
 		2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitIOSTestMain.m; path = Tests/GHUnitIOSTestMain.m; sourceTree = "<group>"; };
 		2648D0A31301FD99006941E9 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = /projects/frameworks/GHUnitIOS.framework; sourceTree = "<absolute>"; };
 		2648D0BA1301FED8006941E9 /* GDHtmlStringConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDHtmlStringConverterTest.m; path = Tests/GDHtmlStringConverterTest.m; sourceTree = "<group>"; };
+		265A6DA2130483AA00FDED1F /* SimpleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleLogger.h; sourceTree = "<group>"; };
+		265A6DA3130483AA00FDED1F /* SimpleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleLogger.m; sourceTree = "<group>"; };
+		265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests_Prefix.pch; sourceTree = "<group>"; };
 		265F737B12F21A6100DF9DF4 /* GDPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPicture.h; sourceTree = "<group>"; };
 		265F737C12F21A6100DF9DF4 /* GDPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPicture.m; sourceTree = "<group>"; };
 		265F737D12F21A6100DF9DF4 /* GDImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDImagePost.h; sourceTree = "<group>"; };
@@ -108,6 +113,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				265A6D961304822700FDED1F /* Log */,
 				2648D0671301FA1F006941E9 /* Tests */,
 				265F736712F212D100DF9DF4 /* Model */,
 				26DEDD3212F0B47A003BBAEC /* View */,
@@ -132,6 +138,15 @@
 				2648D0BA1301FED8006941E9 /* GDHtmlStringConverterTest.m */,
 			);
 			name = Tests;
+			sourceTree = "<group>";
+		};
+		265A6D961304822700FDED1F /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				265A6DA2130483AA00FDED1F /* SimpleLogger.h */,
+				265A6DA3130483AA00FDED1F /* SimpleLogger.m */,
+			);
+			name = Log;
 			sourceTree = "<group>";
 		};
 		265F736612F212AF00DF9DF4 /* Controller */ = {
@@ -187,6 +202,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */,
 				32CA4F630368D1EE00C91783 /* GDNet_ImageOfTheDay_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -312,6 +328,7 @@
 				265F738512F21B8200DF9DF4 /* DataManager.m in Sources */,
 				265F738D12F21C1600DF9DF4 /* GDHtmlStringConverter.m in Sources */,
 				2648CFEA1301EF49006941E9 /* Constants.m in Sources */,
+				265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +341,7 @@
 				2648D1111301FEF4006941E9 /* Constants.m in Sources */,
 				2648D0691301FA5A006941E9 /* GHUnitIOSTestMain.m in Sources */,
 				2648D0BB1301FED8006941E9 /* GDHtmlStringConverterTest.m in Sources */,
+				265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +362,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GDNet_ImageOfTheDay_Prefix.pch;
 				INFOPLIST_FILE = "GDNet_ImageOfTheDay-Info.plist";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = GDNet_ImageOfTheDay;
 			};
 			name = Debug;
@@ -378,9 +397,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				GCC_PREFIX_HEADER = Tests_Prefix.pch;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
