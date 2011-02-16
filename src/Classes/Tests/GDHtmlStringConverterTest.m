@@ -53,6 +53,21 @@
     GHAssertTrue([results count] == 0, @"Number of converted posts should be %d", 0);
 }
 
+- (void) testConvertGalleryWithSample {
+    
+    // given
+    //NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_archive_1" ofType:@"html"];  
+    //NSString *fileText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    // when
+    //NSArray *results = [_converter convertGallery:fileText];
+    
+    // then
+    //GHAssertNotNil(results, @"Should always return NSArray");
+    //GHAssertEquals([results count], 9, @"Number of parsed posts"); 
+    GHAssertNotNil(nil, @"not implemented");
+}
+
 - (void) testConvertPostWithNullStringPassed {
     
     // given

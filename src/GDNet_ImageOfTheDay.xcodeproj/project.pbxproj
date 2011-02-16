@@ -21,6 +21,10 @@
 		2648D10F1301FEF4006941E9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
 		2648D1101301FEF4006941E9 /* GDHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */; };
 		2648D1111301FEF4006941E9 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648CFE91301EF49006941E9 /* Constants.m */; };
+		264F31B1130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */; };
+		264F31B2130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */; };
+		264F31C2130C6D8300BEB7C7 /* sample_archive_main_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */; };
+		264F31C4130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */; };
 		265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265F737F12F21A6100DF9DF4 /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737C12F21A6100DF9DF4 /* GDPicture.m */; };
@@ -52,6 +56,10 @@
 		2648D0521301F8FB006941E9 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitIOSTestMain.m; path = Tests/GHUnitIOSTestMain.m; sourceTree = "<group>"; };
 		2648D0BA1301FED8006941E9 /* GDHtmlStringConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDHtmlStringConverterTest.m; path = Tests/GDHtmlStringConverterTest.m; sourceTree = "<group>"; };
+		264F31AF130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDArchiveHtmlStringConverter.h; sourceTree = "<group>"; };
+		264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDArchiveHtmlStringConverter.m; sourceTree = "<group>"; };
+		264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_archive_main_page.html; path = Tests/data/sample_archive_main_page.html; sourceTree = "<group>"; };
+		264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDArchiveHtmlStringConverterTest.m; path = Tests/GDArchiveHtmlStringConverterTest.m; sourceTree = "<group>"; };
 		265A6DA2130483AA00FDED1F /* SimpleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleLogger.h; sourceTree = "<group>"; };
 		265A6DA3130483AA00FDED1F /* SimpleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleLogger.m; sourceTree = "<group>"; };
 		265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests_Prefix.pch; sourceTree = "<group>"; };
@@ -132,10 +140,20 @@
 		2648D0671301FA1F006941E9 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */,
+				264F317D130C5B0800BEB7C7 /* data */,
+				264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */,
 				2648D0BA1301FED8006941E9 /* GDHtmlStringConverterTest.m */,
+				2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */,
 			);
 			name = Tests;
+			sourceTree = "<group>";
+		};
+		264F317D130C5B0800BEB7C7 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */,
+			);
+			name = data;
 			sourceTree = "<group>";
 		};
 		265A6D961304822700FDED1F /* Log */ = {
@@ -150,13 +168,15 @@
 		265F736612F212AF00DF9DF4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2648CF131301C1F2006941E9 /* Constants.h */,
+				2648CFE91301EF49006941E9 /* Constants.m */,
 				265F738312F21B8200DF9DF4 /* DataManager.h */,
 				265F738412F21B8200DF9DF4 /* DataManager.m */,
+				264F31AF130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.h */,
+				264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */,
 				265F738A12F21BFD00DF9DF4 /* GDDataConverter.h */,
 				265F738B12F21C1600DF9DF4 /* GDHtmlStringConverter.h */,
 				265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */,
-				2648CF131301C1F2006941E9 /* Constants.h */,
-				2648CFE91301EF49006941E9 /* Constants.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -174,12 +194,12 @@
 			children = (
 				1D3623240D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.h */,
 				1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */,
+				26DEDE6512F0CD9D003BBAEC /* ImageDetailViewController.h */,
+				26DEDE6612F0CD9D003BBAEC /* ImageDetailViewController.m */,
 				26DEDD4012F0B77E003BBAEC /* ImagesListViewController.h */,
 				26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */,
 				26DEDDC212F0BFF2003BBAEC /* SettingsViewController.h */,
 				26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */,
-				26DEDE6512F0CD9D003BBAEC /* ImageDetailViewController.h */,
-				26DEDE6612F0CD9D003BBAEC /* ImageDetailViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -200,9 +220,9 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */,
 				32CA4F630368D1EE00C91783 /* GDNet_ImageOfTheDay_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -210,11 +230,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
-				26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */,
-				26DEDE6712F0CD9D003BBAEC /* ImageDetailViewController.xib */,
-				26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */,
 				8D1107310486CEB800E47090 /* GDNet_ImageOfTheDay-Info.plist */,
+				26DEDE6712F0CD9D003BBAEC /* ImageDetailViewController.xib */,
+				26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -222,11 +242,11 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28D801B30F44B63D00FB423F /* CoreData.framework */,
+				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				263E1FDE1309810000775E2B /* GHUnitIOS.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				1D30AB110D05D00D00671497 /* Foundation.framework */,
-				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
-				28D801B30F44B63D00FB423F /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -305,6 +325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				264F31C2130C6D8300BEB7C7 /* sample_archive_main_page.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +348,7 @@
 				265F738D12F21C1600DF9DF4 /* GDHtmlStringConverter.m in Sources */,
 				2648CFEA1301EF49006941E9 /* Constants.m in Sources */,
 				265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */,
+				264F31B1130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +362,8 @@
 				2648D0691301FA5A006941E9 /* GHUnitIOSTestMain.m in Sources */,
 				2648D0BB1301FED8006941E9 /* GDHtmlStringConverterTest.m in Sources */,
 				265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */,
+				264F31B2130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */,
+				264F31C4130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

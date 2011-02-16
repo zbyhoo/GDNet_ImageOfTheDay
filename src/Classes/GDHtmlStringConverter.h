@@ -14,4 +14,8 @@
 
 }
 
+- (NSString*)getData:(NSString*)urlString;
+- (NSPredicate*)isPostLikePredicate;
+- (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage;
+
 @end

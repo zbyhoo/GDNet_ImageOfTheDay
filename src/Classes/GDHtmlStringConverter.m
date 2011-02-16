@@ -13,27 +13,44 @@
 
 - (NSArray*)convertGallery:(NSString*)data {
     
-    if (data == nil)
-    {
+    if (data == nil) {
         LogWarning(@"nil data argument passed");
         return nil;
     }
     
-    NSError *error = nil;
-    NSURL *url = [NSURL URLWithString:data];
-    NSString *pageContent = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-    //TODO error checking
-    
+    NSString *pageContent = [self getData:data];
+    NSMutableArray *chunks = [self splitHtmlToPosts:pageContent];
 
-    NSMutableArray *chunks = [NSMutableArray arrayWithArray:[pageContent componentsSeparatedByString:GD_POST_SEPARATOR]];
-    [chunks removeObjectAtIndex:0];
     //TODO futher parsing
     
     //TODO remove log or only in debug
-    NSLog(@"%@", chunks);
+    LogInfo(@"%@", chunks);
     
     
     //return [[[NSArray alloc] init] autorelease];
+    return nil;
+}
+
+- (NSString*)getData:(NSString*)urlString {
+    NSError *error = nil;
+    NSURL *url = [NSURL URLWithString:urlString];
+    return [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+}
+
+- (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage {
+    NSMutableArray *chunks = [NSMutableArray arrayWithArray:[htmlPage componentsSeparatedByString:GD_POST_SEPARATOR]];
+    
+    if ([chunks count] <= 1) {
+        LogWarning(@"no post sections found");
+    }
+    else {
+        [chunks removeObjectAtIndex:0];    
+    }
+    
+    return chunks;
+}
+
+- (NSPredicate*)isPostLikePredicate {
     return nil;
 }
 
