@@ -20,14 +20,18 @@
     
     NSString *pageContent = [self getData:data];
     NSMutableArray *chunks = [self splitHtmlToPosts:pageContent];
-
-    //TODO futher parsing
-    
-    //TODO remove log or only in debug
     LogInfo(@"%@", chunks);
     
+    NSMutableArray *posts = [NSMutableArray arrayWithObject:nil];
+    NSString *chunk;
+    for (chunk in posts) {
+        [posts addObject:[self parsePost:chunk]];
+    }
     
-    //return [[[NSArray alloc] init] autorelease];
+    return [posts autorelease];
+}
+
+- (NSDictionary*)parsePost:(NSString*)chunk {
     return nil;
 }
 
@@ -54,7 +58,7 @@
     return nil;
 }
 
-- (GDImagePost*)convertPost:(NSString*)data {
+- (NSDictionary*)convertPost:(NSString*)data {
     LogError(@"method not implemented");
     return nil;
 }

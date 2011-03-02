@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "GDDataConverter.h"
 
-
 @interface GDHtmlStringConverter : NSObject <GDDataConverter> {
 
 }
@@ -17,5 +16,6 @@
 - (NSString*)getData:(NSString*)urlString;
 - (NSPredicate*)isPostLikePredicate;
 - (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage;
+- (NSDictionary*)parsePost:(NSString*)chunk;
 
 @end

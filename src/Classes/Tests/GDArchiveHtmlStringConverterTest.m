@@ -103,5 +103,19 @@
     [converter release];
 }
 
+- (void) testParsePost {
+    // given
+    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverterMock alloc] init];
+    NSString *post = @"\t\t\t\n\t\tPosted 1/4/2011 By <a title=\"View this users profile\" href=\"profile.asp?id=177184\"><span class=\"regularfont\"><span class=\"smallfont\">MrJolly</span></span></a>\n\t\t<br>\n\t\t<a href=\"topic.asp?topic_id=591877\" title=\"Vampire Slayer Squad (Android game)\">\n\t\t\t<img src=\"http://images.gamedev.net/gallery/t591877_0.jpg\">\t\t\n\t\t<br>\t\t\t\t\t\t\n\t\t7 Comments \n\t\t</a>\n\t\t<br>\n\t\t<b>Vampire Slayer Squad (Android game)</b>\t\t\t\n\t\t</td>\n\t\t\t\t\n\t\t";
+    
+    // when
+    NSDictionary *imagePost = [converter parsePost:post];
+    
+    // then
+    GHAssertNotNil(imagePost, @"post shouldn't be nil");
+    
+    [converter release];
+}
+
 
 @end

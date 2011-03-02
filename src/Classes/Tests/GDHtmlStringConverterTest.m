@@ -74,7 +74,7 @@
     NSString *data = nil;
     
     // when
-    GDImagePost *convertedPost = [_converter convertPost:data];
+    NSDictionary *convertedPost = [_converter convertPost:data];
     
     // then
     GHAssertNil(convertedPost, @"Should return nil if wron parameter passed");

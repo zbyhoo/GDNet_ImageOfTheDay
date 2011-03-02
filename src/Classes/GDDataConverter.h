@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GDImagePost.h"
 
 @protocol GDDataConverter
 
 - (NSArray*)convertGallery:(NSString*)data;
-- (GDImagePost*)convertPost:(NSString*)data;
+- (NSDictionary*)convertPost:(NSString*)data;
 
 @end

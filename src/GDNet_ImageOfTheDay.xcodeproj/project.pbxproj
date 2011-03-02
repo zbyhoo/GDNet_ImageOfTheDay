@@ -31,6 +31,11 @@
 		265F738012F21A6100DF9DF4 /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F737E12F21A6100DF9DF4 /* GDImagePost.m */; };
 		265F738512F21B8200DF9DF4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
 		265F738D12F21C1600DF9DF4 /* GDHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */; };
+		26AF997B131ED4810096C002 /* GDNet_ImageOfTheDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */; };
+		26AF99F1131EF10B0096C002 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF99F0131EF10B0096C002 /* Utilities.m */; };
+		26AF99F2131EF10B0096C002 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF99F0131EF10B0096C002 /* Utilities.m */; };
+		26AF9A02131EF4990096C002 /* UtilitiesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF9A01131EF4990096C002 /* UtilitiesTest.m */; };
+		26AF9B6C131F071E0096C002 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
 		26DEDD4312F0B77E003BBAEC /* ImagesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */; };
 		26DEDD4412F0B77E003BBAEC /* ImagesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */; };
 		26DEDDC512F0BFF2003BBAEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */; };
@@ -72,6 +77,9 @@
 		265F738A12F21BFD00DF9DF4 /* GDDataConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDDataConverter.h; sourceTree = "<group>"; };
 		265F738B12F21C1600DF9DF4 /* GDHtmlStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHtmlStringConverter.h; sourceTree = "<group>"; };
 		265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHtmlStringConverter.m; sourceTree = "<group>"; };
+		26AF99EF131EF10B0096C002 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		26AF99F0131EF10B0096C002 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		26AF9A01131EF4990096C002 /* UtilitiesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UtilitiesTest.m; path = Tests/UtilitiesTest.m; sourceTree = "<group>"; };
 		26DEDD4012F0B77E003BBAEC /* ImagesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesListViewController.h; sourceTree = "<group>"; };
 		26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesListViewController.m; sourceTree = "<group>"; };
 		26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ImagesListViewController.xib; path = Classes/ImagesListViewController.xib; sourceTree = "<group>"; };
@@ -110,6 +118,7 @@
 				2648D0911301FCA5006941E9 /* Foundation.framework in Frameworks */,
 				2648D0921301FCA5006941E9 /* UIKit.framework in Frameworks */,
 				263E1FDF1309810000775E2B /* GHUnitIOS.framework in Frameworks */,
+				26AF9B6C131F071E0096C002 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +153,7 @@
 				264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */,
 				2648D0BA1301FED8006941E9 /* GDHtmlStringConverterTest.m */,
 				2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */,
+				26AF9A01131EF4990096C002 /* UtilitiesTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -177,6 +187,8 @@
 				265F738A12F21BFD00DF9DF4 /* GDDataConverter.h */,
 				265F738B12F21C1600DF9DF4 /* GDHtmlStringConverter.h */,
 				265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */,
+				26AF99EF131EF10B0096C002 /* Utilities.h */,
+				26AF99F0131EF10B0096C002 /* Utilities.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -349,6 +361,7 @@
 				2648CFEA1301EF49006941E9 /* Constants.m in Sources */,
 				265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */,
 				264F31B1130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */,
+				26AF99F2131EF10B0096C002 /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26AF997B131ED4810096C002 /* GDNet_ImageOfTheDay.xcdatamodeld in Sources */,
 				2648D10F1301FEF4006941E9 /* DataManager.m in Sources */,
 				2648D1101301FEF4006941E9 /* GDHtmlStringConverter.m in Sources */,
 				2648D1111301FEF4006941E9 /* Constants.m in Sources */,
@@ -364,6 +378,8 @@
 				265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */,
 				264F31B2130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */,
 				264F31C4130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m in Sources */,
+				26AF99F1131EF10B0096C002 /* Utilities.m in Sources */,
+				26AF9A02131EF4990096C002 /* UtilitiesTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,10 +391,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

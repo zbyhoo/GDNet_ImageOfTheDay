@@ -8,6 +8,8 @@
 
 #import "GDArchiveHtmlStringConverter.h"
 #import "Constants.h"
+#import "Utilities.h"
+#import "GDImagePost.h"
 
 @implementation GDArchiveHtmlStringConverter
 
@@ -33,6 +35,27 @@
 
 - (NSPredicate*)isPostLikePredicate {
     return [NSPredicate predicateWithFormat:@"SELF MATCHES '.*Posted.*By.*(a title).*Comment(s)*.*'"];
+}                                            
+
+- (NSDictionary*)parsePost:(NSString*)chunk {
+    LogDebug(@"%@", chunk);
+    
+    NSRange range;
+    range.location = 0;
+    range.length = chunk.length - 1;
+    
+    NSString *date = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_DATE_START before:GD_ARCHIVE_DATE_END];
+    LogDebug(@"Date: %@", date);
+    NSString *user = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_USER_START before:GD_ARCHIVE_USER_END];
+    LogDebug(@"User: %@", user);
+    NSString *title = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_TITLE_START before:GD_ARCHIVE_TITLE_END];
+    LogDebug(@"Title: %@", title);
+    NSString *imgUrl = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_IMG_URL_START before:GD_ARCHIVE_IMG_URL_END];
+    LogDebug(@"Image Url: %@", imgUrl);
+    
+    // TODO parse and add the rest data
+    
+    return nil;
 }
 
 @end
