@@ -22,7 +22,7 @@
     NSMutableArray *chunks = [self splitHtmlToPosts:pageContent];
     LogInfo(@"%@", chunks);
     
-    NSMutableArray *posts = [NSMutableArray arrayWithObject:nil];
+    NSMutableArray *posts = [[NSMutableArray alloc] init];
     NSString *chunk;
     for (chunk in posts) {
         [posts addObject:[self parsePost:chunk]];
