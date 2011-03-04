@@ -11,6 +11,7 @@
 #import "SettingsViewController.h"
 #import "DataManager.h"
 #import "GDHtmlStringConverter.h"
+#import "GDArchiveHtmlStringConverter.h"
 
 
 @implementation GDNet_ImageOfTheDayAppDelegate
@@ -27,7 +28,7 @@
     
     // Setting up data manager
     [DataManager instance].managedObjectContext = [self managedObjectContext];
-    [DataManager instance].converter = [[GDHtmlStringConverter alloc] init];
+    [DataManager instance].converter = [[GDArchiveHtmlStringConverter alloc] init];
     
     // Initializing Images list view controller
     ImagesListViewController *imagesListViewController = [[ImagesListViewController alloc] 

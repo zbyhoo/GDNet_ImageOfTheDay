@@ -21,3 +21,10 @@ extern NSString * const GD_ARCHIVE_IMG_URL_START;
 extern NSString * const GD_ARCHIVE_IMG_URL_END;
 
 extern NSString * const GD_ARCHIVE_POST_URL;
+
+
+extern NSString * const KEY_DATE;
+extern NSString * const KEY_AUTHOR;
+extern NSString * const KEY_POST_URL;
+extern NSString * const KEY_TITLE;
+extern NSString * const KEY_IMAGE_URL;

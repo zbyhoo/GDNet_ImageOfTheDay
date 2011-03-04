@@ -37,9 +37,7 @@
     return [NSPredicate predicateWithFormat:@"SELF MATCHES '.*Posted.*By.*(a title).*Comment(s)*.*'"];
 }                                            
 
-- (NSDictionary*)parsePost:(NSString*)chunk {
-    LogDebug(@"%@", chunk);
-    
+- (NSDictionary*)parsePost:(NSString*)chunk {    
     NSRange range;
     range.location = 0;
     range.length = chunk.length - 1;
@@ -77,11 +75,11 @@
     }
     
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setValue:date forKey:@"postDate"];
-    [dict setValue:user forKey:@"author"];
-    [dict setValue:postUrl forKey:@"url"];
-    [dict setValue:title forKey:@"title"];
-    [dict setValue:imgUrl forKey:@"imageUrl"];
+    [dict setValue:date forKey:KEY_DATE];
+    [dict setValue:user forKey:KEY_AUTHOR];
+    [dict setValue:postUrl forKey:KEY_POST_URL];
+    [dict setValue:title forKey:KEY_TITLE];
+    [dict setValue:imgUrl forKey:KEY_IMAGE_URL];
     
     return [dict autorelease];
 }

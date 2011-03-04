@@ -25,7 +25,10 @@
     NSMutableArray *posts = [[NSMutableArray alloc] init];
     NSString *chunk;
     for (chunk in chunks) {
-        [posts addObject:[self parsePost:chunk]];
+        NSDictionary *newPost = [self parsePost:chunk];
+        if (newPost != nil) {
+            [posts addObject:newPost];
+        }
     }
     
     return [posts autorelease];

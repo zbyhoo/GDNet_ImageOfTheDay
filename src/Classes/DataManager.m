@@ -9,21 +9,21 @@
 #import "DataManager.h"
 #import "Constants.h"
 
-@interface PostUpdateData : NSObject {
-@public
-    NSIndexPath *_indexPath;
-    UITableViewCell *_cell;
-    ImagesListViewController *_view;
-}
-@property (retain) NSIndexPath *indexPath;
-@property (retain) UITableViewCell *cell;
-@property (retain) ImagesListViewController *view;
-@end
-@implementation PostUpdateData
-@synthesize indexPath = _indexPath;
-@synthesize cell = _cell;
-@synthesize view = _view;
-@end
+//@interface PostUpdateData : NSObject {
+//@public
+//    NSIndexPath *_indexPath;
+//    UITableViewCell *_cell;
+//    ImagesListViewController *_view;
+//}
+//@property (retain) NSIndexPath *indexPath;
+//@property (retain) UITableViewCell *cell;
+//@property (retain) ImagesListViewController *view;
+//@end
+//@implementation PostUpdateData
+//@synthesize indexPath = _indexPath;
+//@synthesize cell = _cell;
+//@synthesize view = _view;
+//@end
 
 
 
@@ -129,38 +129,46 @@ static DataManager* _dataManager = nil;
 
 - (NSUInteger)postsCount    { return _posts.count; }
 
-- (void) loadCellData:(PostUpdateData*)postUpdateData
-{
-    //TODO update cell
-    // ...
-    
-    [postUpdateData.view performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:postUpdateData.indexPath waitUntilDone:NO];
-}
-
 - (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(UITableViewCell*)cell view:(ImagesListViewController*)view;
 {
     //TODO
-    PostUpdateData* postUpdateData = [[PostUpdateData alloc] init];
-    postUpdateData.indexPath = indexPath;
-    postUpdateData.cell = cell;
-    postUpdateData.view = view;
+    //PostUpdateData* postUpdateData = [[PostUpdateData alloc] init];
+    //postUpdateData.indexPath = indexPath;
+    //postUpdateData.cell = cell;
+    //postUpdateData.view = view;
     
-    [NSThread detachNewThreadSelector:@selector(loadCellData:) toTarget:self withObject:postUpdateData];
-    
-    [postUpdateData release];
+    //[postUpdateData release];
+        
+    cell.textLabel.text = [[_posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
 }
 
-- (void) deletePost:(NSUInteger)position
-{
+- (void) deletePost:(NSUInteger)position {
     //TODO delete from database (mark as deleted, but not delete if is in favourites)
 }
 
-- (void) refreshFromWeb //TODO in seperate thread !!!
-{
-    NSArray *webPosts = [_converter convertGallery:GD_IOTD_PAGE_URL];
+- (void) setPosts:(NSMutableArray*)newPosts {
+    NSLog(@"setting posts");
+    [_posts release];
+    _posts = [newPosts retain];
+}
+
+- (void) downloadData:(UITableView*)view {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    NSArray *webPosts = [_converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
+    [self performSelectorOnMainThread:@selector(setPosts:) withObject:webPosts waitUntilDone:YES];
+    [view reloadData];
+    
+    [pool drain];
+}
+
+- (void) refreshFromWeb:(UITableView*)view {
+    
+    if (_posts.count == 0) {
+        [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
+    }
 
     //TODO verify if retrived posts are already in core data 
-    _posts = [webPosts retain]; //TODO temporary
 }
 
 @end

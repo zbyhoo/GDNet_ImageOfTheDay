@@ -26,9 +26,10 @@
 
 - (void) preloadData;
 - (NSUInteger) postsCount;
+- (void) setPosts:(NSMutableArray*)newPosts;
 - (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(UITableViewCell*)cell view:(ImagesListViewController*)view;
 - (void) deletePost:(NSUInteger)position;
 
-- (void) refreshFromWeb;
+- (void) refreshFromWeb:(UITableView*)view;
 
 @end

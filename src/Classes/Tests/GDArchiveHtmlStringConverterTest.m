@@ -122,12 +122,12 @@
     
     // then
     GHAssertNotNil(imagePost, @"post shouldn't be nil");
-    GHAssertEqualObjects([imagePost valueForKey:@"postDate"], date, @"post date comaprison");
-    GHAssertEqualObjects([imagePost valueForKey:@"author"], user, @"user comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:KEY_DATE], date, @"post date comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:KEY_AUTHOR], user, @"user comaprison");
     NSString *expected = [NSString stringWithFormat:@"%@%@", GD_ARCHIVE_POST_URL, url];
-    GHAssertEqualObjects([imagePost valueForKey:@"url"], expected, @"url comaprison");
-    GHAssertEqualObjects([imagePost valueForKey:@"title"], title, @"title comaprison");
-    GHAssertEqualObjects([imagePost valueForKey:@"imageUrl"], imgUrl, @"image url comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:KEY_POST_URL], expected, @"url comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:KEY_TITLE], title, @"title comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:KEY_IMAGE_URL], imgUrl, @"image url comaprison");
     
     [converter release];
 }
