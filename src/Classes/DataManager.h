@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "ImagesListViewController.h"
 #import "GDDataConverter.h"
+#import "IOTDTableViewCell.h"
 
 @interface DataManager : NSObject {
 @private
@@ -27,7 +28,7 @@
 - (void) preloadData;
 - (NSUInteger) postsCount;
 - (void) setPosts:(NSMutableArray*)newPosts;
-- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(UITableViewCell*)cell view:(ImagesListViewController*)view;
+- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(IOTDTableViewCell*)cell view:(ImagesListViewController*)view;
 - (void) deletePost:(NSUInteger)position;
 
 - (void) refreshFromWeb:(UITableView*)view;

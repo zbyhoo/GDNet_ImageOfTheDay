@@ -129,7 +129,7 @@ static DataManager* _dataManager = nil;
 
 - (NSUInteger)postsCount    { return _posts.count; }
 
-- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(UITableViewCell*)cell view:(ImagesListViewController*)view;
+- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(IOTDTableViewCell*)cell view:(ImagesListViewController*)view;
 {
     //TODO
     //PostUpdateData* postUpdateData = [[PostUpdateData alloc] init];
@@ -139,7 +139,7 @@ static DataManager* _dataManager = nil;
     
     //[postUpdateData release];
         
-    cell.textLabel.text = [[_posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
+    cell.titleLabel.text = [[_posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
 }
 
 - (void) deletePost:(NSUInteger)position {
