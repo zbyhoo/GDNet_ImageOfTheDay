@@ -6,10 +6,10 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-#import "IOTDTableViewCell.h"
+#import "TableViewCell.h"
 
 
-@implementation IOTDTableViewCell
+@implementation TableViewCell
 
 @synthesize titleLabel=_titleText;
 

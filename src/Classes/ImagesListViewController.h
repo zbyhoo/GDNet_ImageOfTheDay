@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IOTDTableViewCell.h"
+#import "TableViewCell.h"
 
 @interface ImagesListViewController : UITableViewController {
-    IBOutlet IOTDTableViewCell *tblCell;
+    IBOutlet TableViewCell *tblCell;
 }
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath;

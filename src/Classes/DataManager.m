@@ -129,7 +129,7 @@ static DataManager* _dataManager = nil;
 
 - (NSUInteger)postsCount    { return _posts.count; }
 
-- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(IOTDTableViewCell*)cell view:(ImagesListViewController*)view;
+- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
 {
     //TODO
     //PostUpdateData* postUpdateData = [[PostUpdateData alloc] init];

@@ -78,10 +78,10 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    IOTDTableViewCell *cell = (IOTDTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         //cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        [[NSBundle mainBundle] loadNibNamed:@"IOTDTableViewCell" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = tblCell;
     }
     

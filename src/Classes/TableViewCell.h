@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface IOTDTableViewCell : UITableViewCell {
+@interface TableViewCell : UITableViewCell {
     IBOutlet UILabel *_titleText;
     
 @private
