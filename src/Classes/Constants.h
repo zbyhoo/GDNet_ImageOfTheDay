@@ -13,7 +13,11 @@ extern NSString * const GD_ARCHIVE_DATE_START;
 extern NSString * const GD_ARCHIVE_DATE_END;
 extern NSString * const GD_ARCHIVE_USER_START;
 extern NSString * const GD_ARCHIVE_USER_END;
+extern NSString * const GD_ARCHIVE_URL_START;
+extern NSString * const GD_ARCHIVE_URL_END;
 extern NSString * const GD_ARCHIVE_TITLE_START;
 extern NSString * const GD_ARCHIVE_TITLE_END;
 extern NSString * const GD_ARCHIVE_IMG_URL_START;
 extern NSString * const GD_ARCHIVE_IMG_URL_END;
+
+extern NSString * const GD_ARCHIVE_POST_URL;

@@ -38,6 +38,7 @@ static const char *LOG_TYPE_MSG[] = {"info", "warning", "error", "debug"};
                                                         LOG_TYPE_MSG[type], 
                                                         message];
     [SimpleLogger printMessage:final];
+    [final release];
 	[message release];
 }
 

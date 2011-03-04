@@ -13,8 +13,12 @@ NSString * const GD_ARCHIVE_DATE_START      = @"Posted ";
 NSString * const GD_ARCHIVE_DATE_END        = @" By <a";
 NSString * const GD_ARCHIVE_USER_START      = @"<span class=\"smallfont\">";
 NSString * const GD_ARCHIVE_USER_END        = @"</span></span>";
-NSString * const GD_ARCHIVE_TITLE_START     = @"\" title=\"";
+NSString * const GD_ARCHIVE_URL_START       = @"<a href=\"";
+NSString * const GD_ARCHIVE_URL_END         = @"\" ti";
+NSString * const GD_ARCHIVE_TITLE_START     = @"tle=\"";
 NSString * const GD_ARCHIVE_TITLE_END       = @"\">\n";
 NSString * const GD_ARCHIVE_IMG_URL_START   = @"img src=\"";
 NSString * const GD_ARCHIVE_IMG_URL_END     = @"\">";
+
+NSString * const GD_ARCHIVE_POST_URL        = @"http://archive.gamedev.net/community/forums/";
 

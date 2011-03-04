@@ -24,7 +24,7 @@
     
     NSMutableArray *posts = [[NSMutableArray alloc] init];
     NSString *chunk;
-    for (chunk in posts) {
+    for (chunk in chunks) {
         [posts addObject:[self parsePost:chunk]];
     }
     

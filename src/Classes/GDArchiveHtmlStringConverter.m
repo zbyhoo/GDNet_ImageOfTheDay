@@ -44,18 +44,46 @@
     range.location = 0;
     range.length = chunk.length - 1;
     
-    NSString *date = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_DATE_START before:GD_ARCHIVE_DATE_END];
-    LogDebug(@"Date: %@", date);
-    NSString *user = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_USER_START before:GD_ARCHIVE_USER_END];
-    LogDebug(@"User: %@", user);
-    NSString *title = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_TITLE_START before:GD_ARCHIVE_TITLE_END];
-    LogDebug(@"Title: %@", title);
-    NSString *imgUrl = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_IMG_URL_START before:GD_ARCHIVE_IMG_URL_END];
-    LogDebug(@"Image Url: %@", imgUrl);
+    NSDate *date;
+    NSString *user;
+    NSString *postUrl;
+    NSString *title;
+    NSString *imgUrl;
     
-    // TODO parse and add the rest data
+    @try {
+        NSString *dateString = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_DATE_START before:GD_ARCHIVE_DATE_END];
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"MM/dd/yyyy"];
+        date = [df dateFromString: dateString];
+        [df release];
+        LogDebug(@"Date: %@", date);
+        
+        user = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_USER_START before:GD_ARCHIVE_USER_END];
+        LogDebug(@"User: %@", user);
+        
+        postUrl = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_URL_START before:GD_ARCHIVE_URL_END];
+        postUrl = [NSString stringWithFormat:@"%@%@", GD_ARCHIVE_POST_URL, postUrl];
+        LogDebug(@"Post URL: %@", postUrl);
+        
+        title = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_TITLE_START before:GD_ARCHIVE_TITLE_END];
+        LogDebug(@"Title: %@", title);
+        
+        imgUrl = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_IMG_URL_START before:GD_ARCHIVE_IMG_URL_END];
+        LogDebug(@"Image Url: %@", imgUrl);
+    }
+    @catch (NSException * e) {
+        LogError(@"error with parsing post:\n%@", chunk);
+        return nil;
+    }
     
-    return nil;
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue:date forKey:@"postDate"];
+    [dict setValue:user forKey:@"author"];
+    [dict setValue:postUrl forKey:@"url"];
+    [dict setValue:title forKey:@"title"];
+    [dict setValue:imgUrl forKey:@"imageUrl"];
+    
+    return [dict autorelease];
 }
 
 @end

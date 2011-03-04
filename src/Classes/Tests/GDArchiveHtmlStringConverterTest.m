@@ -7,6 +7,7 @@
 //
 
 #import "../GDArchiveHtmlStringConverter.h"
+#import "../Constants.h"
 
 @interface GDArchiveHtmlStringConverterTest : GHTestCase {
 }
@@ -58,14 +59,13 @@
     // give 
     GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
     NSString *htmlContent = [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
-    NSUInteger expectedPostsCount = 16;
     
     // when
     NSMutableArray *posts = [converter splitHtmlToPosts:htmlContent];
     
     // then
     GHAssertNotNil(posts, @"should return not empty array of not parsed posts");
-    GHAssertEquals([posts count], expectedPostsCount, @"number of posts per page");
+    GHAssertEquals([posts count], (NSUInteger)16, @"number of posts per page");
     
     [converter release];
 }
@@ -75,14 +75,13 @@
     // give 
     GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
     NSString *htmlContent = @"nothing interesting here";
-    NSUInteger expectedPostsCount = 0;
     
     // when
     NSMutableArray *posts = [converter splitHtmlToPosts:htmlContent];
     
     // then
     GHAssertNotNil(posts, @"should return array");
-    GHAssertEquals([posts count], expectedPostsCount, @"number of posts per page");
+    GHAssertEquals([posts count], (NSUInteger)0, @"number of posts per page");
     
     [converter release];
 }
@@ -98,7 +97,7 @@
     
     // then
     GHAssertNotNil(results, @"should return NSArray");
-    GHAssertEquals([results count], 9, @"number of parsed posts");
+    GHAssertEquals([results count], (NSUInteger)16, @"number of parsed posts");
     
     [converter release];
 }
@@ -106,13 +105,29 @@
 - (void) testParsePost {
     // given
     GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverterMock alloc] init];
-    NSString *post = @"\t\t\t\n\t\tPosted 1/4/2011 By <a title=\"View this users profile\" href=\"profile.asp?id=177184\"><span class=\"regularfont\"><span class=\"smallfont\">MrJolly</span></span></a>\n\t\t<br>\n\t\t<a href=\"topic.asp?topic_id=591877\" title=\"Vampire Slayer Squad (Android game)\">\n\t\t\t<img src=\"http://images.gamedev.net/gallery/t591877_0.jpg\">\t\t\n\t\t<br>\t\t\t\t\t\t\n\t\t7 Comments \n\t\t</a>\n\t\t<br>\n\t\t<b>Vampire Slayer Squad (Android game)</b>\t\t\t\n\t\t</td>\n\t\t\t\t\n\t\t";
+    NSString *dateString = @"1/4/2011";
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"MM/dd/yyyy"];
+    NSDate *date = [df dateFromString: dateString];
+    [df release];
+    NSString *user = @"MrJolly";
+    NSString *url = @"topic.asp?topic_id=591877";
+    NSString *title = @"Vampire Slayer Squad (Android game)";
+    NSString *imgUrl = @"http://images.gamedev.net/gallery/t591877_0.jpg";
+    NSString *post = [NSString stringWithFormat:@"\t\t\t\n\t\tPosted %@ By <a title=\"View this users profile\" href=\"profile.asp?id=177184\"><span class=\"regularfont\"><span class=\"smallfont\">%@</span></span></a>\n\t\t<br>\n\t\t<a href=\"%@\" title=\"%@\">\n\t\t\t<img src=\"%@\">\t\t\n\t\t<br>\t\t\t\t\t\t\n\t\t7 Comments \n\t\t</a>\n\t\t<br>\n\t\t<b>%@</b>\t\t\t\n\t\t</td>\n\t\t\t\t\n\t\t",
+                      dateString, user, url, title, imgUrl, title];
     
     // when
     NSDictionary *imagePost = [converter parsePost:post];
     
     // then
     GHAssertNotNil(imagePost, @"post shouldn't be nil");
+    GHAssertEqualObjects([imagePost valueForKey:@"postDate"], date, @"post date comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:@"author"], user, @"user comaprison");
+    NSString *expected = [NSString stringWithFormat:@"%@%@", GD_ARCHIVE_POST_URL, url];
+    GHAssertEqualObjects([imagePost valueForKey:@"url"], expected, @"url comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:@"title"], title, @"title comaprison");
+    GHAssertEqualObjects([imagePost valueForKey:@"imageUrl"], imgUrl, @"image url comaprison");
     
     [converter release];
 }
