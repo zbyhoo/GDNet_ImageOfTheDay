@@ -11,3 +11,8 @@ src/build/*
 .DS_Store
 profile
 
+# xcode 4
+
+project.xcworkspace
+xcuserdata
+
