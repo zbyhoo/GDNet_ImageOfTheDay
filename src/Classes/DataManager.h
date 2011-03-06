@@ -23,15 +23,15 @@
 @property (retain) NSObject<GDDataConverter> *converter;
 @property (retain) NSMutableArray *posts;
 
-+ (DataManager*) instance;
-+ (void) destoryInstance;
++ (DataManager*)instance;
++ (void)destoryInstance;
 
-- (void) preloadData:(UITableView*)view;
-- (NSUInteger) postsCount;
-- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
-- (void) deletePost:(NSUInteger)position;
+- (void)preloadData:(UITableView*)view;
+- (NSUInteger)postsCount;
+- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
+- (void)deletePost:(NSUInteger)position;
 
-- (void) refreshFromWeb:(UITableView*)view;
+- (void)refreshFromWeb:(UITableView*)view;
 - (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate;
 
 @end

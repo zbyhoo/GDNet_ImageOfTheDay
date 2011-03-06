@@ -22,17 +22,12 @@ static DataManager* _dataManager = nil;
 @synthesize converter = _converter;
 @synthesize posts = _posts;
 
-+ (DataManager*) instance
-{
-    if (_dataManager == nil)
-    {
-        @synchronized(self)
-        {
-            if (_dataManager == nil)
-            {
++ (DataManager*)instance {
+    if (_dataManager == nil) {
+        @synchronized(self) {
+            if (_dataManager == nil) {
                 _dataManager = [[super allocWithZone:NULL] init];
-                if (_dataManager == nil)
-                {
+                if (_dataManager == nil) {
                     LogError(@"unable to create DataManager object");
                     return nil;
                 }
@@ -42,53 +37,51 @@ static DataManager* _dataManager = nil;
     return _dataManager;
 }
 
-+ (id) allocWithZone:(NSZone *)zone { return [self instance]; }
++ (id)allocWithZone:(NSZone *)zone { return [self instance]; }
+- (id)copyWithZone:(NSZone *)zone  { return self; }
 
-- (id) copyWithZone:(NSZone *)zone  { return self; }
-
-- (id) init
-{
-    if ([super init] != nil)
-    {
+- (id)init {
+    if ([super init] != nil) {
         self.converter = nil;
         //_posts = [[self fetchPostsWithPredicate:nil] retain];
     }
-    else
-    {
+    else {
         LogError(@"initialization of parent class (%@) failed", super.class);
     }
     return self;
 }
 
-- (id) retain                       { return self; }
+- (id)retain {
+    return self;
+}
 
-- (NSUInteger) retainCount          { return NSUIntegerMax; }
+- (NSUInteger)retainCount {
+    return NSUIntegerMax;
+}
 
-- (void) release                    { /* do nothing */ }
+- (void)release { 
+    // intentionaly left blank - do nothing
+}
 
-- (id) autorelease                  { return self; }
+- (id)autorelease {
+    return self;
+}
 
-+ (void) destoryInstance
-{
-    if (_dataManager != nil)
-    {
-        @synchronized(self)
-        {
++ (void)destoryInstance {
+    if (_dataManager != nil) {
+        @synchronized(self) {
             LogInfo(@"creating instance of DataManager"); 
-            if (_dataManager != nil)
-            {
+            if (_dataManager != nil) {
                 [_dataManager dealloc];
             }
         }
     }
 }
 
-- (void) dealloc
-{
+- (void)dealloc {
     //TODO remove all neccessary data here
     // ...
-    if (_posts != nil)
-    {
+    if (_posts != nil) {
         [_posts release];
     }
     
@@ -98,23 +91,23 @@ static DataManager* _dataManager = nil;
 #pragma mark -
 #pragma mark Business stuff
 
-- (void) preloadData:(UITableView*)view
-{
+- (void)preloadData:(UITableView*)view {
     self.posts = [self fetchPostsWithPredicate:nil];
     if (self.posts.count == 0) {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
 }
 
-- (NSUInteger)postsCount    { return self.posts.count; }
+- (NSUInteger)postsCount { 
+    return self.posts.count; 
+}
 
-- (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
-{
-        
+- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view {
+    // TODO
     cell.titleLabel.text = [[self.posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
 }
 
-- (void) deletePost:(NSUInteger)position {
+- (void)deletePost:(NSUInteger)position {
     //TODO delete from database (mark as deleted, but not delete if is in favourites)
 }
 
@@ -133,7 +126,7 @@ static DataManager* _dataManager = nil;
         LogError(@"error fetching request:\n%@", [error userInfo]);
         return nil;
     }
-    LogInfo(@"number of posts fetched: %d", [array count]);
+    LogDebug(@"number of posts fetched: %d", [array count]);
     return [NSMutableArray arrayWithArray:array];
 }
 
@@ -143,8 +136,7 @@ static DataManager* _dataManager = nil;
     LogDebug(@"searching core data for: %@", [objectDict valueForKey:KEY_POST_URL]);
 
     NSArray *array = [self fetchPostsWithPredicate:requestPredicate];
-    if (array == nil)
-    {
+    if (array == nil) {
         LogError(@"nil returned istead of array");
         return NO;
     }
@@ -203,7 +195,7 @@ static DataManager* _dataManager = nil;
     [pool drain];
 }
 
-- (void) refreshFromWeb:(UITableView*)view {
+- (void)refreshFromWeb:(UITableView*)view {
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
