@@ -8,24 +8,7 @@
 
 #import "DataManager.h"
 #import "Constants.h"
-
-//@interface PostUpdateData : NSObject {
-//@public
-//    NSIndexPath *_indexPath;
-//    UITableViewCell *_cell;
-//    ImagesListViewController *_view;
-//}
-//@property (retain) NSIndexPath *indexPath;
-//@property (retain) UITableViewCell *cell;
-//@property (retain) ImagesListViewController *view;
-//@end
-//@implementation PostUpdateData
-//@synthesize indexPath = _indexPath;
-//@synthesize cell = _cell;
-//@synthesize view = _view;
-//@end
-
-
+#import "GDImagePost.h"
 
 
 @implementation DataManager
@@ -35,8 +18,9 @@
 
 static DataManager* _dataManager = nil;
 
-@synthesize managedObjectContext = managedObjectContext_;
+@synthesize managedObjectContext = _managedObjectContext;
 @synthesize converter = _converter;
+@synthesize posts = _posts;
 
 + (DataManager*) instance
 {
@@ -50,10 +34,8 @@ static DataManager* _dataManager = nil;
                 if (_dataManager == nil)
                 {
                     LogError(@"unable to create DataManager object");
-                    //TODO error handling
                     return nil;
                 }
-                [_dataManager preloadData];
             }
         }
     }
@@ -69,6 +51,7 @@ static DataManager* _dataManager = nil;
     if ([super init] != nil)
     {
         self.converter = nil;
+        //_posts = [[self fetchPostsWithPredicate:nil] retain];
     }
     else
     {
@@ -115,60 +98,113 @@ static DataManager* _dataManager = nil;
 #pragma mark -
 #pragma mark Business stuff
 
-- (void) preloadData
+- (void) preloadData:(UITableView*)view
 {
-    if (_posts != nil)
-    {
-        LogInfo(@"removing old stuff");
-        [_posts release];
+    self.posts = [self fetchPostsWithPredicate:nil];
+    if (self.posts.count == 0) {
+        [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
-    _posts = [[NSMutableArray alloc] init];
-    
-    //TODO loads data from core data storage to array if neccessary ???
 }
 
-- (NSUInteger)postsCount    { return _posts.count; }
+- (NSUInteger)postsCount    { return self.posts.count; }
 
 - (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
 {
-    //TODO
-    //PostUpdateData* postUpdateData = [[PostUpdateData alloc] init];
-    //postUpdateData.indexPath = indexPath;
-    //postUpdateData.cell = cell;
-    //postUpdateData.view = view;
-    
-    //[postUpdateData release];
         
-    cell.titleLabel.text = [[_posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
+    cell.titleLabel.text = [[self.posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
 }
 
 - (void) deletePost:(NSUInteger)position {
     //TODO delete from database (mark as deleted, but not delete if is in favourites)
 }
 
-- (void) setPosts:(NSMutableArray*)newPosts {
-    NSLog(@"setting posts");
-    [_posts release];
-    _posts = [newPosts retain];
+- (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate {
+    NSEntityDescription *entityDescription = [NSEntityDescription
+                                              entityForName:@"GDImagePost" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+    [request setEntity:entityDescription];
+    if (predicate != nil) {
+        [request setPredicate:predicate];
+    }
+    
+    NSError *error = nil;
+    NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+    if (array == nil) {
+        LogError(@"error fetching request:\n%@", [error userInfo]);
+        return nil;
+    }
+    LogInfo(@"number of posts fetched: %d", [array count]);
+    return [NSMutableArray arrayWithArray:array];
 }
 
-- (void) downloadData:(UITableView*)view {
+- (BOOL)existsInDatabase:(NSDictionary*)objectDict {
+    NSPredicate *requestPredicate = [NSPredicate 
+                                     predicateWithFormat:[NSString stringWithFormat:@"(url like '%@')", [objectDict valueForKey:KEY_POST_URL]]];    
+    LogDebug(@"searching core data for: %@", [objectDict valueForKey:KEY_POST_URL]);
+
+    NSArray *array = [self fetchPostsWithPredicate:requestPredicate];
+    if (array == nil)
+    {
+        LogError(@"nil returned istead of array");
+        return NO;
+    }
+    
+    if ([array count] == (NSUInteger)1) {
+        return YES;
+    }
+    else if ([array count] > (NSUInteger)1) {
+        LogError(@"many objects found for key: %@", [objectDict valueForKey:KEY_POST_URL]);
+    }
+    
+    return NO;
+}
+
+- (void)addNewPost:(GDImagePost*)post {
+    [self.posts addObject:post];
+}
+
+- (void)addToDatabase:(NSDictionary*)objectDict {
+    // TODO implement
+    // add to database and posts
+    
+    GDImagePost* imagePost = (GDImagePost*)[NSEntityDescription 
+                                           insertNewObjectForEntityForName:@"GDImagePost" 
+                                           inManagedObjectContext:self.managedObjectContext];
+    imagePost.author    = [objectDict valueForKey:KEY_AUTHOR];
+    imagePost.title     = [objectDict valueForKey:KEY_TITLE];
+    imagePost.url       = [objectDict valueForKey:KEY_POST_URL];
+    imagePost.postDate  = [objectDict valueForKey:KEY_DATE];
+    
+    //TODO add pictures imagePost
+    
+    NSError* error;
+    if (![self.managedObjectContext save:&error]) {
+        LogError(@"error saving object:\n%@", [error userInfo]);
+    }
+    else {
+        [self performSelectorOnMainThread:@selector(addNewPost:) withObject:imagePost waitUntilDone:YES];
+    }
+}
+
+- (void)downloadData:(UITableView*)view {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    NSArray *webPosts = [_converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
-    [self performSelectorOnMainThread:@selector(setPosts:) withObject:webPosts waitUntilDone:YES];
-    [view reloadData];
+    NSArray *webPosts = [self.converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
+    NSDictionary *objectDict;
+    for (objectDict in webPosts) {
+        if ([self existsInDatabase:objectDict] == NO) {
+            [self addToDatabase:objectDict];
+        }
+    }
+    if (view != nil) {
+        [view reloadData];
+    }
     
     [pool drain];
 }
 
 - (void) refreshFromWeb:(UITableView*)view {
-    
-    if (_posts.count == 0) {
-        [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
-    }
-
-    //TODO verify if retrived posts are already in core data 
+    [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
 @end

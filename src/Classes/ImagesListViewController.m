@@ -26,7 +26,7 @@
     [backButton release];
     
     //TODO remove, should be triggered elsewere (or only during very first time run)
-    [[DataManager instance] refreshFromWeb:self.tableView];
+    [[DataManager instance] preloadData:self.tableView];
 }
 
 /*

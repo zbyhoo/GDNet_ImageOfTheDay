@@ -14,23 +14,24 @@
 
 @interface DataManager : NSObject {
 @private
-    NSManagedObjectContext *managedObjectContext_;
+    NSManagedObjectContext *_managedObjectContext;
     NSMutableArray *_posts;
     NSObject<GDDataConverter> *_converter;
 }
 
 @property (assign) NSManagedObjectContext *managedObjectContext;
 @property (retain) NSObject<GDDataConverter> *converter;
+@property (retain) NSMutableArray *posts;
 
 + (DataManager*) instance;
 + (void) destoryInstance;
 
-- (void) preloadData;
+- (void) preloadData:(UITableView*)view;
 - (NSUInteger) postsCount;
-- (void) setPosts:(NSMutableArray*)newPosts;
 - (void) updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
 - (void) deletePost:(NSUInteger)position;
 
 - (void) refreshFromWeb:(UITableView*)view;
+- (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate;
 
 @end
