@@ -92,9 +92,9 @@ static DataManager* _dataManager = nil;
 #pragma mark Business stuff
 
 - (void)preloadData:(UITableView*)view {
-    self.posts = [self fetchPostsWithPredicate:nil sorting:nil];
-    
-    // TODO sort posts
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:NO];
+    self.posts = [self fetchPostsWithPredicate:nil sorting:sortDescriptor];
+    [sortDescriptor release];
     
     if (self.posts.count == 0) {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
@@ -114,6 +114,7 @@ static DataManager* _dataManager = nil;
     // TODO
     GDImagePost* post = [self.posts objectAtIndex:indexPath.row];
     cell.titleLabel.text = post.title;
+    //cell.titleLabel.text = [NSString stringWithFormat:@"%d", post.postDate];
 }
 
 - (void)deletePost:(NSIndexPath*)position {
@@ -128,19 +129,19 @@ static DataManager* _dataManager = nil;
     }
 }
 
-- (NSDate*)mostRecentPostDate {
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                        initWithKey:@"postDate" ascending:YES];
-    NSArray* objects = [self fetchPostsWithPredicate:nil sorting:sortDescriptor];
-        [sortDescriptor release];
-    
-    if (objects != nil) {
-        GDImagePost* post = (GDImagePost*)[objects objectAtIndex:0];
-        return post.postDate;
-    }
-    return nil;
-}
+//- (NSDate*)mostRecentPostDate {
+//    
+//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+//                                        initWithKey:@"postDate" ascending:YES];
+//    NSArray* objects = [self fetchPostsWithPredicate:nil sorting:sortDescriptor];
+//        [sortDescriptor release];
+//    
+//    if (objects != nil) {
+//        GDImagePost* post = (GDImagePost*)[objects objectAtIndex:0];
+//        return post.postDate;
+//    }
+//    return nil;
+//}
 
 - (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate sorting:(NSSortDescriptor*)sorting {
     NSEntityDescription *entityDescription = [NSEntityDescription
@@ -188,7 +189,16 @@ static DataManager* _dataManager = nil;
 }
 
 - (void)addNewPost:(GDImagePost*)post {
-    [self.posts insertObject:post atIndex:0];
+    GDImagePost *stored;
+    NSUInteger index = 0;
+    for (stored in self.posts) {
+        if ([post.postDate intValue] >= [stored.postDate intValue]) {
+            [self.posts insertObject:post atIndex:index];
+            return;
+        }
+        ++index;
+    }
+    [self.posts addObject:post];
 }
 
 - (void)addToDatabase:(NSDictionary*)objectDict {

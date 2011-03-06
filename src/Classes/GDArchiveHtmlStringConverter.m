@@ -11,6 +11,8 @@
 #import "Utilities.h"
 #import "GDImagePost.h"
 
+NSUInteger helperIndex = 60;
+
 @implementation GDArchiveHtmlStringConverter
 
 - (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage {
@@ -42,7 +44,7 @@
     range.location = 0;
     range.length = chunk.length - 1;
     
-    NSDate *date;
+    NSNumber *date;
     NSString *user;
     NSString *postUrl;
     NSString *title;
@@ -52,7 +54,12 @@
         NSString *dateString = [Utilities getSubstringFrom:chunk range:&range after:GD_ARCHIVE_DATE_START before:GD_ARCHIVE_DATE_END];
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"MM/dd/yyyy"];
-        date = [df dateFromString: dateString];
+        double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
+        timestamp += (helperIndex--); // trick to properly sort posts by timestamp (here we have only day, no exact time)
+        if (helperIndex == 0) {
+            helperIndex = 60;
+        }
+        date = [NSNumber numberWithDouble:timestamp];
         [df release];
         LogDebug(@"Date: %@", date);
         

@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * author;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSDate * postDate;
+@property (nonatomic, retain) NSNumber * postDate;
 @property (nonatomic, retain) NSString * postDescription;
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) NSSet* pictures;
