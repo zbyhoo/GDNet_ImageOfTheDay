@@ -26,6 +26,8 @@
 + (DataManager*)instance;
 + (void)destoryInstance;
 
+- (void)refreshFromWeb:(UITableView*)view;
+
 - (void)preloadData:(UITableView*)view;
 - (NSUInteger)postsCount;
 - (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;

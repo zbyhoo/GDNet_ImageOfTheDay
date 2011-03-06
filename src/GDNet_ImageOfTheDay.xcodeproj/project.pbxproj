@@ -36,6 +36,16 @@
 		26AF99F2131EF10B0096C002 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF99F0131EF10B0096C002 /* Utilities.m */; };
 		26AF9A02131EF4990096C002 /* UtilitiesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF9A01131EF4990096C002 /* UtilitiesTest.m */; };
 		26AF9B6C131F071E0096C002 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		26BE1CD61324306B00596340 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BE1CD51324306B00596340 /* EGORefreshTableHeaderView.m */; };
+		26BE1CE01324314A00596340 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CD81324314A00596340 /* blackArrow.png */; };
+		26BE1CE11324314A00596340 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CD91324314A00596340 /* blackArrow@2x.png */; };
+		26BE1CE21324314A00596340 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDA1324314A00596340 /* blueArrow.png */; };
+		26BE1CE31324314A00596340 /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDB1324314A00596340 /* blueArrow@2x.png */; };
+		26BE1CE41324314A00596340 /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDC1324314A00596340 /* grayArrow.png */; };
+		26BE1CE51324314A00596340 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDD1324314A00596340 /* grayArrow@2x.png */; };
+		26BE1CE61324314A00596340 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDE1324314A00596340 /* whiteArrow.png */; };
+		26BE1CE71324314A00596340 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDF1324314A00596340 /* whiteArrow@2x.png */; };
+		26BE1CE91324335200596340 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BE1CE81324335200596340 /* QuartzCore.framework */; };
 		26DEDD4312F0B77E003BBAEC /* ImagesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */; };
 		26DEDD4412F0B77E003BBAEC /* ImagesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */; };
 		26DEDDC512F0BFF2003BBAEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */; };
@@ -82,6 +92,17 @@
 		26AF99EF131EF10B0096C002 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		26AF99F0131EF10B0096C002 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		26AF9A01131EF4990096C002 /* UtilitiesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UtilitiesTest.m; path = Tests/UtilitiesTest.m; sourceTree = "<group>"; };
+		26BE1CD41324306B00596340 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		26BE1CD51324306B00596340 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		26BE1CD81324314A00596340 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
+		26BE1CD91324314A00596340 /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
+		26BE1CDA1324314A00596340 /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		26BE1CDB1324314A00596340 /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
+		26BE1CDC1324314A00596340 /* grayArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayArrow.png; sourceTree = "<group>"; };
+		26BE1CDD1324314A00596340 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
+		26BE1CDE1324314A00596340 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
+		26BE1CDF1324314A00596340 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		26BE1CE81324335200596340 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		26DEDD4012F0B77E003BBAEC /* ImagesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesListViewController.h; sourceTree = "<group>"; };
 		26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesListViewController.m; sourceTree = "<group>"; };
 		26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ImagesListViewController.xib; path = Classes/ImagesListViewController.xib; sourceTree = "<group>"; };
@@ -108,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26BE1CE91324335200596340 /* QuartzCore.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -206,9 +228,26 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		26BE1CD71324310D00596340 /* Pictures */ = {
+			isa = PBXGroup;
+			children = (
+				26BE1CD81324314A00596340 /* blackArrow.png */,
+				26BE1CD91324314A00596340 /* blackArrow@2x.png */,
+				26BE1CDA1324314A00596340 /* blueArrow.png */,
+				26BE1CDB1324314A00596340 /* blueArrow@2x.png */,
+				26BE1CDC1324314A00596340 /* grayArrow.png */,
+				26BE1CDD1324314A00596340 /* grayArrow@2x.png */,
+				26BE1CDE1324314A00596340 /* whiteArrow.png */,
+				26BE1CDF1324314A00596340 /* whiteArrow@2x.png */,
+			);
+			name = Pictures;
+			sourceTree = "<group>";
+		};
 		26DEDD3212F0B47A003BBAEC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				26BE1CD41324306B00596340 /* EGORefreshTableHeaderView.h */,
+				26BE1CD51324306B00596340 /* EGORefreshTableHeaderView.m */,
 				1D3623240D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.h */,
 				1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */,
 				26DEDE6512F0CD9D003BBAEC /* ImageDetailViewController.h */,
@@ -226,6 +265,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				26BE1CE81324335200596340 /* QuartzCore.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -249,6 +289,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				26BE1CD71324310D00596340 /* Pictures */,
 				8D1107310486CEB800E47090 /* GDNet_ImageOfTheDay-Info.plist */,
 				26DEDE6712F0CD9D003BBAEC /* ImageDetailViewController.xib */,
 				26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */,
@@ -346,6 +387,14 @@
 				26DEDDC612F0BFF2003BBAEC /* SettingsViewController.xib in Resources */,
 				26DEDE6912F0CD9D003BBAEC /* ImageDetailViewController.xib in Resources */,
 				26E81A9D1321A66C00FD3D52 /* TableViewCell.xib in Resources */,
+				26BE1CE01324314A00596340 /* blackArrow.png in Resources */,
+				26BE1CE11324314A00596340 /* blackArrow@2x.png in Resources */,
+				26BE1CE21324314A00596340 /* blueArrow.png in Resources */,
+				26BE1CE31324314A00596340 /* blueArrow@2x.png in Resources */,
+				26BE1CE41324314A00596340 /* grayArrow.png in Resources */,
+				26BE1CE51324314A00596340 /* grayArrow@2x.png in Resources */,
+				26BE1CE61324314A00596340 /* whiteArrow.png in Resources */,
+				26BE1CE71324314A00596340 /* whiteArrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +428,7 @@
 				264F31B1130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */,
 				26AF99F2131EF10B0096C002 /* Utilities.m in Sources */,
 				26E81A781321A45900FD3D52 /* TableViewCell.m in Sources */,
+				26BE1CD61324306B00596340 /* EGORefreshTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

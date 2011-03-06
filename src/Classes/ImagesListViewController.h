@@ -8,11 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "TableViewCell.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface ImagesListViewController : UITableViewController {
+@interface ImagesListViewController : UITableViewController <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource> {
     IBOutlet TableViewCell *tblCell;
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _reloading;
 }
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath;
+- (void)reloadTableViewDataSource;
+- (void)doneLoadingTableViewData;
 
 @end

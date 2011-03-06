@@ -25,6 +25,17 @@
     self.navigationItem.backBarButtonItem = backButton;
     [backButton release];
     
+    if (_refreshHeaderView == nil) {
+		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
+		view.delegate = self;
+		[self.tableView addSubview:view];
+		_refreshHeaderView = view;
+		[view release];
+	}
+	//  update the last update date
+	[_refreshHeaderView refreshLastUpdatedDate];
+    _reloading = NO;
+    
     //TODO remove, should be triggered elsewere (or only during very first time run)
     [[DataManager instance] preloadData:self.tableView];
 }
@@ -177,6 +188,63 @@
     [imageDetailViewController release];
 }
 
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
+	
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+	
+}
+
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return _reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
+}
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource {
+    [[DataManager instance] refreshFromWeb:self.tableView];
+	_reloading = YES;
+	
+}
+
+- (void)doneLoadingTableViewData {
+	_reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+	
+}
+
+- (void)reloadData {
+    [self doneLoadingTableViewData];
+    [self.tableView reloadData];
+}
 
 #pragma mark -
 #pragma mark Memory management
@@ -195,6 +263,9 @@
 
 
 - (void)dealloc {
+    if (_refreshHeaderView != nil) {
+        [_refreshHeaderView release];
+    }
     [super dealloc];
 }
 
