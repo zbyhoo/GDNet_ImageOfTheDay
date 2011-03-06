@@ -32,6 +32,6 @@
 - (void)deletePost:(NSIndexPath*)position;
 
 - (void)refreshFromWeb:(UITableView*)view;
-- (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate;
+- (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate sorting:(NSSortDescriptor*)sorting;
 
 @end

@@ -92,7 +92,7 @@ static DataManager* _dataManager = nil;
 #pragma mark Business stuff
 
 - (void)preloadData:(UITableView*)view {
-    self.posts = [self fetchPostsWithPredicate:nil];
+    self.posts = [self fetchPostsWithPredicate:nil sorting:nil];
     if (self.posts.count == 0) {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
@@ -103,8 +103,14 @@ static DataManager* _dataManager = nil;
 }
 
 - (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view {
+    if (indexPath.row >= self.posts.count) {
+        LogError(@"index path (%d) greater than number of posts (%d)", indexPath.row, self.posts.count);
+        return;
+    }
+    
     // TODO
-    cell.titleLabel.text = [[self.posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
+    GDImagePost* post = [self.posts objectAtIndex:indexPath.row];
+    cell.titleLabel.text = post.title;
 }
 
 - (void)deletePost:(NSIndexPath*)position {
@@ -112,20 +118,39 @@ static DataManager* _dataManager = nil;
     [self.managedObjectContext deleteObject:[self.posts objectAtIndex:position.row]];
     NSError* error;
     if (![self.managedObjectContext save:&error]) {
-        LogError(@"error saving object:\n%@", [error userInfo]);
+        LogError(@"error deleting object:\n%@", [error userInfo]);
     }
     else {
         [self.posts removeObjectAtIndex:position.row];
     }
 }
 
-- (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate {
+- (NSDate*)mostRecentPostDate {
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"postDate" ascending:YES];
+    NSArray* objects = [self fetchPostsWithPredicate:nil sorting:sortDescriptor];
+        [sortDescriptor release];
+    
+    if (objects != nil) {
+        GDImagePost* post = (GDImagePost*)[objects objectAtIndex:0];
+        return post.postDate;
+    }
+    return nil;
+}
+
+- (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate sorting:(NSSortDescriptor*)sorting {
     NSEntityDescription *entityDescription = [NSEntityDescription
                                               entityForName:@"GDImagePost" inManagedObjectContext:self.managedObjectContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     [request setEntity:entityDescription];
+    
     if (predicate != nil) {
         [request setPredicate:predicate];
+    }
+    
+    if (sorting != nil) {
+        [request setSortDescriptors:[NSArray arrayWithObject:sorting]];
     }
     
     NSError *error = nil;
@@ -143,7 +168,7 @@ static DataManager* _dataManager = nil;
                                      predicateWithFormat:[NSString stringWithFormat:@"(url like '%@')", [objectDict valueForKey:KEY_POST_URL]]];    
     LogDebug(@"searching core data for: %@", [objectDict valueForKey:KEY_POST_URL]);
 
-    NSArray *array = [self fetchPostsWithPredicate:requestPredicate];
+    NSArray *array = [self fetchPostsWithPredicate:requestPredicate sorting:nil];
     if (array == nil) {
         LogError(@"nil returned istead of array");
         return NO;
@@ -188,6 +213,14 @@ static DataManager* _dataManager = nil;
 
 - (void)downloadData:(UITableView*)view {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    //--------------
+    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *date = [self mostRecentPostDate];
+    NSString* strDate = [formatter stringFromDate:date];
+    LogDebug(@"most recent post date: ", strDate);
+    //--------------
     
     NSArray *webPosts = [self.converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
     NSDictionary *objectDict;
