@@ -29,7 +29,7 @@
 - (void)preloadData:(UITableView*)view;
 - (NSUInteger)postsCount;
 - (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
-- (void)deletePost:(NSUInteger)position;
+- (void)deletePost:(NSIndexPath*)position;
 
 - (void)refreshFromWeb:(UITableView*)view;
 - (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate;

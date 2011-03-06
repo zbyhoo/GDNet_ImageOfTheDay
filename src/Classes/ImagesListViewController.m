@@ -116,7 +116,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         
-        [[DataManager instance] deletePost:indexPath.row];
+        [[DataManager instance] deletePost:indexPath];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         

@@ -107,8 +107,16 @@ static DataManager* _dataManager = nil;
     cell.titleLabel.text = [[self.posts objectAtIndex:indexPath.row] valueForKey:KEY_TITLE];
 }
 
-- (void)deletePost:(NSUInteger)position {
-    //TODO delete from database (mark as deleted, but not delete if is in favourites)
+- (void)deletePost:(NSIndexPath*)position {
+    // TODO check in the future relationships
+    [self.managedObjectContext deleteObject:[self.posts objectAtIndex:position.row]];
+    NSError* error;
+    if (![self.managedObjectContext save:&error]) {
+        LogError(@"error saving object:\n%@", [error userInfo]);
+    }
+    else {
+        [self.posts removeObjectAtIndex:position.row];
+    }
 }
 
 - (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate {
@@ -171,7 +179,7 @@ static DataManager* _dataManager = nil;
     
     NSError* error;
     if (![self.managedObjectContext save:&error]) {
-        LogError(@"error saving object:\n%@", [error userInfo]);
+        LogError(@"error adding object:\n%@", [error userInfo]);
     }
     else {
         [self performSelectorOnMainThread:@selector(addNewPost:) withObject:imagePost waitUntilDone:YES];
