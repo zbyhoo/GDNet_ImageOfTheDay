@@ -32,11 +32,9 @@
 		_refreshHeaderView = view;
 		[view release];
 	}
-	//  update the last update date
 	[_refreshHeaderView refreshLastUpdatedDate];
     _reloading = NO;
     
-    //TODO remove, should be triggered elsewere (or only during very first time run)
     [[DataManager instance] preloadData:self.tableView];
 }
 

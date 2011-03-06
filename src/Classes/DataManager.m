@@ -93,6 +93,9 @@ static DataManager* _dataManager = nil;
 
 - (void)preloadData:(UITableView*)view {
     self.posts = [self fetchPostsWithPredicate:nil sorting:nil];
+    
+    // TODO sort posts
+    
     if (self.posts.count == 0) {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
@@ -185,7 +188,7 @@ static DataManager* _dataManager = nil;
 }
 
 - (void)addNewPost:(GDImagePost*)post {
-    [self.posts addObject:post];
+    [self.posts insertObject:post atIndex:0];
 }
 
 - (void)addToDatabase:(NSDictionary*)objectDict {
@@ -215,11 +218,11 @@ static DataManager* _dataManager = nil;
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     //--------------
-    NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSDate *date = [self mostRecentPostDate];
-    NSString* strDate = [formatter stringFromDate:date];
-    LogDebug(@"most recent post date: ", strDate);
+    //NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+    //[formatter setDateFormat:@"yyyy-MM-dd"];
+    //NSDate *date = [self mostRecentPostDate];
+    //NSString* strDate = [formatter stringFromDate:date];
+    //LogDebug(@"most recent post date: ", strDate);
     //--------------
     
     NSArray *webPosts = [self.converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
