@@ -11,13 +11,12 @@
 
 @interface TableViewCell : UITableViewCell {
     IBOutlet UILabel *_titleText;
-    
+    IBOutlet UIImageView *_postImageView;
 @private
     //UIActivityIndicator *_indicator;
 }
 
-@property (retain) UILabel* titleLabel;
-
-//- (void)setLabelText:(NSString*)text;
+@property (retain, nonatomic) UILabel *titleLabel;
+@property (retain, nonatomic) UIImageView *postImageView;
 
 @end

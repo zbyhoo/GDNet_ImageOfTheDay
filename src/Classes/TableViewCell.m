@@ -12,6 +12,7 @@
 @implementation TableViewCell
 
 @synthesize titleLabel=_titleText;
+@synthesize postImageView=_postImageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -28,10 +29,6 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state.
-}
-
-- (void)setLabelText:(NSString*)text {
-    _titleText.text = text;
 }
 
 - (void)dealloc {
