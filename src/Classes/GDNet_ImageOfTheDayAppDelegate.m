@@ -13,7 +13,6 @@
 #import "GDHtmlStringConverter.h"
 #import "GDArchiveHtmlStringConverter.h"
 
-
 @implementation GDNet_ImageOfTheDayAppDelegate
 
 @synthesize window;
@@ -27,12 +26,15 @@
     // Override point for customization after application launch.
     
     // Setting up data manager
-    [DataManager instance].managedObjectContext = [self managedObjectContext];
-    [DataManager instance].converter = [[GDArchiveHtmlStringConverter alloc] init];
+    [DataManager setManagedContext:[self managedObjectContext]];
+    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
+    [DataManager setConverter:converter];
+    [converter release];
     
     // Initializing Images list view controller
     ImagesListViewController *imagesListViewController = [[ImagesListViewController alloc] 
                                                            initWithNibName:@"ImagesListViewController" bundle:nil];
+    [imagesListViewController setDataType:POST_NORMAL];
     imagesListViewController.title = @"Image of the Day";
     
     // Initializing navigation controller for main "Image of the Day" view
@@ -43,6 +45,7 @@
     // Initializing Favourites view controller
     ImagesListViewController *favouritesViewController = [[ImagesListViewController alloc] 
                                                           initWithNibName:@"ImagesListViewController" bundle:nil];
+    [favouritesViewController setDataType:POST_DELETED];
     favouritesViewController.title = @"Favourites";
     
     // Initializing navigation controller for "Favourites" view
@@ -237,7 +240,6 @@
     [persistentStoreCoordinator_ release];
     
     [window release];
-    [DataManager destoryInstance];
     [super dealloc];
 }
 

@@ -14,3 +14,9 @@
     #import <UIKit/UIKit.h>
     #import <CoreData/CoreData.h>
 #endif
+
+typedef enum PostType {
+    POST_NORMAL      = 0x01,
+    POST_DELETED     = 0x02,
+    POST_FAVOURITE   = 0x04
+} PostType;

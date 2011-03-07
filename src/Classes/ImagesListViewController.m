@@ -13,6 +13,8 @@
 
 @implementation ImagesListViewController
 
+@synthesize dataManager=_dataManager;
+
 #pragma mark -
 #pragma mark View lifecycle
 
@@ -25,7 +27,7 @@
     self.navigationItem.backBarButtonItem = backButton;
     [backButton release];
     
-    if (_refreshHeaderView == nil) {
+    if (_refreshHeaderView == nil && _dataType == POST_NORMAL) {
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
 		view.delegate = self;
 		[self.tableView addSubview:view];
@@ -35,7 +37,12 @@
 	[_refreshHeaderView refreshLastUpdatedDate];
     _reloading = NO;
     
-    [[DataManager instance] preloadData:self.tableView];
+    _dataManager = [[DataManager alloc] initWithDataType:_dataType];
+    [_dataManager preloadData:self.tableView];
+}
+
+- (void)setDataType:(int)type {
+    _dataType = type;
 }
 
 /*
@@ -78,7 +85,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [[DataManager instance] postsCount];
+    return [self.dataManager postsCount];
 }
 
 
@@ -95,8 +102,7 @@
     }
     
     // Configure the cell...
-    //TODO look and style if needed
-    [[DataManager instance] updatePostAtIndex:indexPath cell:cell view:self];
+    [self.dataManager updatePostAtIndex:indexPath cell:cell view:self];
     
     return cell;
 }
@@ -125,7 +131,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         
-        [[DataManager instance] deletePost:indexPath];
+        [self.dataManager deletePost:indexPath permanent:false];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         
@@ -228,7 +234,7 @@
 #pragma mark Data Source Loading / Reloading Methods
 
 - (void)reloadTableViewDataSource {
-    [[DataManager instance] refreshFromWeb:self.tableView];
+    [self.dataManager refreshFromWeb:self.tableView];
 	_reloading = YES;
 	
 }
@@ -264,6 +270,7 @@
     if (_refreshHeaderView != nil) {
         [_refreshHeaderView release];
     }
+    self.dataManager = nil;
     [super dealloc];
 }
 

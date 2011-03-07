@@ -8,32 +8,32 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "ImagesListViewController.h"
 #import "GDDataConverter.h"
-#import "TableViewCell.h"
+
+@class ImagesListViewController;
+@class TableViewCell;
 
 @interface DataManager : NSObject {
 @private
-    NSManagedObjectContext *_managedObjectContext;
     NSMutableArray *_posts;
-    NSObject<GDDataConverter> *_converter;
+    int _dataType;
 }
 
-@property (assign) NSManagedObjectContext *managedObjectContext;
-@property (retain) NSObject<GDDataConverter> *converter;
 @property (retain) NSMutableArray *posts;
 
-+ (DataManager*)instance;
-+ (void)destoryInstance;
+- (id)initWithDataType:(int)type;
 
 - (void)refreshFromWeb:(UITableView*)view;
 
 - (void)preloadData:(UITableView*)view;
 - (NSUInteger)postsCount;
 - (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
-- (void)deletePost:(NSIndexPath*)position;
+- (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent;
 
 - (void)refreshFromWeb:(UITableView*)view;
 - (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate sorting:(NSSortDescriptor*)sorting;
+
++ (void)setManagedContext:(NSManagedObjectContext*)context;
++ (void)setConverter:(NSObject<GDDataConverter>*)converter;
 
 @end

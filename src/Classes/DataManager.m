@@ -9,6 +9,7 @@
 #import "DataManager.h"
 #import "Constants.h"
 #import "GDImagePost.h"
+#import "TableViewCell.h"
 
 
 @implementation DataManager
@@ -16,75 +17,35 @@
 #pragma mark -
 #pragma mark Instance stuff
 
-static DataManager* _dataManager = nil;
+NSManagedObjectContext *managedObjectContext = nil;
+NSObject<GDDataConverter> *gdConverter = nil;
 
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize converter = _converter;
++ (void)setManagedContext:(NSManagedObjectContext*)context {
+    if (managedObjectContext != nil) {
+        [managedObjectContext release];
+    }
+    managedObjectContext = [context retain];
+}
+
++ (void)setConverter:(NSObject<GDDataConverter>*)converter {
+    if (gdConverter != nil) {
+        [gdConverter release];
+    }
+    gdConverter = [converter retain];
+}
+
 @synthesize posts = _posts;
 
-+ (DataManager*)instance {
-    if (_dataManager == nil) {
-        @synchronized(self) {
-            if (_dataManager == nil) {
-                _dataManager = [[super allocWithZone:NULL] init];
-                if (_dataManager == nil) {
-                    LogError(@"unable to create DataManager object");
-                    return nil;
-                }
-            }
-        }
-    }
-    return _dataManager;
-}
-
-+ (id)allocWithZone:(NSZone *)zone { return [self instance]; }
-- (id)copyWithZone:(NSZone *)zone  { return self; }
-
-- (id)init {
-    if ([super init] != nil) {
-        self.converter = nil;
-        //_posts = [[self fetchPostsWithPredicate:nil] retain];
-    }
-    else {
-        LogError(@"initialization of parent class (%@) failed", super.class);
+- (id)initWithDataType:(int)type {
+    self = [super init];
+    if (self != nil) {
+        _dataType = type;
     }
     return self;
-}
-
-- (id)retain {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;
-}
-
-- (void)release { 
-    // intentionaly left blank - do nothing
-}
-
-- (id)autorelease {
-    return self;
-}
-
-+ (void)destoryInstance {
-    if (_dataManager != nil) {
-        @synchronized(self) {
-            LogInfo(@"creating instance of DataManager"); 
-            if (_dataManager != nil) {
-                [_dataManager dealloc];
-            }
-        }
-    }
 }
 
 - (void)dealloc {
-    //TODO remove all neccessary data here
-    // ...
-    if (_posts != nil) {
-        [_posts release];
-    }
-    
+    self.posts = nil;
     [super dealloc];
 }
 
@@ -93,7 +54,9 @@ static DataManager* _dataManager = nil;
 
 - (void)preloadData:(UITableView*)view {
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:NO];
-    self.posts = [self fetchPostsWithPredicate:nil sorting:sortDescriptor];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(status==%d)", _dataType]];
+    
+    self.posts = [self fetchPostsWithPredicate:predicate sorting:sortDescriptor];
     [sortDescriptor release];
     
     if (self.posts.count == 0) {
@@ -117,16 +80,23 @@ static DataManager* _dataManager = nil;
     //cell.titleLabel.text = [NSString stringWithFormat:@"%d", post.postDate];
 }
 
-- (void)deletePost:(NSIndexPath*)position {
+- (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent{
     // TODO check in the future relationships
-    [self.managedObjectContext deleteObject:[self.posts objectAtIndex:position.row]];
-    NSError* error;
-    if (![self.managedObjectContext save:&error]) {
-        LogError(@"error deleting object:\n%@", [error userInfo]);
+    if (permanent == YES) {
+        [managedObjectContext deleteObject:[self.posts objectAtIndex:position.row]];
     }
     else {
-        [self.posts removeObjectAtIndex:position.row];
+        GDImagePost* post = [self.posts objectAtIndex:position.row];
+        post.status = [NSNumber numberWithInt:POST_DELETED];
     }
+    
+    NSError* error;
+    if (![managedObjectContext save:&error]) {
+        LogError(@"error deleting (%d) object:\n%@", permanent, [error userInfo]);
+        return;
+    }
+    
+    [self.posts removeObjectAtIndex:position.row];
 }
 
 //- (NSDate*)mostRecentPostDate {
@@ -145,7 +115,7 @@ static DataManager* _dataManager = nil;
 
 - (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate sorting:(NSSortDescriptor*)sorting {
     NSEntityDescription *entityDescription = [NSEntityDescription
-                                              entityForName:@"GDImagePost" inManagedObjectContext:self.managedObjectContext];
+                                              entityForName:@"GDImagePost" inManagedObjectContext:managedObjectContext];
     NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
     [request setEntity:entityDescription];
     
@@ -158,7 +128,7 @@ static DataManager* _dataManager = nil;
     }
     
     NSError *error = nil;
-    NSArray *array = [self.managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *array = [managedObjectContext executeFetchRequest:request error:&error];
     if (array == nil) {
         LogError(@"error fetching request:\n%@", [error userInfo]);
         return nil;
@@ -207,16 +177,17 @@ static DataManager* _dataManager = nil;
     
     GDImagePost* imagePost = (GDImagePost*)[NSEntityDescription 
                                            insertNewObjectForEntityForName:@"GDImagePost" 
-                                           inManagedObjectContext:self.managedObjectContext];
+                                           inManagedObjectContext:managedObjectContext];
     imagePost.author    = [objectDict valueForKey:KEY_AUTHOR];
     imagePost.title     = [objectDict valueForKey:KEY_TITLE];
     imagePost.url       = [objectDict valueForKey:KEY_POST_URL];
     imagePost.postDate  = [objectDict valueForKey:KEY_DATE];
+    imagePost.status    = [NSNumber numberWithInt:POST_NORMAL];
     
     //TODO add pictures imagePost
     
     NSError* error;
-    if (![self.managedObjectContext save:&error]) {
+    if (![managedObjectContext save:&error]) {
         LogError(@"error adding object:\n%@", [error userInfo]);
     }
     else {
@@ -235,7 +206,7 @@ static DataManager* _dataManager = nil;
     //LogDebug(@"most recent post date: ", strDate);
     //--------------
     
-    NSArray *webPosts = [self.converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
+    NSArray *webPosts = [gdConverter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
     NSDictionary *objectDict;
     for (objectDict in webPosts) {
         if ([self existsInDatabase:objectDict] == NO) {
