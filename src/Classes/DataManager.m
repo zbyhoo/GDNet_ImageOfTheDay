@@ -19,6 +19,7 @@
 
 NSManagedObjectContext *managedObjectContext = nil;
 NSObject<GDDataConverter> *gdConverter = nil;
+BOOL dataModified = NO;
 
 + (void)setManagedContext:(NSManagedObjectContext*)context {
     if (managedObjectContext != nil) {
@@ -65,6 +66,16 @@ NSObject<GDDataConverter> *gdConverter = nil;
     if (self.posts.count == 0 && _dataType != POST_FAVOURITE) {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
+    
+    dataModified = NO;
+}
+
+- (void)refresh:(UITableView*)view {
+    if (dataModified == YES) {
+        [self preloadData:view];
+        [view reloadData];
+        dataModified = NO;
+    }
 }
 
 - (NSUInteger)postsCount { 
@@ -83,7 +94,21 @@ NSObject<GDDataConverter> *gdConverter = nil;
     //cell.titleLabel.text = [NSString stringWithFormat:@"%d", post.postDate];
 }
 
-- (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent{
+- (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view {
+    GDImagePost* post = [self.posts objectAtIndex:position.row];
+    post.favourite = [NSNumber numberWithBool:YES];
+    
+    NSError* error;
+    if (![managedObjectContext save:&error]) {
+        LogError(@"error adding to favourites:\n%@", [error userInfo]);
+        return;
+    }
+    
+    [self.posts removeObjectAtIndex:position.row];
+    dataModified = YES;
+}
+
+- (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent {
     // TODO check in the future relationships
     if (permanent == YES) {
         [managedObjectContext deleteObject:[self.posts objectAtIndex:position.row]];
@@ -175,9 +200,6 @@ NSObject<GDDataConverter> *gdConverter = nil;
 }
 
 - (void)addToDatabase:(NSDictionary*)objectDict {
-    // TODO implement
-    // add to database and posts
-    
     GDImagePost* imagePost = (GDImagePost*)[NSEntityDescription 
                                            insertNewObjectForEntityForName:@"GDImagePost" 
                                            inManagedObjectContext:managedObjectContext];

@@ -29,7 +29,9 @@
 - (NSUInteger)postsCount;
 - (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view;
 - (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent;
+- (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view;
 
+- (void)refresh:(UITableView*)view;
 - (void)refreshFromWeb:(UITableView*)view;
 - (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate sorting:(NSSortDescriptor*)sorting;
 

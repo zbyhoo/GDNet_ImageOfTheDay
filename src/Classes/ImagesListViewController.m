@@ -45,11 +45,12 @@
     _dataType = type;
 }
 
-/*
+
 - (void)viewWillAppear:(BOOL)animated {
+    [_dataManager refresh:self.tableView];
     [super viewWillAppear:animated];
 }
-*/
+
 /*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -132,6 +133,7 @@
         // Delete the row from the data source
         
         [self.dataManager deletePost:indexPath permanent:false];
+        //[self.dataManager addToFavourites:indexPath view:self.tableView]; // for testing only, remove
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         
