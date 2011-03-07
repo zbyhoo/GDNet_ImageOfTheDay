@@ -54,12 +54,15 @@ NSObject<GDDataConverter> *gdConverter = nil;
 
 - (void)preloadData:(UITableView*)view {
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:NO];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(status==%d)", _dataType]];
+    
+    NSString *predicateString = [NSString stringWithFormat:@"(deleted==%d) AND (favourite==%d)", NO, (_dataType == POST_FAVOURITE)];
+    LogDebug(@"preload predicate (data type %d): %@", _dataType, predicateString);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
     
     self.posts = [self fetchPostsWithPredicate:predicate sorting:sortDescriptor];
     [sortDescriptor release];
     
-    if (self.posts.count == 0) {
+    if (self.posts.count == 0 && _dataType != POST_FAVOURITE) {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
 }
@@ -87,7 +90,7 @@ NSObject<GDDataConverter> *gdConverter = nil;
     }
     else {
         GDImagePost* post = [self.posts objectAtIndex:position.row];
-        post.status = [NSNumber numberWithInt:POST_DELETED];
+        post.deleted = [NSNumber numberWithBool:YES];
     }
     
     NSError* error;
@@ -182,7 +185,6 @@ NSObject<GDDataConverter> *gdConverter = nil;
     imagePost.title     = [objectDict valueForKey:KEY_TITLE];
     imagePost.url       = [objectDict valueForKey:KEY_POST_URL];
     imagePost.postDate  = [objectDict valueForKey:KEY_DATE];
-    imagePost.status    = [NSNumber numberWithInt:POST_NORMAL];
     
     //TODO add pictures imagePost
     

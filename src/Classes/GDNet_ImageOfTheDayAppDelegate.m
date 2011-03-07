@@ -45,7 +45,7 @@
     // Initializing Favourites view controller
     ImagesListViewController *favouritesViewController = [[ImagesListViewController alloc] 
                                                           initWithNibName:@"ImagesListViewController" bundle:nil];
-    [favouritesViewController setDataType:POST_DELETED];
+    [favouritesViewController setDataType:POST_FAVOURITE];
     favouritesViewController.title = @"Favourites";
     
     // Initializing navigation controller for "Favourites" view
