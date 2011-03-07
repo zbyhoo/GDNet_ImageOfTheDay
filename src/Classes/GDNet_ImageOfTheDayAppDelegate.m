@@ -39,6 +39,7 @@
     
     // Initializing navigation controller for main "Image of the Day" view
     imagesNavigationController = [[UINavigationController alloc] init];
+    imagesNavigationController.navigationBar.tintColor = [UIColor blackColor];
     [imagesNavigationController pushViewController:imagesListViewController animated:NO];
     [imagesListViewController release];
     
@@ -50,6 +51,7 @@
     
     // Initializing navigation controller for "Favourites" view
     favouritesNavigationController = [[UINavigationController alloc] init];
+    favouritesNavigationController.navigationBar.tintColor = [UIColor blackColor];
     [favouritesNavigationController pushViewController:favouritesViewController animated:NO];
     [favouritesViewController release];
     

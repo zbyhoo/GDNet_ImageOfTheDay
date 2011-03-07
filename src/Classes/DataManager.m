@@ -10,7 +10,7 @@
 #import "Constants.h"
 #import "GDImagePost.h"
 #import "TableViewCell.h"
-
+#import "GDPicture.h"
 
 @implementation DataManager
 
@@ -91,6 +91,10 @@ BOOL dataModified = NO;
     // TODO
     GDImagePost* post = [self.posts objectAtIndex:indexPath.row];
     cell.titleLabel.text = post.title;
+    
+    GDPicture *picture = [[post.pictures allObjects] objectAtIndex:0];
+    UIImage *image = [UIImage imageWithData:picture.smallPictureData];
+    cell.postImageView.image = image;
     //cell.titleLabel.text = [NSString stringWithFormat:@"%d", post.postDate];
 }
 
@@ -199,6 +203,14 @@ BOOL dataModified = NO;
     [self.posts addObject:post];
 }
 
+- (void)downloadImages:(GDImagePost*)post {
+    GDPicture *picture;
+    for (picture in post.pictures) {
+        NSURL *imgUrl   = [NSURL URLWithString:picture.smallPictureUrl];
+        picture.smallPictureData = [NSData dataWithContentsOfURL:imgUrl];
+    }
+}
+
 - (void)addToDatabase:(NSDictionary*)objectDict {
     GDImagePost* imagePost = (GDImagePost*)[NSEntityDescription 
                                            insertNewObjectForEntityForName:@"GDImagePost" 
@@ -209,6 +221,14 @@ BOOL dataModified = NO;
     imagePost.postDate  = [objectDict valueForKey:KEY_DATE];
     
     //TODO add pictures imagePost
+    GDPicture *picture = (GDPicture*)[NSEntityDescription
+                                      insertNewObjectForEntityForName:@"GDPicture"
+                                      inManagedObjectContext:managedObjectContext];
+    picture.smallPictureUrl = [objectDict valueForKey:KEY_IMAGE_URL];
+    picture.imagePost = imagePost;
+    imagePost.pictures = [NSSet setWithObject:picture]; 
+    
+    [self downloadImages:imagePost];
     
     NSError* error;
     if (![managedObjectContext save:&error]) {
@@ -235,10 +255,11 @@ BOOL dataModified = NO;
     for (objectDict in webPosts) {
         if ([self existsInDatabase:objectDict] == NO) {
             [self addToDatabase:objectDict];
+            
+            if (view != nil) {
+                [view reloadData];
+            }
         }
-    }
-    if (view != nil) {
-        [view reloadData];
     }
     
     [pool drain];
