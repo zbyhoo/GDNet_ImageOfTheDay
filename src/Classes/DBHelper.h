@@ -21,5 +21,8 @@
                       predicate:(NSPredicate*)predicate 
                         sorting:(NSSortDescriptor*)sorting;
 - (NSManagedObject*)createNew:(NSString*)name;
+- (void)markModified;
+- (void)markUpdated;
+- (BOOL)isModified;
 
 @end

@@ -18,24 +18,6 @@
 #pragma mark -
 #pragma mark Instance stuff
 
-//NSManagedObjectContext *managedObjectContext = nil;
-//NSObject<GDDataConverter> *gdConverter = nil; // TODO make instance member
-BOOL dataModified = NO;
-
-//+ (void)setManagedContext:(NSManagedObjectContext*)context {
-//    if (managedObjectContext != nil) {
-//        [managedObjectContext release];
-//    }
-//    managedObjectContext = [context retain];
-//}
-
-//+ (void)setConverter:(NSObject<GDDataConverter>*)converter {
-//    if (gdConverter != nil) {
-//        [gdConverter release];
-//    }
-//    gdConverter = [converter retain];
-//}
-
 @synthesize posts = _posts;
 @synthesize dbHelper = _dbHelper;
 @synthesize converter = _converter;
@@ -75,14 +57,13 @@ BOOL dataModified = NO;
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
     
-    dataModified = NO;
+    [self.dbHelper markUpdated];
 }
 
 - (void)refresh:(UITableView*)view {
-    if (dataModified == YES) {
+    if ([self.dbHelper isModified]) {
         [self preloadData:view];
         [view reloadData];
-        dataModified = NO;
     }
 }
 
@@ -112,7 +93,7 @@ BOOL dataModified = NO;
     
     if ([self.dbHelper saveContext]) {
         [self.posts removeObjectAtIndex:position.row];
-        dataModified = YES;
+        [self.dbHelper markModified];
     }
 }
 

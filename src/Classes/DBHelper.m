@@ -12,6 +12,7 @@
 @implementation DBHelper
 
 NSManagedObjectContext *managedObjectContext = nil;
+BOOL dataModified = NO;
 
 + (void)setManagedContext:(NSManagedObjectContext*)context {
     if (managedObjectContext != nil) {
@@ -66,6 +67,18 @@ NSManagedObjectContext *managedObjectContext = nil;
     return [NSEntityDescription 
             insertNewObjectForEntityForName:name 
             inManagedObjectContext:managedObjectContext];
+}
+
+- (void)markModified {
+    dataModified = YES;
+}
+
+- (void)markUpdated {
+    dataModified = NO;
+}
+
+- (BOOL)isModified {
+    return dataModified;
 }
 
 @end
