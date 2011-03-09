@@ -12,6 +12,7 @@
 #import "DataManager.h"
 #import "GDHtmlStringConverter.h"
 #import "GDArchiveHtmlStringConverter.h"
+#import "DBHelper.h"
 
 @implementation GDNet_ImageOfTheDayAppDelegate
 
@@ -26,10 +27,7 @@
     // Override point for customization after application launch.
     
     // Setting up data manager
-    [DataManager setManagedContext:[self managedObjectContext]];
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
-    [DataManager setConverter:converter];
-    [converter release];
+    [DBHelper setManagedContext:[self managedObjectContext]];
     
     // Initializing Images list view controller
     ImagesListViewController *imagesListViewController = [[ImagesListViewController alloc] 

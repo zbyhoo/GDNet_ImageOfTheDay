@@ -11,42 +11,50 @@
 #import "GDImagePost.h"
 #import "TableViewCell.h"
 #import "GDPicture.h"
+#import "DBHelper.h"
 
 @implementation DataManager
 
 #pragma mark -
 #pragma mark Instance stuff
 
-NSManagedObjectContext *managedObjectContext = nil;
-NSObject<GDDataConverter> *gdConverter = nil;
+//NSManagedObjectContext *managedObjectContext = nil;
+//NSObject<GDDataConverter> *gdConverter = nil; // TODO make instance member
 BOOL dataModified = NO;
 
-+ (void)setManagedContext:(NSManagedObjectContext*)context {
-    if (managedObjectContext != nil) {
-        [managedObjectContext release];
-    }
-    managedObjectContext = [context retain];
-}
+//+ (void)setManagedContext:(NSManagedObjectContext*)context {
+//    if (managedObjectContext != nil) {
+//        [managedObjectContext release];
+//    }
+//    managedObjectContext = [context retain];
+//}
 
-+ (void)setConverter:(NSObject<GDDataConverter>*)converter {
-    if (gdConverter != nil) {
-        [gdConverter release];
-    }
-    gdConverter = [converter retain];
-}
+//+ (void)setConverter:(NSObject<GDDataConverter>*)converter {
+//    if (gdConverter != nil) {
+//        [gdConverter release];
+//    }
+//    gdConverter = [converter retain];
+//}
 
 @synthesize posts = _posts;
+@synthesize dbHelper = _dbHelper;
+@synthesize converter = _converter;
 
-- (id)initWithDataType:(int)type {
-    self = [super init];
-    if (self != nil) {
+- (id)initWithDataType:(int)type 
+              dbHelper:(DBHelper*)dbHelper 
+             converter:(NSObject<GDDataConverter>*)converter {
+    if ((self = [super init])) {
         _dataType = type;
+        self.dbHelper = dbHelper;
+        self.converter = converter;
     }
     return self;
 }
 
 - (void)dealloc {
     self.posts = nil;
+    self.dbHelper = nil;
+    self.converter = nil;
     [super dealloc];
 }
 
@@ -60,7 +68,7 @@ BOOL dataModified = NO;
     LogDebug(@"preload predicate (data type %d): %@", _dataType, predicateString);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
     
-    self.posts = [self fetchPostsWithPredicate:predicate sorting:sortDescriptor];
+    self.posts = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:sortDescriptor];
     [sortDescriptor release];
     
     if (self.posts.count == 0 && _dataType != POST_FAVOURITE) {
@@ -102,30 +110,23 @@ BOOL dataModified = NO;
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     post.favourite = [NSNumber numberWithBool:YES];
     
-    NSError* error;
-    if (![managedObjectContext save:&error]) {
-        LogError(@"error adding to favourites:\n%@", [error userInfo]);
-        return;
+    if ([self.dbHelper saveContext]) {
+        [self.posts removeObjectAtIndex:position.row];
+        dataModified = YES;
     }
-    
-    [self.posts removeObjectAtIndex:position.row];
-    dataModified = YES;
 }
 
 - (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent {
     // TODO check in the future relationships
     if (permanent == YES) {
-        [managedObjectContext deleteObject:[self.posts objectAtIndex:position.row]];
+        if ([self.dbHelper deleteObject:[self.posts objectAtIndex:position.row]] == NO) {
+            LogError(@"unable to delete post");
+            return;
+        }
     }
     else {
         GDImagePost* post = [self.posts objectAtIndex:position.row];
         post.deleted = [NSNumber numberWithBool:YES];
-    }
-    
-    NSError* error;
-    if (![managedObjectContext save:&error]) {
-        LogError(@"error deleting (%d) object:\n%@", permanent, [error userInfo]);
-        return;
     }
     
     [self.posts removeObjectAtIndex:position.row];
@@ -145,36 +146,12 @@ BOOL dataModified = NO;
 //    return nil;
 //}
 
-- (NSMutableArray*)fetchPostsWithPredicate:(NSPredicate*)predicate sorting:(NSSortDescriptor*)sorting {
-    NSEntityDescription *entityDescription = [NSEntityDescription
-                                              entityForName:@"GDImagePost" inManagedObjectContext:managedObjectContext];
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    [request setEntity:entityDescription];
-    
-    if (predicate != nil) {
-        [request setPredicate:predicate];
-    }
-    
-    if (sorting != nil) {
-        [request setSortDescriptors:[NSArray arrayWithObject:sorting]];
-    }
-    
-    NSError *error = nil;
-    NSArray *array = [managedObjectContext executeFetchRequest:request error:&error];
-    if (array == nil) {
-        LogError(@"error fetching request:\n%@", [error userInfo]);
-        return nil;
-    }
-    LogDebug(@"number of posts fetched: %d", [array count]);
-    return [NSMutableArray arrayWithArray:array];
-}
-
 - (BOOL)existsInDatabase:(NSDictionary*)objectDict {
     NSPredicate *requestPredicate = [NSPredicate 
                                      predicateWithFormat:[NSString stringWithFormat:@"(url like '%@')", [objectDict valueForKey:KEY_POST_URL]]];    
     LogDebug(@"searching core data for: %@", [objectDict valueForKey:KEY_POST_URL]);
 
-    NSArray *array = [self fetchPostsWithPredicate:requestPredicate sorting:nil];
+    NSArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:requestPredicate sorting:nil];
     if (array == nil) {
         LogError(@"nil returned istead of array");
         return NO;
@@ -212,29 +189,21 @@ BOOL dataModified = NO;
 }
 
 - (void)addToDatabase:(NSDictionary*)objectDict {
-    GDImagePost* imagePost = (GDImagePost*)[NSEntityDescription 
-                                           insertNewObjectForEntityForName:@"GDImagePost" 
-                                           inManagedObjectContext:managedObjectContext];
+    GDImagePost* imagePost = (GDImagePost*)[self.dbHelper createNew:@"GDImagePost"];
     imagePost.author    = [objectDict valueForKey:KEY_AUTHOR];
     imagePost.title     = [objectDict valueForKey:KEY_TITLE];
     imagePost.url       = [objectDict valueForKey:KEY_POST_URL];
     imagePost.postDate  = [objectDict valueForKey:KEY_DATE];
     
-    //TODO add pictures imagePost
-    GDPicture *picture = (GDPicture*)[NSEntityDescription
-                                      insertNewObjectForEntityForName:@"GDPicture"
-                                      inManagedObjectContext:managedObjectContext];
+    GDPicture *picture      = (GDPicture*)[self.dbHelper createNew:@"GDPicture"];
+    picture.imagePost       = imagePost;
     picture.smallPictureUrl = [objectDict valueForKey:KEY_IMAGE_URL];
-    picture.imagePost = imagePost;
-    imagePost.pictures = [NSSet setWithObject:picture]; 
+    
+    imagePost.pictures  = [NSSet setWithObject:picture]; 
     
     [self downloadImages:imagePost];
     
-    NSError* error;
-    if (![managedObjectContext save:&error]) {
-        LogError(@"error adding object:\n%@", [error userInfo]);
-    }
-    else {
+    if([self.dbHelper saveContext]) {
         [self performSelectorOnMainThread:@selector(addNewPost:) withObject:imagePost waitUntilDone:YES];
     }
 }
@@ -250,7 +219,7 @@ BOOL dataModified = NO;
     //LogDebug(@"most recent post date: ", strDate);
     //--------------
     
-    NSArray *webPosts = [gdConverter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
+    NSArray *webPosts = [self.converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
     NSDictionary *objectDict;
     for (objectDict in webPosts) {
         if ([self existsInDatabase:objectDict] == NO) {

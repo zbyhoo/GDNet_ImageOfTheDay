@@ -9,7 +9,8 @@
 #import "ImagesListViewController.h"
 #import "ImageDetailViewController.h"
 #import "DataManager.h"
-
+#import "DBHelper.h"
+#import "GDArchiveHtmlStringConverter.h"
 
 @implementation ImagesListViewController
 
@@ -37,7 +38,12 @@
 	[_refreshHeaderView refreshLastUpdatedDate];
     _reloading = NO;
     
-    _dataManager = [[DataManager alloc] initWithDataType:_dataType];
+    DBHelper *dbHelper = [[DBHelper alloc] init];
+    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
+    _dataManager = [[DataManager alloc] initWithDataType:_dataType dbHelper:dbHelper converter:converter];
+    [converter release];
+    [dbHelper release];
+    
     [_dataManager preloadData:self.tableView];
 }
 
