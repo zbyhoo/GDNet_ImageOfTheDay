@@ -138,7 +138,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         
-        [self.dataManager deletePost:indexPath permanent:false];
+        [self.dataManager deletePost:indexPath permanent:YES];
         //[self.dataManager addToFavourites:indexPath view:self.tableView]; // for testing only, remove
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];

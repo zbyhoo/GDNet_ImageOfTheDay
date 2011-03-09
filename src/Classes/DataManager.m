@@ -113,19 +113,18 @@
     [self.posts removeObjectAtIndex:position.row];
 }
 
-//- (NSDate*)mostRecentPostDate {
-//    
-//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-//                                        initWithKey:@"postDate" ascending:YES];
-//    NSArray* objects = [self fetchPostsWithPredicate:nil sorting:sortDescriptor];
-//        [sortDescriptor release];
-//    
-//    if (objects != nil) {
-//        GDImagePost* post = (GDImagePost*)[objects objectAtIndex:0];
-//        return post.postDate;
-//    }
-//    return nil;
-//}
+- (NSNumber*)mostRecentPostDate {
+    
+    NSSortDescriptor *sorting = [[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:YES];
+    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:nil sorting:sorting];
+    [sorting release];
+    
+    if (objects != nil && [objects count] > 0) {
+        GDImagePost* post = (GDImagePost*)[objects objectAtIndex:0];
+        return post.postDate;
+    }
+    return nil;
+}
 
 - (BOOL)existsInDatabase:(NSDictionary*)objectDict {
     NSPredicate *requestPredicate = [NSPredicate 
@@ -192,22 +191,20 @@
 - (void)downloadData:(UITableView*)view {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    //--------------
-    //NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
-    //[formatter setDateFormat:@"yyyy-MM-dd"];
-    //NSDate *date = [self mostRecentPostDate];
-    //NSString* strDate = [formatter stringFromDate:date];
-    //LogDebug(@"most recent post date: ", strDate);
-    //--------------
+    NSNumber *timestamp = [self mostRecentPostDate];
+    LogDebug(@"most recent post date: %d", [timestamp intValue]);
     
+    // TODO download until timestamp met
     NSArray *webPosts = [self.converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
     NSDictionary *objectDict;
     for (objectDict in webPosts) {
         if ([self existsInDatabase:objectDict] == NO) {
-            [self addToDatabase:objectDict];
-            
-            if (view != nil) {
-                [view reloadData];
+            NSNumber *postDate = [objectDict valueForKey:KEY_DATE];
+            if ([postDate intValue] >= [timestamp intValue]) {
+                [self addToDatabase:objectDict];
+                if (view != nil) {
+                    [view reloadData];
+                }
             }
         }
     }
