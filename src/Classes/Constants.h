@@ -2,6 +2,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum PostType {
+    POST_NORMAL      = 0x01,
+    POST_DELETED     = 0x02,
+    POST_FAVOURITE   = 0x04
+} PostType;
+
 extern NSString * const GD_IOTD_PAGE_URL;
 extern NSString * const GD_POST_SEPARATOR;
 

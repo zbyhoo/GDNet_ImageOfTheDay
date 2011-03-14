@@ -15,6 +15,10 @@ NSUInteger helperIndex = 60;
 
 @implementation GDArchiveHtmlStringConverter
 
++ (void)setHelperIndex:(int)index {
+    helperIndex = index;
+}
+
 - (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage {
     NSMutableArray *chunks = [NSMutableArray arrayWithArray:[htmlPage componentsSeparatedByString:GD_ARCHIVE_POST_SEPARATOR]];
     

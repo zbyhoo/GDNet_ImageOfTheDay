@@ -12,4 +12,5 @@
 @interface GDArchiveHtmlStringConverter : GDHtmlStringConverter {
     
 }
++ (void)setHelperIndex:(int)index;
 @end
