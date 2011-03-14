@@ -45,7 +45,7 @@
 }
 
 - (void)tearDown {
-    
+    self.dataManager = nil;
 }
 
 @end
