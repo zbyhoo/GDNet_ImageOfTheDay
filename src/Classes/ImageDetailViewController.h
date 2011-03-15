@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class DataManager;
 
 @interface ImageDetailViewController : UIViewController {
-
+    IBOutlet UIWebView *_descriptionView;
+@private
+    DataManager *_dataManager;
+    NSString *_postId;
 }
+
+@property (nonatomic, retain) UIWebView *descriptionView;
+@property (nonatomic, retain) NSString *postId;
 
 @end

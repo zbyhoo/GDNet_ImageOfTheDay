@@ -30,6 +30,9 @@
               dbHelper:(DBHelper*)dbHelper 
              converter:(NSObject<GDDataConverter>*)converter;
 
+- (id)initWithDbHelper:(DBHelper*)dbHelper 
+             converter:(NSObject<GDDataConverter>*)converter;
+
 - (void)refreshFromWeb:(UITableView*)view;
 - (void)preloadData:(UITableView*)view;
 - (NSUInteger)postsCount;
@@ -40,5 +43,9 @@
 - (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view;
 - (void)refresh:(UITableView*)view;
 - (void)refreshFromWeb:(UITableView*)view;
+
+- (void)getPostInfo:(NSString*)postId view:(UIWebView*)view;
+- (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath;
+- (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath;
 
 @end

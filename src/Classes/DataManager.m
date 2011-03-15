@@ -33,6 +33,16 @@
     return self;
 }
 
+- (id)initWithDbHelper:(DBHelper *)dbHelper 
+             converter:(NSObject<GDDataConverter> *)converter {
+    if ((self = [super init])) {
+        _dataType = -1;
+        self.dbHelper = dbHelper;
+        self.converter = converter;
+    }
+    return self;
+}
+
 - (void)dealloc {
     self.posts = nil;
     self.dbHelper = nil;
@@ -214,6 +224,36 @@
 
 - (void)refreshFromWeb:(UITableView*)view {
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
+}
+
+- (void)getPostInfo:(NSString*)postId view:(UIWebView*)view {
+    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", postId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
+    
+    NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
+    if (array.count != 1) {
+        LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
+        return;
+    }
+    
+    NSDictionary *postDict = [self.converter convertPost:postId];
+    if (postDict == nil) {
+        return;
+    }
+    
+    NSString *content = [postDict objectForKey:KEY_DESCRIPTION];
+    
+    [view loadHTMLString:content baseURL:nil];
+}
+
+- (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath {
+    GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
+    return post.title;
+}
+
+- (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath {
+    GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
+    return post.url;
 }
 
 @end

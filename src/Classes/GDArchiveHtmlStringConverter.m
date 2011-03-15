@@ -11,9 +11,9 @@
 #import "Utilities.h"
 #import "GDImagePost.h"
 
-NSUInteger helperIndex = 60;
-
 @implementation GDArchiveHtmlStringConverter
+
+static NSUInteger helperIndex = 60;
 
 + (void)setHelperIndex:(int)index {
     helperIndex = index;
@@ -91,6 +91,34 @@ NSUInteger helperIndex = 60;
     [dict setValue:postUrl forKey:KEY_POST_URL];
     [dict setValue:title forKey:KEY_TITLE];
     [dict setValue:imgUrl forKey:KEY_IMAGE_URL];
+    
+    return [dict autorelease];
+}
+
+- (NSDictionary*)convertPost:(NSString*)data {
+    NSString *page = [self getData:data];
+    
+    NSString *description;
+    //NSNumber *postDate;
+    //NSMutableArray *imagesUrls = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    NSRange range;
+    range.location = 0;
+    range.length = page.length - 1;
+    
+    @try {
+        description = [Utilities getSubstringFrom:page range:&range after:GD_ARCHIVE_POST_DESC_START before:GD_ARCHIVE_POST_DESC_END];
+        LogDebug(@"Description:\n%@", description);
+    }
+    @catch (NSException *exception) {
+        LogError(@"error with parsing post details:\n%@", page);
+        return nil;
+    }
+    
+    //[imagesUrls release];
+    
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue:description forKey:KEY_DESCRIPTION];
     
     return [dict autorelease];
 }

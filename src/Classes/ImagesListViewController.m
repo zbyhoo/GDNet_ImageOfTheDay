@@ -190,11 +190,11 @@
 	 [detailViewController release];
 	 */
     
+    
     ImageDetailViewController *imageDetailViewController = [[ImageDetailViewController alloc] 
                                                             initWithNibName:@"ImageDetailViewController" bundle:nil];
-    imageDetailViewController.title = @"TODO: post title";
-    
-    //TODO set all neccessary date
+    imageDetailViewController.title = [self.dataManager getTitleOfPostAtIndex:indexPath];
+    imageDetailViewController.postId = [self.dataManager getPostIdAtIndex:indexPath];
     
     [self.navigationController pushViewController:imageDetailViewController animated:YES];
     [imageDetailViewController release];

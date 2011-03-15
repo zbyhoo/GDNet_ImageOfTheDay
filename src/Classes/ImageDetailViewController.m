@@ -7,9 +7,15 @@
 //
 
 #import "ImageDetailViewController.h"
+#import "DataManager.h"
+#import "DBHelper.h"
+#import "GDArchiveHtmlStringConverter.h"
 
 
 @implementation ImageDetailViewController
+
+@synthesize descriptionView = _descriptionView;
+@synthesize postId = _postId;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -21,12 +27,21 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    DBHelper *dbHelper = [[DBHelper alloc] init];
+    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
+    _dataManager = [[DataManager alloc] initWithDbHelper:dbHelper converter:converter];
+    [converter release];
+    [dbHelper release];
+    
+    [_dataManager getPostInfo:self.postId view:self.descriptionView];
 }
-*/
+
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -52,6 +67,17 @@
 
 - (void)dealloc {
     [super dealloc];
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; 
+{
+    NSURL *requestURL =[ [ request URL ] retain ]; 
+    if ( ( [ [ requestURL scheme ] isEqualToString: @"http" ] || [ [ requestURL scheme ] isEqualToString: @"https" ] || [ [ requestURL scheme ] isEqualToString: @"mailto" ]) 
+        && ( navigationType == UIWebViewNavigationTypeLinkClicked ) ) { 
+        return ![ [ UIApplication sharedApplication ] openURL: [ requestURL autorelease ] ]; 
+    } 
+    [ requestURL release ]; 
+    return YES; 
 }
 
 

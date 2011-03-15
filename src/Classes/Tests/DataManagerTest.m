@@ -9,7 +9,7 @@
 #import "../DataManager.h"
 #import "../GDImagePost.h"
 #import "../DBHelper.h"
-#import "../GDArchiveHtmlStringConverter.m"
+#import "../GDArchiveHtmlStringConverter.h"
 
 @interface DataManagerTest : GHTestCase {
 @private

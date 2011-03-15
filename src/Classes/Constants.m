@@ -22,9 +22,12 @@ NSString * const GD_ARCHIVE_IMG_URL_END     = @"\">";
 
 NSString * const GD_ARCHIVE_POST_URL        = @"http://archive.gamedev.net/community/forums/";
 
+NSString * const GD_ARCHIVE_POST_DESC_START = @"EndImageData-->";
+NSString * const GD_ARCHIVE_POST_DESC_END   = @"<x x=\"\"></x><x x=\"\"></x></td>";
 
-NSString * const KEY_DATE       = @"postDate";
-NSString * const KEY_AUTHOR     = @"author";
-NSString * const KEY_POST_URL   = @"url";
-NSString * const KEY_TITLE      = @"title";
-NSString * const KEY_IMAGE_URL  = @"imageUrl";
+NSString * const KEY_DATE           = @"postDate";
+NSString * const KEY_AUTHOR         = @"author";
+NSString * const KEY_POST_URL       = @"url";
+NSString * const KEY_TITLE          = @"title";
+NSString * const KEY_IMAGE_URL      = @"imageUrl";
+NSString * const KEY_DESCRIPTION    = @"description";
