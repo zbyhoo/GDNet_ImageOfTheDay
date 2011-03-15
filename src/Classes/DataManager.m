@@ -228,17 +228,21 @@
 }
 
 - (void)downloadPostInfoWithView:(ImageDetailViewController*)view {
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
     NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
     
     NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
     if (array.count != 1) {
         LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
+        [pool drain];
         return;
     }
     
     NSDictionary *postDict = [self.converter convertPost:view.postId];
     if (postDict == nil) {
+        [pool drain];
         return;
     }
     
@@ -250,6 +254,8 @@
     if([self.dbHelper saveContext]) {
         [view performSelectorOnMainThread:@selector(updateView:) withObject:post waitUntilDone:NO];
     }
+    
+    [pool drain];
 }
 
 - (void)getPostInfoWithView:(ImageDetailViewController*)view {
