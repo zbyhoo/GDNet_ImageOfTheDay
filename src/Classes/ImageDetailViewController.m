@@ -39,7 +39,7 @@
     [converter release];
     [dbHelper release];
     
-    [_dataManager getPostInfo:self.postId view:self.descriptionView];
+    [_dataManager getPostInfoWithView:self];
 }
 
 
@@ -80,5 +80,10 @@
     return YES; 
 }
 
+- (void)updateView:(GDImagePost*)post {
+    [self.descriptionView loadHTMLString:post.postDescription baseURL:nil];
+    
+
+}
 
 @end

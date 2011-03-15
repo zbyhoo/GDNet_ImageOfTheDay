@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GDImagePost.h"
 
 @class DataManager;
 
@@ -19,5 +20,7 @@
 
 @property (nonatomic, retain) UIWebView *descriptionView;
 @property (nonatomic, retain) NSString *postId;
+
+- (void)updateView:(GDImagePost*)post;
 
 @end

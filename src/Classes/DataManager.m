@@ -12,6 +12,7 @@
 #import "TableViewCell.h"
 #import "GDPicture.h"
 #import "DBHelper.h"
+#import "ImageDetailViewController.h"
 
 @implementation DataManager
 
@@ -226,8 +227,8 @@
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
-- (void)getPostInfo:(NSString*)postId view:(UIWebView*)view {
-    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", postId];
+- (void)downloadPostInfoWithView:(ImageDetailViewController*)view {
+    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
     
     NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
@@ -236,14 +237,23 @@
         return;
     }
     
-    NSDictionary *postDict = [self.converter convertPost:postId];
+    NSDictionary *postDict = [self.converter convertPost:view.postId];
     if (postDict == nil) {
         return;
     }
     
-    NSString *content = [postDict objectForKey:KEY_DESCRIPTION];
+    GDImagePost *post = [array objectAtIndex:0];
+    post.postDescription = [postDict objectForKey:KEY_DESCRIPTION];
     
-    [view loadHTMLString:content baseURL:nil];
+    [self.dbHelper saveContext];
+    
+    if([self.dbHelper saveContext]) {
+        [view performSelectorOnMainThread:@selector(updateView:) withObject:post waitUntilDone:NO];
+    }
+}
+
+- (void)getPostInfoWithView:(ImageDetailViewController*)view {
+    [NSThread detachNewThreadSelector:@selector(downloadPostInfoWithView:) toTarget:self withObject:view];
 }
 
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath {

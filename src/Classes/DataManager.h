@@ -10,9 +10,12 @@
 #import <CoreData/CoreData.h>
 #import "GDDataConverter.h"
 
+
 @class ImagesListViewController;
 @class TableViewCell;
 @class DBHelper;
+@class ImageDetailViewController;
+
 
 @interface DataManager : NSObject {
 @private
@@ -44,7 +47,7 @@
 - (void)refresh:(UITableView*)view;
 - (void)refreshFromWeb:(UITableView*)view;
 
-- (void)getPostInfo:(NSString*)postId view:(UIWebView*)view;
+- (void)getPostInfoWithView:(ImageDetailViewController*)view;
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath;
 - (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath;
 
