@@ -28,7 +28,10 @@ extern NSString * const GD_ARCHIVE_IMG_URL_END;
 
 extern NSString * const GD_ARCHIVE_POST_URL;
 
-
+extern NSString * const GD_ARCHIVE_POST_DATE_START;
+extern NSString * const GD_ARCHIVE_POST_DATE_END;
+extern NSString * const GD_ARCHIVE_POST_IMGS_START;
+extern NSString * const GD_ARCHIVE_POST_IMGS_END;
 extern NSString * const GD_ARCHIVE_POST_DESC_START;
 extern NSString * const GD_ARCHIVE_POST_DESC_END;
 
@@ -39,3 +42,4 @@ extern NSString * const KEY_POST_URL;
 extern NSString * const KEY_TITLE;
 extern NSString * const KEY_IMAGE_URL;
 extern NSString * const KEY_DESCRIPTION;
+extern NSString * const KEY_IMAGES_COUNT;

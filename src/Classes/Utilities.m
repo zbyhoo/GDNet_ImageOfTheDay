@@ -19,7 +19,7 @@
     
     (*range) = [string rangeOfString:after options:0 range:(*range)];
     
-    if ((*range).location < 0 || (*range).location > string.length) {
+    if ((*range).location > string.length) {
         return nil;
     }
     
@@ -31,7 +31,7 @@
     
     (*range) = [string rangeOfString:before options:0 range:(*range)];
     
-    if ((*range).location < 0 || (*range).location > string.length - 1 || (*range).location < final.location) {
+    if ((*range).location > string.length - 1 || (*range).location < final.location) {
         return nil;
     }
     

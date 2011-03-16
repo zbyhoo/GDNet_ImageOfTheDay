@@ -28,7 +28,6 @@ static const char *LOG_TYPE_MSG[] = {"info", "warning", "error", "debug"};
                                             length:strlen(file) 
                                             encoding:NSUTF8StringEncoding];
 	NSString *message = [[NSString alloc] initWithFormat:format arguments:argumentList];
-    [fileString release];
     
     va_end(argumentList);
 
@@ -40,6 +39,7 @@ static const char *LOG_TYPE_MSG[] = {"info", "warning", "error", "debug"};
     [SimpleLogger printMessage:final];
     [final release];
 	[message release];
+    [fileString release];
 }
 
 + (void)printMessage:(NSString*)message 

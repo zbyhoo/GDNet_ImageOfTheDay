@@ -248,8 +248,25 @@
     
     GDImagePost *post = [array objectAtIndex:0];
     post.postDescription = [postDict objectForKey:KEY_DESCRIPTION];
+    post.postDate = [postDict objectForKey:KEY_DATE];
     
-    [self.dbHelper saveContext];
+    NSMutableSet *picturesSet = [NSMutableSet setWithSet:post.pictures];
+    // TODO modify set
+    
+    int index = 0;
+    GDPicture *mainPicture = [picturesSet accessibilityElementAtIndex:0];
+    mainPicture.largePictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
+    
+
+    NSNumber *count = [postDict objectForKey:KEY_IMAGES_COUNT];
+    while (index < [count intValue]) {
+        GDPicture *picture = (GDPicture*)[self.dbHelper createNew:@"GDPicture"];
+        picture.imagePost = post;
+        picture.smallPictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
+        picture.largePictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
+        [picturesSet addObject: picture];
+    }
+    post.pictures = [NSSet setWithArray:[picturesSet allObjects]];
     
     if([self.dbHelper saveContext]) {
         [view performSelectorOnMainThread:@selector(updateView:) withObject:post waitUntilDone:NO];
@@ -259,7 +276,28 @@
 }
 
 - (void)getPostInfoWithView:(PostDetailsController*)view {
-    [NSThread detachNewThreadSelector:@selector(downloadPostInfoWithView:) toTarget:self withObject:view];
+    
+    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
+    NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
+    if (array.count != 1) {
+        LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
+    }
+    GDImagePost *post = [array objectAtIndex:0];
+    if ([post.postDescription length] > 0) {
+        
+        for (GDPicture *picture in post.pictures) {
+            LogDebug(@"small url: %@", picture.smallPictureUrl);
+            LogDebug(@"large url: %@", picture.largePictureUrl);  
+            LogDebug(@"small data: %d", picture.smallPictureData);
+            LogDebug(@"large data: %d", picture.largePictureData);  
+        }
+        
+        [view updateView:post];
+    }
+    else {
+        [NSThread detachNewThreadSelector:@selector(downloadPostInfoWithView:) toTarget:self withObject:view];
+    }
 }
 
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath {
