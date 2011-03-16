@@ -8,6 +8,8 @@ typedef enum PostType {
     POST_FAVOURITE   = 0x04
 } PostType;
 
+extern NSString * const MAIN_IMAGE_OBJ;
+
 extern NSString * const GD_IOTD_PAGE_URL;
 extern NSString * const GD_POST_SEPARATOR;
 

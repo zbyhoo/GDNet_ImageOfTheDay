@@ -92,10 +92,13 @@
     GDImagePost* post = [self.posts objectAtIndex:indexPath.row];
     cell.titleLabel.text = post.title;
     
-    GDPicture *picture = [[post.pictures allObjects] objectAtIndex:0];
-    UIImage *image = [UIImage imageWithData:picture.smallPictureData];
-    cell.postImageView.image = image;
-    //cell.titleLabel.text = [NSString stringWithFormat:@"%d", post.postDate];
+    for (GDPicture *picture in post.pictures) {
+        if (picture.pictureDescription != nil && [picture.pictureDescription compare:MAIN_IMAGE_OBJ] == NSOrderedSame) {
+            UIImage *image = [UIImage imageWithData:picture.smallPictureData];
+            cell.postImageView.image = image;
+        }
+    }
+    //TODO cell.titleLabel.text = [NSString stringWithFormat:@"%d", post.postDate];
 }
 
 - (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view {
@@ -188,6 +191,7 @@
     
     GDPicture *picture      = (GDPicture*)[self.dbHelper createNew:@"GDPicture"];
     picture.imagePost       = imagePost;
+    picture.pictureDescription = MAIN_IMAGE_OBJ;
     picture.smallPictureUrl = [objectDict valueForKey:KEY_IMAGE_URL];
     
     imagePost.pictures  = [NSSet setWithObject:picture]; 
@@ -251,13 +255,13 @@
     post.postDate = [postDict objectForKey:KEY_DATE];
     
     NSMutableSet *picturesSet = [NSMutableSet setWithSet:post.pictures];
-    // TODO modify set
     
     int index = 0;
-    GDPicture *mainPicture = [picturesSet accessibilityElementAtIndex:0];
-    mainPicture.largePictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
+    for (GDPicture* mainPicture in picturesSet) {
+        mainPicture.largePictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
+        LogDebug(@"%@", mainPicture.largePictureUrl);
+    }
     
-
     NSNumber *count = [postDict objectForKey:KEY_IMAGES_COUNT];
     while (index < [count intValue]) {
         GDPicture *picture = (GDPicture*)[self.dbHelper createNew:@"GDPicture"];

@@ -119,10 +119,8 @@ static NSUInteger helperIndex = 60;
             if (largeImage == nil) {
                 break;
             }
-            LogDebug(@"Large Image URL:\n%@", largeImage);
             // TODO parse title here
-            smallImage = [Utilities getSubstringFrom:chunk range:&range after:@"src=\"" before:@"\"></a>"];
-            LogDebug(@"Small Image URL:\n%@", smallImage);            
+            smallImage = [Utilities getSubstringFrom:chunk range:&range after:@"src=\"" before:@"\"></a>"];           
             
             [array addObject:smallImage];
             [array addObject:largeImage];
@@ -132,6 +130,8 @@ static NSUInteger helperIndex = 60;
         LogError(@"unknown exception catched");
     }
     LogDebug(@"finished parsing images");
+    
+    LogDebug(@"%@", array);
     
     return array;
 }
@@ -176,6 +176,8 @@ static NSUInteger helperIndex = 60;
 
     for (NSString *url in imageUrls) {
         NSString *key = [NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++];
+        LogDebug(@"IMG URL: %@", url);
+        LogDebug(@"FOR KEY: %@", key);
         [dict setValue:url forKey:key];
     }
     [dict setValue:[NSNumber numberWithInt:index] forKey:KEY_IMAGES_COUNT];
