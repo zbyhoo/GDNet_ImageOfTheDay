@@ -34,6 +34,10 @@
 		267AE02A132E9B6000C25A85 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
 		26993676132571C0007CFAB4 /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 26993675132571C0007CFAB4 /* GDImagePost.m */; };
 		269936791325721D007CFAB4 /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 269936781325721D007CFAB4 /* GDPicture.m */; };
+		269D55A513302C6000156F5E /* PostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269D55A313302C5C00156F5E /* PostDetailsController.m */; };
+		269D55A613302C6000156F5E /* PostDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 269D55A413302C5C00156F5E /* PostDetailsController.xib */; };
+		269D55A91330366300156F5E /* ImagesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 269D55A81330366100156F5E /* ImagesViewCell.m */; };
+		269D55AD13303A5A00156F5E /* DescriptionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 269D55AB13303A5200156F5E /* DescriptionViewCell.m */; };
 		26AF997B131ED4810096C002 /* GDNet_ImageOfTheDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */; };
 		26AF99F1131EF10B0096C002 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF99F0131EF10B0096C002 /* Utilities.m */; };
 		26AF99F2131EF10B0096C002 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 26AF99F0131EF10B0096C002 /* Utilities.m */; };
@@ -95,6 +99,13 @@
 		26993675132571C0007CFAB4 /* GDImagePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDImagePost.m; sourceTree = "<group>"; };
 		269936771325721D007CFAB4 /* GDPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPicture.h; sourceTree = "<group>"; };
 		269936781325721D007CFAB4 /* GDPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPicture.m; sourceTree = "<group>"; };
+		269D55A213302C5B00156F5E /* PostDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailsController.h; sourceTree = "<group>"; };
+		269D55A313302C5C00156F5E /* PostDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailsController.m; sourceTree = "<group>"; };
+		269D55A413302C5C00156F5E /* PostDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PostDetailsController.xib; path = Classes/PostDetailsController.xib; sourceTree = "<group>"; };
+		269D55A71330365F00156F5E /* ImagesViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesViewCell.h; sourceTree = "<group>"; };
+		269D55A81330366100156F5E /* ImagesViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesViewCell.m; sourceTree = "<group>"; };
+		269D55AA13303A5000156F5E /* DescriptionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewCell.h; sourceTree = "<group>"; };
+		269D55AB13303A5200156F5E /* DescriptionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewCell.m; sourceTree = "<group>"; };
 		26AF99EF131EF10B0096C002 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		26AF99F0131EF10B0096C002 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		26AF9A01131EF4990096C002 /* UtilitiesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UtilitiesTest.m; path = Tests/UtilitiesTest.m; sourceTree = "<group>"; };
@@ -271,6 +282,12 @@
 				26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */,
 				26E81A761321A45900FD3D52 /* TableViewCell.h */,
 				26E81A771321A45900FD3D52 /* TableViewCell.m */,
+				269D55A213302C5B00156F5E /* PostDetailsController.h */,
+				269D55A313302C5C00156F5E /* PostDetailsController.m */,
+				269D55A71330365F00156F5E /* ImagesViewCell.h */,
+				269D55A81330366100156F5E /* ImagesViewCell.m */,
+				269D55AA13303A5000156F5E /* DescriptionViewCell.h */,
+				269D55AB13303A5200156F5E /* DescriptionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -309,6 +326,7 @@
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */,
 				26E81A9C1321A66C00FD3D52 /* TableViewCell.xib */,
+				269D55A413302C5C00156F5E /* PostDetailsController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -408,6 +426,7 @@
 				26BE1CE51324314A00596340 /* grayArrow@2x.png in Resources */,
 				26BE1CE61324314A00596340 /* whiteArrow.png in Resources */,
 				26BE1CE71324314A00596340 /* whiteArrow@2x.png in Resources */,
+				269D55A613302C6000156F5E /* PostDetailsController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +462,9 @@
 				26993676132571C0007CFAB4 /* GDImagePost.m in Sources */,
 				269936791325721D007CFAB4 /* GDPicture.m in Sources */,
 				2678BF60132816E9003CF4C7 /* DBHelper.m in Sources */,
+				269D55A513302C6000156F5E /* PostDetailsController.m in Sources */,
+				269D55A91330366300156F5E /* ImagesViewCell.m in Sources */,
+				269D55AD13303A5A00156F5E /* DescriptionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

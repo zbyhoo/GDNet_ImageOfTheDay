@@ -12,7 +12,7 @@
 #import "TableViewCell.h"
 #import "GDPicture.h"
 #import "DBHelper.h"
-#import "ImageDetailViewController.h"
+#import "PostDetailsController.h"
 
 @implementation DataManager
 
@@ -227,7 +227,7 @@
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
-- (void)downloadPostInfoWithView:(ImageDetailViewController*)view {
+- (void)downloadPostInfoWithView:(PostDetailsController*)view {
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];
@@ -258,7 +258,7 @@
     [pool drain];
 }
 
-- (void)getPostInfoWithView:(ImageDetailViewController*)view {
+- (void)getPostInfoWithView:(PostDetailsController*)view {
     [NSThread detachNewThreadSelector:@selector(downloadPostInfoWithView:) toTarget:self withObject:view];
 }
 

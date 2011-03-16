@@ -39,7 +39,7 @@
     [converter release];
     [dbHelper release];
     
-    [_dataManager getPostInfoWithView:self];
+    //TODO [_dataManager getPostInfoWithView:self];
 }
 
 

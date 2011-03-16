@@ -7,7 +7,7 @@
 //
 
 #import "ImagesListViewController.h"
-#import "ImageDetailViewController.h"
+#import "PostDetailsController.h"
 #import "DataManager.h"
 #import "DBHelper.h"
 #import "GDArchiveHtmlStringConverter.h"
@@ -103,7 +103,6 @@
     
     TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        //cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = tblCell;
     }
@@ -191,8 +190,8 @@
 	 */
     
     
-    ImageDetailViewController *imageDetailViewController = [[ImageDetailViewController alloc] 
-                                                            initWithNibName:@"ImageDetailViewController" bundle:nil];
+    PostDetailsController *imageDetailViewController = [[PostDetailsController alloc] 
+                                                            initWithNibName:@"PostDetailsController" bundle:nil];
     imageDetailViewController.title = [self.dataManager getTitleOfPostAtIndex:indexPath];
     imageDetailViewController.postId = [self.dataManager getPostIdAtIndex:indexPath];
     

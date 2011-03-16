@@ -14,7 +14,8 @@
 @class ImagesListViewController;
 @class TableViewCell;
 @class DBHelper;
-@class ImageDetailViewController;
+//@class ImageDetailViewController;
+@class PostDetailsController;
 
 
 @interface DataManager : NSObject {
@@ -47,7 +48,7 @@
 - (void)refresh:(UITableView*)view;
 - (void)refreshFromWeb:(UITableView*)view;
 
-- (void)getPostInfoWithView:(ImageDetailViewController*)view;
+- (void)getPostInfoWithView:(PostDetailsController*)view;
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath;
 - (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath;
 

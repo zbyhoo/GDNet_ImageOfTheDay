@@ -11,7 +11,7 @@
 
 @class DataManager;
 
-@interface ImageDetailViewController : UIViewController {
+@interface ImageDetailViewController : UITableViewController {
     IBOutlet UIWebView *_descriptionView;
 @private
     DataManager *_dataManager;
