@@ -10,101 +10,94 @@
 #import "../Constants.h"
 
 @interface GDArchiveHtmlStringConverterTest : GHTestCase {
+@private
+    GDArchiveHtmlStringConverter *_converter;
 }
-
+@property (nonatomic, retain) GDArchiveHtmlStringConverter *converter;
 + (NSString*)readSampleMainPageFile;
 @end
 
 @interface GDArchiveHtmlStringConverterMock : GDArchiveHtmlStringConverter {
 }
 @end
+
 @implementation GDArchiveHtmlStringConverterMock
-- (NSString*)getData:(NSString*)urlString
-{
+- (NSString*)getData:(NSString*)urlString {
     return [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
 }
 @end
 
 @implementation GDArchiveHtmlStringConverterTest
 
+@synthesize converter = _converter;
+
 + (NSString*)readSampleMainPageFile {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_archive_main_page" ofType:@"html"]; 
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
-
-- (BOOL)shouldRunOnMainThread {
-    // By default NO, but if you have a UI test or test dependent on running on the main thread return YES
-    return NO;
-}
-
 - (void)setUpClass {
-    // Run at start of all tests in the class 
+    _converter = [[GDArchiveHtmlStringConverter alloc] init];
 }
 
 - (void)tearDownClass {
-    // Run at end of all tests in the class
+    self.converter = nil;
 }
 
-- (void)setUp {
-    // Run before each test method
-}
-
-- (void)tearDown {
-    // Run after each test method
-}  
-
-- (void) testSplitHtmlToPosts {
+- (void)testSplitHtmlToPosts {
     
-    // give 
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
+    // given 
     NSString *htmlContent = [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
     
     // when
-    NSMutableArray *posts = [converter splitHtmlToPosts:htmlContent];
+    NSMutableArray *posts = [self.converter splitHtmlToPosts:htmlContent];
     
     // then
     GHAssertNotNil(posts, @"should return not empty array of not parsed posts");
     GHAssertEquals([posts count], (NSUInteger)16, @"number of posts per page");
-    
-    [converter release];
 }
 
-- (void) testSplitHtmlToPosts_noPosts {
+- (void)testSplitHtmlToPosts_noPosts {
     
-    // give 
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
+    // given
     NSString *htmlContent = @"nothing interesting here";
     
     // when
-    NSMutableArray *posts = [converter splitHtmlToPosts:htmlContent];
+    NSMutableArray *posts = [self.converter splitHtmlToPosts:htmlContent];
     
     // then
     GHAssertNotNil(posts, @"should return array");
     GHAssertEquals([posts count], (NSUInteger)0, @"number of posts per page");
+}
+
+- (void)testSplitHtmlToPosts_halfOfPageOnly {
     
-    [converter release];
+    // given
+    NSString *htmlContent = [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
+    htmlContent = [htmlContent substringToIndex:([htmlContent length]/2)];
+    
+    // when
+    NSMutableArray *posts = [self.converter splitHtmlToPosts:htmlContent];
+    
+    // then
+    GHAssertNotNil(posts, @"should return array");
+    GHAssertEquals([posts count], (NSUInteger)2, @"number of posts per page");
 }
 
 - (void) testConvertGalleryWithSampleImagesPage {
     
     // given
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverterMock alloc] init];
-    NSString *fakeUrl = @"http://zbyhoo.eu";
     
     // when
-    NSArray *results = [converter convertGallery:fakeUrl];
+    NSArray *results = [self.converter convertGalleryWithDate:nil latest:YES];
     
     // then
     GHAssertNotNil(results, @"should return NSArray");
     GHAssertEquals([results count], (NSUInteger)16, @"number of parsed posts");
-    
-    [converter release];
 }
 
 - (void) testParsePost {
     // given
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverterMock alloc] init];
     NSString *dateString = @"1/4/2011";
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"MM/dd/yyyy"];
@@ -119,7 +112,7 @@
     [GDArchiveHtmlStringConverter setHelperIndex:0];
     
     // when
-    NSDictionary *imagePost = [converter parsePost:post];
+    NSDictionary *imagePost = [self.converter parsePost:post];
     
     // then
     GHAssertNotNil(imagePost, @"post shouldn't be nil");
@@ -131,9 +124,6 @@
     GHAssertEqualObjects([imagePost valueForKey:KEY_POST_URL], expected, @"url comaprison");
     GHAssertEqualObjects([imagePost valueForKey:KEY_TITLE], title, @"title comaprison");
     GHAssertEqualObjects([imagePost valueForKey:KEY_IMAGE_URL], imgUrl, @"image url comaprison");
-    
-    [converter release];
 }
-
 
 @end

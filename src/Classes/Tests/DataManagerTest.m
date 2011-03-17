@@ -36,11 +36,9 @@
     [psc release];
     
     DBHelper *dbHelper = [[DBHelper alloc] init];
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
-    DataManager *dataManager = [[DataManager alloc] initWithDataType:POST_NORMAL dbHelper:dbHelper converter:converter];
+    DataManager *dataManager = [[DataManager alloc] initWithDataType:POST_NORMAL dbHelper:dbHelper];
     self.dataManager = dataManager;
     [dataManager release];
-    [converter release];
     [dbHelper release];
 }
 

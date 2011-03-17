@@ -43,10 +43,9 @@
 - (void) testConvertGalleryWithNullStringPassed {
     
     // given
-    NSString *data = nil;
     
     // when
-    NSArray *results = [_converter convertGallery:data];
+    NSArray *results = [_converter convertGalleryWithDate:nil latest:YES];
     
     // then
     GHAssertNotNil(results, @"Should always return NSArray");
@@ -65,7 +64,7 @@
     // then
     //GHAssertNotNil(results, @"Should always return NSArray");
     //GHAssertEquals([results count], 9, @"Number of parsed posts"); 
-    GHAssertNotNil(nil, @"not implemented");
+    GHAssertNotNil(nil, @"not implemented - waiting for gamedev.net");
 }
 
 - (void) testConvertPostWithNullStringPassed {
