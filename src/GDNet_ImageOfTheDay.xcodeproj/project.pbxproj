@@ -21,6 +21,10 @@
 		2648D10F1301FEF4006941E9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
 		2648D1101301FEF4006941E9 /* GDHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */; };
 		2648D1111301FEF4006941E9 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648CFE91301EF49006941E9 /* Constants.m */; };
+		264A60511332B63900037CEA /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A60501332B63900037CEA /* GDPicture.m */; };
+		264A60521332B63900037CEA /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A60501332B63900037CEA /* GDPicture.m */; };
+		264A60551332B63A00037CEA /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A60541332B63A00037CEA /* GDImagePost.m */; };
+		264A60561332B63A00037CEA /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A60541332B63A00037CEA /* GDImagePost.m */; };
 		264F31B1130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */; };
 		264F31B2130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */; };
 		264F31C2130C6D8300BEB7C7 /* sample_archive_main_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */; };
@@ -32,8 +36,6 @@
 		2678BF60132816E9003CF4C7 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
 		267AE029132E928E00C25A85 /* DataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 267AE028132E928E00C25A85 /* DataManagerTest.m */; };
 		267AE02A132E9B6000C25A85 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
-		26993676132571C0007CFAB4 /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 26993675132571C0007CFAB4 /* GDImagePost.m */; };
-		269936791325721D007CFAB4 /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 269936781325721D007CFAB4 /* GDPicture.m */; };
 		269D55A513302C6000156F5E /* PostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269D55A313302C5C00156F5E /* PostDetailsController.m */; };
 		269D55A613302C6000156F5E /* PostDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 269D55A413302C5C00156F5E /* PostDetailsController.xib */; };
 		269D55A91330366300156F5E /* ImagesViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 269D55A81330366100156F5E /* ImagesViewCell.m */; };
@@ -80,6 +82,10 @@
 		2648D0521301F8FB006941E9 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitIOSTestMain.m; path = Tests/GHUnitIOSTestMain.m; sourceTree = "<group>"; };
 		2648D0BA1301FED8006941E9 /* GDHtmlStringConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDHtmlStringConverterTest.m; path = Tests/GDHtmlStringConverterTest.m; sourceTree = "<group>"; };
+		264A604F1332B63900037CEA /* GDPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPicture.h; sourceTree = "<group>"; };
+		264A60501332B63900037CEA /* GDPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPicture.m; sourceTree = "<group>"; };
+		264A60531332B63A00037CEA /* GDImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDImagePost.h; sourceTree = "<group>"; };
+		264A60541332B63A00037CEA /* GDImagePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDImagePost.m; sourceTree = "<group>"; };
 		264F31AF130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDArchiveHtmlStringConverter.h; sourceTree = "<group>"; };
 		264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDArchiveHtmlStringConverter.m; sourceTree = "<group>"; };
 		264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_archive_main_page.html; path = Tests/data/sample_archive_main_page.html; sourceTree = "<group>"; };
@@ -95,10 +101,6 @@
 		2678BF5E132816E9003CF4C7 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
 		2678BF5F132816E9003CF4C7 /* DBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHelper.m; sourceTree = "<group>"; };
 		267AE028132E928E00C25A85 /* DataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManagerTest.m; path = Tests/DataManagerTest.m; sourceTree = "<group>"; };
-		26993674132571C0007CFAB4 /* GDImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDImagePost.h; sourceTree = "<group>"; };
-		26993675132571C0007CFAB4 /* GDImagePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDImagePost.m; sourceTree = "<group>"; };
-		269936771325721D007CFAB4 /* GDPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPicture.h; sourceTree = "<group>"; };
-		269936781325721D007CFAB4 /* GDPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPicture.m; sourceTree = "<group>"; };
 		269D55A213302C5B00156F5E /* PostDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailsController.h; sourceTree = "<group>"; };
 		269D55A313302C5C00156F5E /* PostDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailsController.m; sourceTree = "<group>"; };
 		269D55A413302C5C00156F5E /* PostDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PostDetailsController.xib; path = Classes/PostDetailsController.xib; sourceTree = "<group>"; };
@@ -243,11 +245,11 @@
 		265F736712F212D100DF9DF4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				264A604F1332B63900037CEA /* GDPicture.h */,
+				264A60531332B63A00037CEA /* GDImagePost.h */,
+				264A60541332B63A00037CEA /* GDImagePost.m */,
+				264A60501332B63900037CEA /* GDPicture.m */,
 				2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */,
-				269936771325721D007CFAB4 /* GDPicture.h */,
-				269936781325721D007CFAB4 /* GDPicture.m */,
-				26993674132571C0007CFAB4 /* GDImagePost.h */,
-				26993675132571C0007CFAB4 /* GDImagePost.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -459,12 +461,12 @@
 				26AF99F2131EF10B0096C002 /* Utilities.m in Sources */,
 				26E81A781321A45900FD3D52 /* TableViewCell.m in Sources */,
 				26BE1CD61324306B00596340 /* EGORefreshTableHeaderView.m in Sources */,
-				26993676132571C0007CFAB4 /* GDImagePost.m in Sources */,
-				269936791325721D007CFAB4 /* GDPicture.m in Sources */,
 				2678BF60132816E9003CF4C7 /* DBHelper.m in Sources */,
 				269D55A513302C6000156F5E /* PostDetailsController.m in Sources */,
 				269D55A91330366300156F5E /* ImagesViewCell.m in Sources */,
 				269D55AD13303A5A00156F5E /* DescriptionViewCell.m in Sources */,
+				264A60511332B63900037CEA /* GDPicture.m in Sources */,
+				264A60551332B63A00037CEA /* GDImagePost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +487,8 @@
 				26AF99F1131EF10B0096C002 /* Utilities.m in Sources */,
 				26AF9A02131EF4990096C002 /* UtilitiesTest.m in Sources */,
 				267AE029132E928E00C25A85 /* DataManagerTest.m in Sources */,
+				264A60521332B63900037CEA /* GDPicture.m in Sources */,
+				264A60561332B63A00037CEA /* GDImagePost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,14 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    DBHelper *dbHelper = [[DBHelper alloc] init];
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
-    _dataManager = [[DataManager alloc] initWithDbHelper:dbHelper converter:converter];
-    [converter release];
-    [dbHelper release];
-    
-    //TODO [_dataManager getPostInfoWithView:self];
+    _dataManager = [[DataManager alloc] init];
 }
 
 

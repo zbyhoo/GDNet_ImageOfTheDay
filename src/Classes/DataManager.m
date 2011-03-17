@@ -14,32 +14,58 @@
 #import "DBHelper.h"
 #import "PostDetailsController.h"
 
+#import "GDArchiveHtmlStringConverter.h"
+
 @implementation DataManager
 
-#pragma mark -
-#pragma mark Instance stuff
+
+NSArray *converters = nil;
+
++ (NSArray*)getConverters {
+    if (converters == nil) {
+        GDArchiveHtmlStringConverter *gdArchive = [[GDArchiveHtmlStringConverter alloc] init];
+        
+        converters = [[NSArray alloc] initWithObjects:gdArchive, nil];
+        
+        [gdArchive release];
+    }
+    return converters;
+}
+
++ (NSObject<GDDataConverter>*)getConverterType:(NSNumber*)type {
+    for (NSObject<GDDataConverter> *converter in [DataManager getConverters]) {
+        if ([converter converterId] == [type intValue]) {
+            return converter;
+        }
+    }
+    LogError(@"unknown converter type: %d", type);
+    return nil;
+}
 
 @synthesize posts = _posts;
 @synthesize dbHelper = _dbHelper;
-@synthesize converter = _converter;
 
 - (id)initWithDataType:(int)type 
-              dbHelper:(DBHelper*)dbHelper 
-             converter:(NSObject<GDDataConverter>*)converter {
+              dbHelper:(DBHelper*)dbHelper {
     if ((self = [super init])) {
         _dataType = type;
         self.dbHelper = dbHelper;
-        self.converter = converter;
     }
     return self;
 }
 
-- (id)initWithDbHelper:(DBHelper *)dbHelper 
-             converter:(NSObject<GDDataConverter> *)converter {
+- (id)initWithDataType:(int)type {
+    if ((self = [super init])) {
+        _dataType = type;
+        _dbHelper = [[DBHelper alloc]init];
+    }
+    return self;
+}
+
+- (id)init {
     if ((self = [super init])) {
         _dataType = -1;
-        self.dbHelper = dbHelper;
-        self.converter = converter;
+        _dbHelper = [[DBHelper alloc]init];
     }
     return self;
 }
@@ -47,7 +73,6 @@
 - (void)dealloc {
     self.posts = nil;
     self.dbHelper = nil;
-    self.converter = nil;
     [super dealloc];
 }
 
@@ -188,6 +213,7 @@
     imagePost.title     = [objectDict valueForKey:KEY_TITLE];
     imagePost.url       = [objectDict valueForKey:KEY_POST_URL];
     imagePost.postDate  = [objectDict valueForKey:KEY_DATE];
+    imagePost.type      = [objectDict valueForKey:KEY_TYPE];
     
     GDPicture *picture      = (GDPicture*)[self.dbHelper createNew:@"GDPicture"];
     picture.imagePost       = imagePost;
@@ -210,15 +236,18 @@
     LogDebug(@"most recent post date: %d", [timestamp intValue]);
     
     // TODO download until timestamp met
-    NSArray *webPosts = [self.converter convertGallery:GD_ARCHIVE_IOTD_PAGE_URL];
-    NSDictionary *objectDict;
-    for (objectDict in webPosts) {
-        if ([self existsInDatabase:objectDict] == NO) {
-            NSNumber *postDate = [objectDict valueForKey:KEY_DATE];
-            if ([postDate intValue] >= [timestamp intValue]) {
-                [self addToDatabase:objectDict];
-                if (view != nil) {
-                    [view reloadData];
+    for (NSObject<GDDataConverter> *converter in [DataManager getConverters])
+    {
+        NSArray *webPosts = [converter convertGalleryWithDate:nil latest:YES];
+        NSDictionary *objectDict;
+        for (objectDict in webPosts) {
+            if ([self existsInDatabase:objectDict] == NO) {
+                NSNumber *postDate = [objectDict valueForKey:KEY_DATE];
+                if ([postDate intValue] >= [timestamp intValue]) {
+                    [self addToDatabase:objectDict];
+                    if (view != nil) {
+                        [view reloadData];
+                    }
                 }
             }
         }
@@ -236,6 +265,7 @@
     
     NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
+    LogDebug(@"Post ID predicate: %@", predicateString);
     
     NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
     if (array.count != 1) {
@@ -244,13 +274,14 @@
         return;
     }
     
-    NSDictionary *postDict = [self.converter convertPost:view.postId];
+    GDImagePost *post = [array objectAtIndex:0];
+    
+    NSDictionary *postDict = [[DataManager getConverterType:post.type] convertPost:view.postId];
     if (postDict == nil) {
         [pool drain];
         return;
     }
     
-    GDImagePost *post = [array objectAtIndex:0];
     post.postDescription = [postDict objectForKey:KEY_DESCRIPTION];
     post.postDate = [postDict objectForKey:KEY_DATE];
     
@@ -286,6 +317,7 @@
     NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
     if (array.count != 1) {
         LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
+        return;
     }
     GDImagePost *post = [array objectAtIndex:0];
     if ([post.postDescription length] > 0) {

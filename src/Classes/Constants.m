@@ -38,3 +38,4 @@ NSString * const KEY_TITLE          = @"title";
 NSString * const KEY_IMAGE_URL      = @"imageUrl";
 NSString * const KEY_DESCRIPTION    = @"description";
 NSString * const KEY_IMAGES_COUNT   = @"imagesCount";
+NSString * const KEY_TYPE           = @"postType";

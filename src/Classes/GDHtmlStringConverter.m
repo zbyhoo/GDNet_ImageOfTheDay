@@ -11,14 +11,27 @@
 
 @implementation GDHtmlStringConverter
 
-- (NSArray*)convertGallery:(NSString*)data {
-    
-    if (data == nil) {
-        LogWarning(@"nil data argument passed");
-        return nil;
+@synthesize mainUrl = _mainUrl;
+
+- (id)init {
+    if ((self = [super init])) {
+        self.mainUrl = GD_ARCHIVE_IOTD_PAGE_URL;
     }
+    return self;
+}
+
+- (void)dealloc {
+    self.mainUrl = nil;
+    [super dealloc];
+}
+
+- (int)converterId {
+    return CONVERTER_GD;
+}
+
+- (NSArray*)convertGalleryWithDate:(NSNull*)timestamp latest:(BOOL)latest {
     
-    NSString *pageContent = [self getData:data];
+    NSString *pageContent = [self getData:self.mainUrl];
     NSMutableArray *chunks = [self splitHtmlToPosts:pageContent];
     LogInfo(@"%@", chunks);
     

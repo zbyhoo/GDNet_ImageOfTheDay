@@ -19,6 +19,10 @@ static NSUInteger helperIndex = 60;
     helperIndex = index;
 }
 
+- (int)converterId {
+    return CONVERTER_GD_ARCHIVE;
+}
+
 - (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage {
     NSMutableArray *chunks = [NSMutableArray arrayWithArray:[htmlPage componentsSeparatedByString:GD_ARCHIVE_POST_SEPARATOR]];
     
@@ -91,6 +95,7 @@ static NSUInteger helperIndex = 60;
     [dict setValue:postUrl forKey:KEY_POST_URL];
     [dict setValue:title forKey:KEY_TITLE];
     [dict setValue:imgUrl forKey:KEY_IMAGE_URL];
+    [dict setValue:[NSNumber numberWithInt:[self converterId]] forKey:KEY_TYPE];
     
     return [dict autorelease];
 }

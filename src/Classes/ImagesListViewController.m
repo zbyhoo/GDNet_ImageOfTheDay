@@ -38,12 +38,7 @@
 	[_refreshHeaderView refreshLastUpdatedDate];
     _reloading = NO;
     
-    DBHelper *dbHelper = [[DBHelper alloc] init];
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
-    _dataManager = [[DataManager alloc] initWithDataType:_dataType dbHelper:dbHelper converter:converter];
-    [converter release];
-    [dbHelper release];
-    
+    _dataManager = [[DataManager alloc] initWithDataType:_dataType];
     [_dataManager preloadData:self.tableView];
 }
 

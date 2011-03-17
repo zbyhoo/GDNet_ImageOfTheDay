@@ -10,7 +10,8 @@
 
 @protocol GDDataConverter
 
-- (NSArray*)convertGallery:(NSString*)data;
+- (NSArray*)convertGalleryWithDate:(NSNull*)timestamp latest:(BOOL)latest;
 - (NSDictionary*)convertPost:(NSString*)data;
+- (int)converterId;
 
 @end

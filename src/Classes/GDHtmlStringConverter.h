@@ -10,8 +10,11 @@
 #import "GDDataConverter.h"
 
 @interface GDHtmlStringConverter : NSObject <GDDataConverter> {
-
+@private
+    NSString *_mainUrl;
 }
+
+@property (nonatomic, retain) NSString *mainUrl;
 
 - (NSString*)getData:(NSString*)urlString;
 - (NSPredicate*)isPostLikePredicate;

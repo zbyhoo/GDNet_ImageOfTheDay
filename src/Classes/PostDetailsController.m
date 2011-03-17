@@ -63,12 +63,7 @@ typedef enum {
 {
     [super viewDidLoad];
 
-    DBHelper *dbHelper = [[DBHelper alloc] init];
-    GDArchiveHtmlStringConverter *converter = [[GDArchiveHtmlStringConverter alloc] init];
-    _dataManager = [[DataManager alloc] initWithDbHelper:dbHelper converter:converter];
-    [converter release];
-    [dbHelper release];
-    
+    _dataManager = [[DataManager alloc] init];
     [_dataManager getPostInfoWithView:self];
 }
 

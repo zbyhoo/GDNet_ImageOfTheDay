@@ -21,21 +21,17 @@
 @interface DataManager : NSObject {
 @private
     DBHelper *_dbHelper;
-    NSObject<GDDataConverter>* _converter;
     NSMutableArray *_posts;
     int _dataType;
 }
 
 @property (retain, nonatomic) NSMutableArray *posts;
 @property (retain, nonatomic) DBHelper *dbHelper;
-@property (retain, nonatomic) NSObject<GDDataConverter>* converter;
 
 - (id)initWithDataType:(int)type 
-              dbHelper:(DBHelper*)dbHelper 
-             converter:(NSObject<GDDataConverter>*)converter;
-
-- (id)initWithDbHelper:(DBHelper*)dbHelper 
-             converter:(NSObject<GDDataConverter>*)converter;
+              dbHelper:(DBHelper*)dbHelper;
+- (id)initWithDataType:(int)type;
+- (id)init;
 
 - (void)refreshFromWeb:(UITableView*)view;
 - (void)preloadData:(UITableView*)view;

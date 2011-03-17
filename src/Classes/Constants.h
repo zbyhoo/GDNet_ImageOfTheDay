@@ -8,6 +8,11 @@ typedef enum PostType {
     POST_FAVOURITE   = 0x04
 } PostType;
 
+typedef enum ConverterType {
+    CONVERTER_GD,
+    CONVERTER_GD_ARCHIVE
+} ConverterType;
+
 extern NSString * const MAIN_IMAGE_OBJ;
 
 extern NSString * const GD_IOTD_PAGE_URL;
@@ -45,3 +50,4 @@ extern NSString * const KEY_TITLE;
 extern NSString * const KEY_IMAGE_URL;
 extern NSString * const KEY_DESCRIPTION;
 extern NSString * const KEY_IMAGES_COUNT;
+extern NSString * const KEY_TYPE;
