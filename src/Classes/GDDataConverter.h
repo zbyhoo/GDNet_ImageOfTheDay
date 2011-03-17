@@ -6,8 +6,6 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @protocol GDDataConverter
 
 - (NSArray*)convertGalleryWithDate:(NSNull*)timestamp latest:(BOOL)latest;

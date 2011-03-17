@@ -6,7 +6,6 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "GDDataConverter.h"
 
@@ -14,7 +13,6 @@
 @class ImagesListViewController;
 @class TableViewCell;
 @class DBHelper;
-//@class ImageDetailViewController;
 @class PostDetailsController;
 
 

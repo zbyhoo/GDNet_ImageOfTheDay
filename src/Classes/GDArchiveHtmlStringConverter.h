@@ -6,7 +6,6 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "GDHtmlStringConverter.h"
 
 @interface GDArchiveHtmlStringConverter : GDHtmlStringConverter {

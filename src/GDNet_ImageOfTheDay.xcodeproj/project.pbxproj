@@ -25,6 +25,7 @@
 		264A60521332B63900037CEA /* GDPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A60501332B63900037CEA /* GDPicture.m */; };
 		264A60551332B63A00037CEA /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A60541332B63A00037CEA /* GDImagePost.m */; };
 		264A60561332B63A00037CEA /* GDImagePost.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A60541332B63A00037CEA /* GDImagePost.m */; };
+		264A605B1332CE8800037CEA /* DBHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 264A605A1332CE8800037CEA /* DBHelperTest.m */; };
 		264F31B1130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */; };
 		264F31B2130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */; };
 		264F31C2130C6D8300BEB7C7 /* sample_archive_main_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */; };
@@ -86,6 +87,7 @@
 		264A60501332B63900037CEA /* GDPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPicture.m; sourceTree = "<group>"; };
 		264A60531332B63A00037CEA /* GDImagePost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDImagePost.h; sourceTree = "<group>"; };
 		264A60541332B63A00037CEA /* GDImagePost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDImagePost.m; sourceTree = "<group>"; };
+		264A605A1332CE8800037CEA /* DBHelperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBHelperTest.m; path = Tests/DBHelperTest.m; sourceTree = "<group>"; };
 		264F31AF130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDArchiveHtmlStringConverter.h; sourceTree = "<group>"; };
 		264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDArchiveHtmlStringConverter.m; sourceTree = "<group>"; };
 		264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_archive_main_page.html; path = Tests/data/sample_archive_main_page.html; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */,
 				26AF9A01131EF4990096C002 /* UtilitiesTest.m */,
 				267AE028132E928E00C25A85 /* DataManagerTest.m */,
+				264A605A1332CE8800037CEA /* DBHelperTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				267AE029132E928E00C25A85 /* DataManagerTest.m in Sources */,
 				264A60521332B63900037CEA /* GDPicture.m in Sources */,
 				264A60561332B63A00037CEA /* GDImagePost.m in Sources */,
+				264A605B1332CE8800037CEA /* DBHelperTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,7 +1,5 @@
 // TODO header text
 
-#import <Foundation/Foundation.h>
-
 typedef enum PostType {
     POST_NORMAL      = 0x01,
     POST_DELETED     = 0x02,

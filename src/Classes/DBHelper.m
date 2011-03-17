@@ -15,7 +15,7 @@ NSManagedObjectContext *managedObjectContext = nil;
 BOOL dataModified = NO;
 
 + (void)setManagedContext:(NSManagedObjectContext*)context {
-    if (managedObjectContext != nil) {
+    if (managedObjectContext) {
         [managedObjectContext release];
     }
     managedObjectContext = [context retain];
