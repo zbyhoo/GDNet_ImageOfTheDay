@@ -11,7 +11,7 @@
 @class DataManager;
 @class GDImagePost;
 
-@interface PostDetailsController : UITableViewController {
+@interface PostDetailsController : UITableViewController <UIWebViewDelegate> {
 @private
     DataManager *_dataManager;
     NSString *_postId;    
@@ -25,12 +25,20 @@
     
     int _imageCellHeight;
     int _descCellHeight;
+    
+    UIWebView *_webView;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;
 @property (nonatomic, retain) NSString *postId;
 @property (nonatomic, retain) UITableViewCell *descriptionCell;
 @property (nonatomic, retain) UITableViewCell *imagesCell;
+
+@property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, retain) UIPageControl *pageControll;
+@property (nonatomic, retain) UIActivityIndicatorView *imagesLoadingIndicator;
+@property (nonatomic, retain) UIWebView *webView;
+
 
 - (void)updateView:(GDImagePost*)post;
 

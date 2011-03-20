@@ -33,7 +33,10 @@ typedef enum {
 @synthesize postId = _postId;
 @synthesize imagesCell = _imagesCell;
 @synthesize descriptionCell = _descriptionCell;
-
+@synthesize scrollView = _scrollView;
+@synthesize pageControll = _pageControll;
+@synthesize imagesLoadingIndicator = _imagesLoadingIndicator;
+@synthesize webView = _webView;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -64,7 +67,7 @@ typedef enum {
     [super viewDidLoad];
 
     _imageCellHeight = 100;
-    _descCellHeight = 100;
+    _descCellHeight = 10;
     
     _dataManager = [[DataManager alloc] init];
     [_dataManager getPostInfoWithView:self];
@@ -76,6 +79,10 @@ typedef enum {
     self.postId = nil;
     self.imagesCell = nil;
     self.descriptionCell = nil;
+    self.scrollView = nil;
+    self.pageControll = nil;
+    self.imagesLoadingIndicator = nil;
+    self.webView = nil;
     
     [super viewDidUnload];
 }
@@ -153,9 +160,9 @@ typedef enum {
         UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:indicatorFrame];
         activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         
-        _imagesLoadingIndicator = activityIndicatorView;
-        [_imagesLoadingIndicator startAnimating];
-        [cell.contentView addSubview:_imagesLoadingIndicator];
+        self.imagesLoadingIndicator = activityIndicatorView;
+        [self.imagesLoadingIndicator startAnimating];
+        [cell.contentView addSubview:self.imagesLoadingIndicator];
         
         [activityIndicatorView startAnimating];
         
@@ -169,7 +176,6 @@ typedef enum {
 - (void)updateImagesCell:(GDImagePost*)post {
 
     UITableViewCell *cell = [self getImagesCell:self.tableView];
-    
     
     int imageSpacing = 4;
     int imageWidth = cell.frame.size.width - 30 - imageSpacing;
@@ -210,7 +216,8 @@ typedef enum {
     scrollView.scrollEnabled = YES;
     scrollView.tag = 1;
     scrollView.delegate = self;
-    _scrollView = scrollView;
+    self.scrollView = scrollView;
+    [scrollView release];
     [[cell contentView] addSubview:scrollView];
     _imageCellHeight = scrollView.frame.size.height + 10;
     
@@ -220,18 +227,19 @@ typedef enum {
     pageControll.numberOfPages = imageCount;
     pageControll.tag = 2;
     pageControll.backgroundColor = [UIColor blackColor];
-    _pageControll = pageControll;
+    pageControll.userInteractionEnabled = NO;
+    self.pageControll = pageControll;
     [[cell contentView] addSubview:pageControll];
     _imageCellHeight += pageControll.frame.size.height;
     
     cell.backgroundColor = [UIColor blackColor];
-    [_imagesLoadingIndicator stopAnimating];
+    [self.imagesLoadingIndicator stopAnimating];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
-    CGFloat pageWidth = _scrollView.frame.size.width;
-    int currentPage = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    _pageControll.currentPage = currentPage;
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+    int currentPage = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    self.pageControll.currentPage = currentPage;
 }
 
 
@@ -239,8 +247,6 @@ typedef enum {
     
     if (self.descriptionCell == nil) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
-                                 
-                                
         self.descriptionCell = cell;
         [cell release];
     }
@@ -248,8 +254,46 @@ typedef enum {
     return self.descriptionCell;
 }
 
+- (void)updateDescriptionCell:(GDImagePost*)post {
+    
+    UITableViewCell *cell = [self getDescriptionCell:self.tableView];
+    
+    CGRect webFrame = CGRectMake(5, 5, cell.frame.size.width - 30, _descCellHeight - 10);
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:webFrame];
+    webView.delegate = self;
+    
+    NSString *pageWidht = [NSString stringWithFormat:@"<html><body><div style=\"width: %dpx; word-wrap: break-word\">", 275];
+    NSString *content = [NSString stringWithFormat:@"%@%@%@", pageWidht, post.postDescription, @"</div></body></html>"];
+    [webView loadHTMLString:content baseURL:nil];
+    
+    _descCellHeight = webView.frame.size.height + 10;
+    self.webView = webView;
+    [cell.contentView addSubview:webView];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)theWebView {
+    int contentHeight = [[self.webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"] intValue];
+    LogDebug(@"content height: %d", contentHeight);
+    contentHeight += 10;
+    self.webView.frame = CGRectMake(5, 5, self.webView.frame.size.width, contentHeight);
+    _descCellHeight = contentHeight + 10;
+    UITableViewCell *cell = (UITableViewCell*)[self.webView superview];
+    CGRect frame = cell.frame;
+    frame.size.height = _descCellHeight;
+    cell.frame = frame;
+    
+    for (UIView *view in self.webView.subviews) {
+        if ([[view class] isSubclassOfClass:[UIScrollView class]]) {
+            ((UIScrollView*)view).scrollEnabled = NO;
+        }
+    }
+    
+    UITableView *tableView = (UITableView*)cell.superview.superview;
+    [tableView reloadData];
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    // TODO set proper size
+
     switch (indexPath.section) {
         case SECTION_IMAGES:        return _imageCellHeight;
         case SECTION_DESCRIPTION:   return _descCellHeight;
@@ -331,12 +375,10 @@ typedef enum {
 }
 
 - (void)updateView:(GDImagePost*)post {
-    //[self.descriptionView loadHTMLString:post.postDescription baseURL:nil];
+
     [self updateImagesCell:post];
+    [self updateDescriptionCell:post];
     
-    // to resize rows
-    //[self.tableView beginUpdates];
-    //[self.tableView endUpdates];
     [self.tableView reloadData];
 }
 
