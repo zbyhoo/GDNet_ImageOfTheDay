@@ -68,7 +68,7 @@ typedef enum {
     [super viewDidLoad];
 
     _imageCellHeight = 100;
-    _descCellHeight = 10;
+    _descCellHeight = 20;
     
     _dataManager = [[DataManager alloc] init];
     [_dataManager getPostInfoWithView:self];

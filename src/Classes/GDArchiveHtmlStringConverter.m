@@ -157,6 +157,11 @@ static NSUInteger helperIndex = 60;
     
     @try {
         dateString = [Utilities getSubstringFrom:page range:&range after:GD_ARCHIVE_POST_DATE_START before:GD_ARCHIVE_POST_DATE_END];
+        NSInteger i = 0;
+        while ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[dateString characterAtIndex:i]]) {
+            i++;
+        }
+        dateString = [dateString substringFromIndex:i];
         LogDebug(@"Post date: %@", dateString);
         
         imagesChunk = [Utilities getSubstringFrom:page range:&range after:GD_ARCHIVE_POST_IMGS_START before:GD_ARCHIVE_POST_IMGS_END];
@@ -173,7 +178,9 @@ static NSUInteger helperIndex = 60;
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     [dict setValue:description forKey:KEY_DESCRIPTION];
     
+    NSLocale* usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en-US"];
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setLocale:usLocale];
     [df setDateFormat:@"MM/dd/yyyy HH:mm:ss a"];
     double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
     [df release];

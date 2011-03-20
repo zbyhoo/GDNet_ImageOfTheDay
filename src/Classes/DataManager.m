@@ -269,7 +269,9 @@ NSArray *converters = nil;
     }
     
     post.postDescription = [postDict objectForKey:KEY_DESCRIPTION];
+    LogDebug(@"--> TS : %d", [post.postDate intValue]);
     post.postDate = [postDict objectForKey:KEY_DATE];
+    LogDebug(@"--> TS : %d", [post.postDate intValue]);
     
     NSMutableSet *picturesSet = [NSMutableSet setWithSet:post.pictures];
     

@@ -15,6 +15,7 @@
 }
 @property (nonatomic, retain) GDArchiveHtmlStringConverter *converter;
 + (NSString*)readSampleMainPageFile;
++ (NSString*)readSamplePost;
 @end
 
 @interface GDArchiveHtmlStringConverterMock : GDArchiveHtmlStringConverter {
@@ -27,12 +28,27 @@
 }
 @end
 
+@interface GDArchiveHtmlStringConverterMock2 : GDArchiveHtmlStringConverter {
+}
+@end
+
+@implementation GDArchiveHtmlStringConverterMock2
+- (NSString*)getData:(NSString*)urlString {
+    return [GDArchiveHtmlStringConverterTest readSamplePost];
+}
+@end
+
 @implementation GDArchiveHtmlStringConverterTest
 
 @synthesize converter = _converter;
 
 + (NSString*)readSampleMainPageFile {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_archive_main_page" ofType:@"html"]; 
+    return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+}
+
++ (NSString*)readSamplePost {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_archive_post" ofType:@"html"]; 
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
@@ -44,7 +60,7 @@
     self.converter = nil;
 }
 
-- (void)testSplitHtmlToPosts {
+- (void)test_SplitHtmlToPosts {
     
     // given 
     NSString *htmlContent = [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
@@ -57,7 +73,7 @@
     GHAssertEquals([posts count], (NSUInteger)16, @"number of posts per page");
 }
 
-- (void)testSplitHtmlToPosts_noPosts {
+- (void)test_SplitHtmlToPosts_noPosts {
     
     // given
     NSString *htmlContent = @"nothing interesting here";
@@ -70,7 +86,7 @@
     GHAssertEquals([posts count], (NSUInteger)0, @"number of posts per page");
 }
 
-- (void)testSplitHtmlToPosts_halfOfPageOnly {
+- (void)test_SplitHtmlToPosts_halfOfPageOnly {
     
     // given
     NSString *htmlContent = [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
@@ -84,7 +100,7 @@
     GHAssertEquals([posts count], (NSUInteger)2, @"number of posts per page");
 }
 
-- (void) testConvertGalleryWithSampleImagesPage {
+- (void)test_ConvertGalleryWithSampleImagesPage {
     
     // given
     
@@ -96,7 +112,8 @@
     GHAssertEquals([results count], (NSUInteger)16, @"number of parsed posts");
 }
 
-- (void) testParsePost {
+- (void)test_ParsePost {
+    
     // given
     NSString *dateString = @"1/4/2011";
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -124,6 +141,25 @@
     GHAssertEqualObjects([imagePost valueForKey:KEY_POST_URL], expected, @"url comaprison");
     GHAssertEqualObjects([imagePost valueForKey:KEY_TITLE], title, @"title comaprison");
     GHAssertEqualObjects([imagePost valueForKey:KEY_IMAGE_URL], imgUrl, @"image url comaprison");
+}
+
+- (void)test_convertPost {
+    
+    // given
+    GDArchiveHtmlStringConverterMock2 *converter = [[GDArchiveHtmlStringConverterMock2 alloc] init];
+    
+    // when
+    NSDictionary *dict = [converter convertPost:@"unneccessary because of mock"];
+    
+    // then
+    GHAssertNotNil(dict, @"not nil dictionary");
+    GHAssertNotNil([dict valueForKey:KEY_DATE], @"date parsed");
+    NSNumber *ts = [dict valueForKey:KEY_DATE];
+    GHAssertTrue([ts intValue] == 1294097478, @"timestamp");
+    GHAssertNotNil([dict valueForKey:KEY_DESCRIPTION], @"description parsed");
+    GHAssertNotNil([dict valueForKey:KEY_IMAGES_COUNT], @"images parsed (count)");
+    NSNumber *imgCount = [dict valueForKey:KEY_IMAGES_COUNT];
+    GHAssertEquals([imgCount intValue], 5, @"number of images");
 }
 
 @end
