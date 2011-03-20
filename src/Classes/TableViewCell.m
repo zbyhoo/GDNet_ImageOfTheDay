@@ -11,8 +11,10 @@
 
 @implementation TableViewCell
 
-@synthesize titleLabel=_titleText;
-@synthesize postImageView=_postImageView;
+@synthesize titleLabel = _titleText;
+@synthesize postImageView = _postImageView;
+@synthesize authorLabel = _authorLabel;
+@synthesize dateLabel = _dateLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     

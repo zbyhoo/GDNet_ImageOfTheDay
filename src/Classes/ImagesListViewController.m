@@ -11,6 +11,14 @@
 #import "DataManager.h"
 #import "DBHelper.h"
 #import "GDArchiveHtmlStringConverter.h"
+#import "GDImagePost.h"
+#import "GDPicture.h"
+
+@interface ImagesListViewController (Private)
+
+- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell;
+    
+@end
 
 @implementation ImagesListViewController
 
@@ -103,9 +111,29 @@
     }
     
     // Configure the cell...
-    [self.dataManager updatePostAtIndex:indexPath cell:cell view:self];
+    [self updatePostAtIndex:indexPath cell:cell];
     
     return cell;
+}
+
+- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell {
+    
+    GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
+    cell.titleLabel.text = post.title;
+    cell.authorLabel.text = post.author;
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[post.postDate intValue]];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"MM.dd.yyyy"];
+    cell.dateLabel.text = [df stringFromDate:date];
+    [df release];
+    
+    for (GDPicture *picture in post.pictures) {
+        if (picture.pictureDescription != nil && [picture.pictureDescription compare:MAIN_IMAGE_OBJ] == NSOrderedSame) {
+            UIImage *image = [UIImage imageWithData:picture.smallPictureData];
+            cell.postImageView.image = image;
+        }
+    }
 }
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath

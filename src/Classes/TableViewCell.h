@@ -12,11 +12,13 @@
 @interface TableViewCell : UITableViewCell {
     IBOutlet UILabel *_titleText;
     IBOutlet UIImageView *_postImageView;
-@private
-    //UIActivityIndicator *_indicator;
+    IBOutlet UILabel *_authorLabel;
+    IBOutlet UILabel *_dateLabel;
 }
 
 @property (retain, nonatomic) UILabel *titleLabel;
 @property (retain, nonatomic) UIImageView *postImageView;
+@property (retain, nonatomic) UILabel *authorLabel;
+@property (retain, nonatomic) UILabel *dateLabel;
 
 @end

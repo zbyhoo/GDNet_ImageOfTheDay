@@ -107,25 +107,6 @@ NSArray *converters = nil;
     return self.posts.count; 
 }
 
-- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell view:(ImagesListViewController*)view {
-    if (indexPath.row >= self.posts.count) {
-        LogError(@"index path (%d) greater than number of posts (%d)", indexPath.row, self.posts.count);
-        return;
-    }
-    
-    // TODO
-    GDImagePost* post = [self.posts objectAtIndex:indexPath.row];
-    cell.titleLabel.text = post.title;
-    
-    for (GDPicture *picture in post.pictures) {
-        if (picture.pictureDescription != nil && [picture.pictureDescription compare:MAIN_IMAGE_OBJ] == NSOrderedSame) {
-            UIImage *image = [UIImage imageWithData:picture.smallPictureData];
-            cell.postImageView.image = image;
-        }
-    }
-    //TODO cell.titleLabel.text = [NSString stringWithFormat:@"%d", post.postDate];
-}
-
 - (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view {
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     post.favourite = [NSNumber numberWithBool:YES];
@@ -350,6 +331,11 @@ NSArray *converters = nil;
 - (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath {
     GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
     return post.url;
+}
+
+- (GDImagePost*)getPostAtIndex:(NSIndexPath*)indexPath {
+    GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
+    return post;
 }
 
 @end

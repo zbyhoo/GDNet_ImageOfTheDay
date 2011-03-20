@@ -10,11 +10,10 @@
 #import "GDDataConverter.h"
 
 
-@class ImagesListViewController;
 @class TableViewCell;
 @class DBHelper;
 @class PostDetailsController;
-
+@class GDImagePost;
 
 @interface DataManager : NSObject {
 @private
@@ -34,9 +33,6 @@
 - (void)refreshFromWeb:(UITableView*)view;
 - (void)preloadData:(UITableView*)view;
 - (NSUInteger)postsCount;
-- (void)updatePostAtIndex:(NSIndexPath*)indexPath 
-                     cell:(TableViewCell*)cell 
-                     view:(ImagesListViewController*)view;
 - (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent;
 - (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view;
 - (void)refresh:(UITableView*)view;
@@ -45,5 +41,6 @@
 - (void)getPostInfoWithView:(PostDetailsController*)view;
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath;
 - (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath;
+- (GDImagePost*)getPostAtIndex:(NSIndexPath*)indexPath;
 
 @end
