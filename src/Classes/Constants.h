@@ -37,6 +37,7 @@ extern NSString * const GD_ARCHIVE_POST_DATE_START;
 extern NSString * const GD_ARCHIVE_POST_DATE_END;
 extern NSString * const GD_ARCHIVE_POST_IMGS_START;
 extern NSString * const GD_ARCHIVE_POST_IMGS_END;
+extern NSString * const GD_ARCHIVE_POST_PRE_URL;
 extern NSString * const GD_ARCHIVE_POST_DESC_START;
 extern NSString * const GD_ARCHIVE_POST_DESC_END;
 

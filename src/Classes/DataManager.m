@@ -204,6 +204,11 @@ NSArray *converters = nil;
     for (picture in post.pictures) {
         NSURL *imgUrl   = [NSURL URLWithString:picture.smallPictureUrl];
         picture.smallPictureData = [NSData dataWithContentsOfURL:imgUrl];
+        
+        if (picture.largePictureUrl) {
+            imgUrl = [NSURL URLWithString:picture.largePictureUrl];
+            picture.largePictureData = [NSData dataWithContentsOfURL:imgUrl];
+        }
     }
 }
 
@@ -301,6 +306,7 @@ NSArray *converters = nil;
         picture.largePictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
         [picturesSet addObject: picture];
     }
+    [self downloadImages:post];
     post.pictures = [NSSet setWithArray:[picturesSet allObjects]];
     
     if([self.dbHelper saveContext]) {

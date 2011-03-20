@@ -12,11 +12,15 @@
 #import "GDArchiveHtmlStringConverter.h"
 #import "ImagesViewCell.h"
 #import "DescriptionViewCell.h"
+#import "GDImagePost.h"
+#import "GDPicture.h"
+
+int imageCellHeight = 100;
 
 @interface PostDetailsController (Private)
 
-- (UITableViewCell*)createImagesCell:(UITableView*)tableView;
-- (UITableViewCell*)createDescriptionCell:(UITableView*)tableView;
+- (UITableViewCell*)getImagesCell:(UITableView*)tableView;
+- (UITableViewCell*)getDescriptionCell:(UITableView*)tableView;
 
 @end
 
@@ -123,10 +127,10 @@ typedef enum {
     
     switch (indexPath.section) {
         case SECTION_IMAGES:
-            cell = [self createImagesCell:tableView];
+            cell = [self getImagesCell:tableView];
             break;
         case SECTION_DESCRIPTION:
-            cell = [self createDescriptionCell:tableView];
+            cell = [self getDescriptionCell:tableView];
             break;
         default:
             break;
@@ -135,19 +139,87 @@ typedef enum {
     return cell;
 }
 
-- (UITableViewCell*)createImagesCell:(UITableView*)tableView {
-    static NSString *cellIdentifier = @"ImagesCell";
-    ImagesViewCell *cell = (ImagesViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[[ImagesViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
+- (UITableViewCell*)getImagesCell:(UITableView*)tableView {
+    
+    if (self.imagesCell == nil) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
+        cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, imageCellHeight);
+        self.imagesCell = cell;
+        [cell release];
     }
     
-    // TODO set values and resize cell and table row
-    
-    return cell;
+    return self.imagesCell;
 }
 
-- (UITableViewCell*)createDescriptionCell:(UITableView*)tableView {
+- (void)updateImagesCell:(GDImagePost*)post {
+
+    UITableViewCell *cell = [self getImagesCell:self.tableView];
+    
+    
+    int imageSpacing = 4;
+    int imageWidth = cell.frame.size.width - 30 - imageSpacing;
+    float imageRatio = 3.0f / 4.0f;
+    int imageHeight = imageWidth * imageRatio;
+    
+    CGRect frame = CGRectMake(5, 5, imageWidth + imageSpacing, imageHeight + imageSpacing);
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
+    
+    int imageCount = 0;
+    for (GDPicture *picture in post.pictures) {
+        if (picture.smallPictureData) {
+            UIImage *image = [[UIImage alloc] initWithData:picture.smallPictureData];
+            
+            
+            int currentPosition = (imageSpacing / 2) + (imageCount * (imageWidth + imageSpacing));
+            CGRect imageFrame = CGRectMake(currentPosition, imageSpacing / 2, imageWidth, imageHeight);
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
+            imageView.image = image;
+            [scrollView addSubview:imageView];
+            [imageView release];
+            [image release];
+            
+            ++imageCount;
+        }
+    }        
+    
+    int totalWidth = (imageSpacing + imageWidth) * imageCount;
+    LogDebug(@"Images Loaded: %d", imageCount);
+    
+    scrollView.contentSize = CGSizeMake(totalWidth, imageHeight + imageSpacing);
+    scrollView.pagingEnabled = YES;
+    scrollView.backgroundColor = [UIColor blackColor];
+    scrollView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
+    scrollView.showsHorizontalScrollIndicator = YES;
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.bounces = YES;
+    scrollView.scrollEnabled = YES;
+    scrollView.tag = 1;
+    scrollView.delegate = self;
+    _scrollView = scrollView;
+    [[cell contentView] addSubview:scrollView];
+    imageCellHeight = scrollView.frame.size.height + 10;
+    
+    // add page view
+    CGRect pageFrame = CGRectMake(5, scrollView.frame.size.height + 5, scrollView.frame.size.width, 20);
+    UIPageControl *pageControll = [[UIPageControl alloc] initWithFrame:pageFrame];
+    pageControll.numberOfPages = imageCount;
+    pageControll.tag = 2;
+    pageControll.backgroundColor = [UIColor blackColor];
+    _pageControll = pageControll;
+    [[cell contentView] addSubview:pageControll];
+    imageCellHeight += pageControll.frame.size.height;
+    
+    cell.backgroundColor = [UIColor blackColor];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+    CGFloat pageWidth = _scrollView.frame.size.width;
+    int currentPage = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    _pageControll.currentPage = currentPage;
+}
+
+
+- (UITableViewCell*)getDescriptionCell:(UITableView*)tableView {
     static NSString *cellIdentifier = @"DescCell";
     DescriptionViewCell *cell = (DescriptionViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -162,7 +234,7 @@ typedef enum {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     // TODO set proper size
     switch (indexPath.section) {
-        case SECTION_IMAGES:        return 60.0f;
+        case SECTION_IMAGES:        return imageCellHeight;
         case SECTION_DESCRIPTION:   return 100.0f;
         default:                    return 0.0f;
     }
@@ -243,10 +315,12 @@ typedef enum {
 
 - (void)updateView:(GDImagePost*)post {
     //[self.descriptionView loadHTMLString:post.postDescription baseURL:nil];
+    [self updateImagesCell:post];
     
     // to resize rows
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
+    //[self.tableView beginUpdates];
+    //[self.tableView endUpdates];
+    [self.tableView reloadData];
 }
 
 @end

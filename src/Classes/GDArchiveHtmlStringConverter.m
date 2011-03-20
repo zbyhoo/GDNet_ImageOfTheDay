@@ -124,6 +124,9 @@ static NSUInteger helperIndex = 60;
             if (largeImage == nil) {
                 break;
             }
+            else if ([largeImage hasPrefix:@"gallery"]) {
+                largeImage = [NSString stringWithFormat:@"%@%@", GD_ARCHIVE_POST_PRE_URL, largeImage];
+            }
             // TODO parse title here
             smallImage = [Utilities getSubstringFrom:chunk range:&range after:@"src=\"" before:@"\"></a>"];           
             

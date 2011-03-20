@@ -18,14 +18,19 @@
     DataManager *_dataManager;
     NSString *_postId;    
     
-    IBOutlet ImagesViewCell *_imagesCell;
+    IBOutlet UITableViewCell *_imagesCell;
     IBOutlet DescriptionViewCell *_descriptionCell;
+    
+    UIScrollView *_scrollView;
+    UIPageControl *_pageControll;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;
 @property (nonatomic, retain) NSString *postId;
-@property (nonatomic, retain) ImagesViewCell *imagesCell;
+//@property (nonatomic, retain) ImagesViewCell *imagesCell;
 @property (nonatomic, retain) DescriptionViewCell *descriptionCell;
+
+@property (nonatomic, retain) UITableViewCell *imagesCell;
 
 - (void)updateView:(GDImagePost*)post;
 
