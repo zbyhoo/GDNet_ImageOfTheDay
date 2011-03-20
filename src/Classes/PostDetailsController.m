@@ -10,12 +10,8 @@
 #import "DataManager.h"
 #import "DBHelper.h"
 #import "GDArchiveHtmlStringConverter.h"
-#import "ImagesViewCell.h"
-#import "DescriptionViewCell.h"
 #import "GDImagePost.h"
 #import "GDPicture.h"
-
-int imageCellHeight = 100;
 
 @interface PostDetailsController (Private)
 
@@ -67,7 +63,8 @@ typedef enum {
 {
     [super viewDidLoad];
 
-    imageCellHeight = 100;
+    _imageCellHeight = 100;
+    _descCellHeight = 100;
     
     _dataManager = [[DataManager alloc] init];
     [_dataManager getPostInfoWithView:self];
@@ -145,7 +142,7 @@ typedef enum {
     
     if (self.imagesCell == nil) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
-        cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, imageCellHeight);
+        cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, _imageCellHeight);
         cell.backgroundColor = [UIColor blackColor];
         
         int indicatorSize = 20;
@@ -215,7 +212,7 @@ typedef enum {
     scrollView.delegate = self;
     _scrollView = scrollView;
     [[cell contentView] addSubview:scrollView];
-    imageCellHeight = scrollView.frame.size.height + 10;
+    _imageCellHeight = scrollView.frame.size.height + 10;
     
     // add page view
     CGRect pageFrame = CGRectMake(5, scrollView.frame.size.height + 5, scrollView.frame.size.width, 20);
@@ -225,7 +222,7 @@ typedef enum {
     pageControll.backgroundColor = [UIColor blackColor];
     _pageControll = pageControll;
     [[cell contentView] addSubview:pageControll];
-    imageCellHeight += pageControll.frame.size.height;
+    _imageCellHeight += pageControll.frame.size.height;
     
     cell.backgroundColor = [UIColor blackColor];
     [_imagesLoadingIndicator stopAnimating];
@@ -239,22 +236,23 @@ typedef enum {
 
 
 - (UITableViewCell*)getDescriptionCell:(UITableView*)tableView {
-    static NSString *cellIdentifier = @"DescCell";
-    DescriptionViewCell *cell = (DescriptionViewCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[[DescriptionViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:cellIdentifier] autorelease];
+    
+    if (self.descriptionCell == nil) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
+                                 
+                                
+        self.descriptionCell = cell;
+        [cell release];
     }
     
-    // TODO set values and resize cell and table row
-    
-    return cell;
+    return self.descriptionCell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     // TODO set proper size
     switch (indexPath.section) {
-        case SECTION_IMAGES:        return imageCellHeight;
-        case SECTION_DESCRIPTION:   return 100.0f;
+        case SECTION_IMAGES:        return _imageCellHeight;
+        case SECTION_DESCRIPTION:   return _descCellHeight;
         default:                    return 0.0f;
     }
 }

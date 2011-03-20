@@ -10,8 +10,6 @@
 
 @class DataManager;
 @class GDImagePost;
-@class ImagesViewCell;
-@class DescriptionViewCell;
 
 @interface PostDetailsController : UITableViewController {
 @private
@@ -19,18 +17,19 @@
     NSString *_postId;    
     
     IBOutlet UITableViewCell *_imagesCell;
-    IBOutlet DescriptionViewCell *_descriptionCell;
+    IBOutlet UITableViewCell *_descriptionCell;
     
     UIScrollView *_scrollView;
     UIPageControl *_pageControll;
     UIActivityIndicatorView *_imagesLoadingIndicator;
+    
+    int _imageCellHeight;
+    int _descCellHeight;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;
 @property (nonatomic, retain) NSString *postId;
-//@property (nonatomic, retain) ImagesViewCell *imagesCell;
-@property (nonatomic, retain) DescriptionViewCell *descriptionCell;
-
+@property (nonatomic, retain) UITableViewCell *descriptionCell;
 @property (nonatomic, retain) UITableViewCell *imagesCell;
 
 - (void)updateView:(GDImagePost*)post;
