@@ -13,6 +13,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		262637E01336463A00366FB2 /* WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 262637DF1336463A00366FB2 /* WebView.m */; };
 		262B64DE1336AC7D0086EB20 /* sample_archive_post.html in Resources */ = {isa = PBXBuildFile; fileRef = 262B64DD1336AC7D0086EB20 /* sample_archive_post.html */; };
+		262B64E21336C5DA0086EB20 /* zbyhoo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E11336C5DA0086EB20 /* zbyhoo.png */; };
+		262B64E41336C5ED0086EB20 /* zbyhoo_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E31336C5ED0086EB20 /* zbyhoo_test.png */; };
 		263E1FDF1309810000775E2B /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263E1FDE1309810000775E2B /* GHUnitIOS.framework */; };
 		2648CFEA1301EF49006941E9 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648CFE91301EF49006941E9 /* Constants.m */; };
 		2648D0691301FA5A006941E9 /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */; };
@@ -77,6 +79,8 @@
 		262637DE1336463900366FB2 /* WebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebView.h; sourceTree = "<group>"; };
 		262637DF1336463A00366FB2 /* WebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebView.m; sourceTree = "<group>"; };
 		262B64DD1336AC7D0086EB20 /* sample_archive_post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_archive_post.html; path = Tests/data/sample_archive_post.html; sourceTree = "<group>"; };
+		262B64E11336C5DA0086EB20 /* zbyhoo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zbyhoo.png; sourceTree = "<group>"; };
+		262B64E31336C5ED0086EB20 /* zbyhoo_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zbyhoo_test.png; sourceTree = "<group>"; };
 		263E1FDE1309810000775E2B /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		2648CF131301C1F2006941E9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2648CFE91301EF49006941E9 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -297,7 +301,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				2648D0521301F8FB006941E9 /* Tests-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -315,8 +318,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				262B64E31336C5ED0086EB20 /* zbyhoo_test.png */,
+				262B64E11336C5DA0086EB20 /* zbyhoo.png */,
 				26BE1CD71324310D00596340 /* Pictures */,
 				8D1107310486CEB800E47090 /* GDNet_ImageOfTheDay-Info.plist */,
+				2648D0521301F8FB006941E9 /* Tests-Info.plist */,
 				26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */,
@@ -421,6 +427,7 @@
 				26BE1CE61324314A00596340 /* whiteArrow.png in Resources */,
 				26BE1CE71324314A00596340 /* whiteArrow@2x.png in Resources */,
 				269D55A613302C6000156F5E /* PostDetailsController.xib in Resources */,
+				262B64E21336C5DA0086EB20 /* zbyhoo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +437,7 @@
 			files = (
 				264F31C2130C6D8300BEB7C7 /* sample_archive_main_page.html in Resources */,
 				262B64DE1336AC7D0086EB20 /* sample_archive_post.html in Resources */,
+				262B64E41336C5ED0086EB20 /* zbyhoo_test.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
