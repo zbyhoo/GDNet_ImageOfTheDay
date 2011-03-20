@@ -168,6 +168,7 @@ typedef enum {
         [activityIndicatorView startAnimating];
         
         self.imagesCell = cell;
+        self.imagesCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell release];
     }
     
@@ -249,6 +250,7 @@ typedef enum {
     if (self.descriptionCell == nil) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
         self.descriptionCell = cell;
+        self.descriptionCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell release];
     }
     
@@ -272,7 +274,6 @@ typedef enum {
     [webView release];
     self.webView.scalesPageToFit = NO;
     self.webView.multipleTouchEnabled = NO;
-    //self.webView.userInteractionEnabled = NO;
     [cell.contentView addSubview:self.webView];
 }
 
