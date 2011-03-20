@@ -23,6 +23,7 @@
     
     UIScrollView *_scrollView;
     UIPageControl *_pageControll;
+    UIActivityIndicatorView *_imagesLoadingIndicator;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;

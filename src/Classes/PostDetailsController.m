@@ -67,6 +67,8 @@ typedef enum {
 {
     [super viewDidLoad];
 
+    imageCellHeight = 100;
+    
     _dataManager = [[DataManager alloc] init];
     [_dataManager getPostInfoWithView:self];
 }
@@ -144,6 +146,22 @@ typedef enum {
     if (self.imagesCell == nil) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
         cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, imageCellHeight);
+        cell.backgroundColor = [UIColor blackColor];
+        
+        int indicatorSize = 20;
+        CGRect indicatorFrame = CGRectMake(cell.frame.size.width / 2 - indicatorSize,
+                                           cell.frame.size.height / 2 - indicatorSize / 2,
+                                           indicatorSize,
+                                           indicatorSize);
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:indicatorFrame];
+        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        
+        _imagesLoadingIndicator = activityIndicatorView;
+        [_imagesLoadingIndicator startAnimating];
+        [cell.contentView addSubview:_imagesLoadingIndicator];
+        
+        [activityIndicatorView startAnimating];
+        
         self.imagesCell = cell;
         [cell release];
     }
@@ -189,7 +207,7 @@ typedef enum {
     scrollView.pagingEnabled = YES;
     scrollView.backgroundColor = [UIColor blackColor];
     scrollView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
-    scrollView.showsHorizontalScrollIndicator = YES;
+    scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.bounces = YES;
     scrollView.scrollEnabled = YES;
@@ -210,6 +228,7 @@ typedef enum {
     imageCellHeight += pageControll.frame.size.height;
     
     cell.backgroundColor = [UIColor blackColor];
+    [_imagesLoadingIndicator stopAnimating];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
