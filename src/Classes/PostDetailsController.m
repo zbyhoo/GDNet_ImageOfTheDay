@@ -67,7 +67,7 @@ typedef enum {
 {
     [super viewDidLoad];
 
-    _imageCellHeight = 100;
+    _imageCellHeight = 40;
     _descCellHeight = 20;
     
     _dataManager = [[DataManager alloc] init];
