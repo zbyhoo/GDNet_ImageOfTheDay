@@ -6,10 +6,9 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @class DataManager;
 @class GDImagePost;
+@class WebView;
 
 @interface PostDetailsController : UITableViewController <UIWebViewDelegate> {
 @private
@@ -26,7 +25,7 @@
     int _imageCellHeight;
     int _descCellHeight;
     
-    UIWebView *_webView;
+    WebView *_webView;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;
@@ -37,7 +36,7 @@
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) UIPageControl *pageControll;
 @property (nonatomic, retain) UIActivityIndicatorView *imagesLoadingIndicator;
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, retain) WebView *webView;
 
 
 - (void)updateView:(GDImagePost*)post;

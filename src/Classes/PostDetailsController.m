@@ -12,6 +12,7 @@
 #import "GDArchiveHtmlStringConverter.h"
 #import "GDImagePost.h"
 #import "GDPicture.h"
+#import "WebView.h"
 
 @interface PostDetailsController (Private)
 
@@ -259,7 +260,7 @@ typedef enum {
     UITableViewCell *cell = [self getDescriptionCell:self.tableView];
     
     CGRect webFrame = CGRectMake(5, 5, cell.frame.size.width - 30, _descCellHeight - 10);
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:webFrame];
+    WebView *webView = [[WebView alloc] initWithFrame:webFrame];
     webView.delegate = self;
     
     NSString *pageWidht = [NSString stringWithFormat:@"<html><body><div style=\"width: %dpx; word-wrap: break-word\">", 275];
@@ -268,7 +269,11 @@ typedef enum {
     
     _descCellHeight = webView.frame.size.height + 10;
     self.webView = webView;
-    [cell.contentView addSubview:webView];
+    [webView release];
+    self.webView.scalesPageToFit = NO;
+    self.webView.multipleTouchEnabled = NO;
+    //self.webView.userInteractionEnabled = NO;
+    [cell.contentView addSubview:self.webView];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView {
@@ -290,6 +295,11 @@ typedef enum {
     
     UITableView *tableView = (UITableView*)cell.superview.superview;
     [tableView reloadData];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return NO;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -363,7 +373,7 @@ typedef enum {
      */
 }
 
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; 
 {
     NSURL *requestURL =[ [ request URL ] retain ]; 
     if ( ( [ [ requestURL scheme ] isEqualToString: @"http" ] || [ [ requestURL scheme ] isEqualToString: @"https" ] || [ [ requestURL scheme ] isEqualToString: @"mailto" ]) 

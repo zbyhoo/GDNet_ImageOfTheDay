@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		262637E01336463A00366FB2 /* WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 262637DF1336463A00366FB2 /* WebView.m */; };
 		263E1FDF1309810000775E2B /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263E1FDE1309810000775E2B /* GHUnitIOS.framework */; };
 		2648CFEA1301EF49006941E9 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648CFE91301EF49006941E9 /* Constants.m */; };
 		2648D0691301FA5A006941E9 /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */; };
@@ -72,6 +73,8 @@
 		1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNet_ImageOfTheDayAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDNet_ImageOfTheDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		262637DE1336463900366FB2 /* WebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebView.h; sourceTree = "<group>"; };
+		262637DF1336463A00366FB2 /* WebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebView.m; sourceTree = "<group>"; };
 		263E1FDE1309810000775E2B /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		2648CF131301C1F2006941E9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2648CFE91301EF49006941E9 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -276,6 +279,8 @@
 				26E81A771321A45900FD3D52 /* TableViewCell.m */,
 				269D55A213302C5B00156F5E /* PostDetailsController.h */,
 				269D55A313302C5C00156F5E /* PostDetailsController.m */,
+				262637DE1336463900366FB2 /* WebView.h */,
+				262637DF1336463A00366FB2 /* WebView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 				269D55A513302C6000156F5E /* PostDetailsController.m in Sources */,
 				264A60511332B63900037CEA /* GDPicture.m in Sources */,
 				264A60551332B63A00037CEA /* GDImagePost.m in Sources */,
+				262637E01336463A00366FB2 /* WebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
