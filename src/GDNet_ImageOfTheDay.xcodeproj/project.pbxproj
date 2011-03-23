@@ -16,6 +16,9 @@
 		262B64E21336C5DA0086EB20 /* zbyhoo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E11336C5DA0086EB20 /* zbyhoo.png */; };
 		262B64E41336C5ED0086EB20 /* zbyhoo_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E31336C5ED0086EB20 /* zbyhoo_test.png */; };
 		263E1FDF1309810000775E2B /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263E1FDE1309810000775E2B /* GHUnitIOS.framework */; };
+		2647D7B5133AA22100540BFB /* ZoomedImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */; };
+		2647D7B6133AA22100540BFB /* ZoomedImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2647D7B4133AA22100540BFB /* ZoomedImageViewController.xib */; };
+		2647D7B9133AA6C400540BFB /* ImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2647D7B8133AA6C300540BFB /* ImageButton.m */; };
 		2648CFEA1301EF49006941E9 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648CFE91301EF49006941E9 /* Constants.m */; };
 		2648D0691301FA5A006941E9 /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */; };
 		2648D0901301FCA5006941E9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -82,6 +85,11 @@
 		262B64E11336C5DA0086EB20 /* zbyhoo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zbyhoo.png; sourceTree = "<group>"; };
 		262B64E31336C5ED0086EB20 /* zbyhoo_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zbyhoo_test.png; sourceTree = "<group>"; };
 		263E1FDE1309810000775E2B /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
+		2647D7B2133AA22100540BFB /* ZoomedImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedImageViewController.h; sourceTree = "<group>"; };
+		2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomedImageViewController.m; sourceTree = "<group>"; };
+		2647D7B4133AA22100540BFB /* ZoomedImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZoomedImageViewController.xib; path = Classes/ZoomedImageViewController.xib; sourceTree = "<group>"; };
+		2647D7B7133AA6C300540BFB /* ImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageButton.h; sourceTree = "<group>"; };
+		2647D7B8133AA6C300540BFB /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageButton.m; sourceTree = "<group>"; };
 		2648CF131301C1F2006941E9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2648CFE91301EF49006941E9 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		2648D0501301F8FB006941E9 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,6 +296,10 @@
 				269D55A313302C5C00156F5E /* PostDetailsController.m */,
 				262637DE1336463900366FB2 /* WebView.h */,
 				262637DF1336463A00366FB2 /* WebView.m */,
+				2647D7B2133AA22100540BFB /* ZoomedImageViewController.h */,
+				2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */,
+				2647D7B7133AA6C300540BFB /* ImageButton.h */,
+				2647D7B8133AA6C300540BFB /* ImageButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -328,6 +340,7 @@
 				26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */,
 				26E81A9C1321A66C00FD3D52 /* TableViewCell.xib */,
 				269D55A413302C5C00156F5E /* PostDetailsController.xib */,
+				2647D7B4133AA22100540BFB /* ZoomedImageViewController.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -428,6 +441,7 @@
 				26BE1CE71324314A00596340 /* whiteArrow@2x.png in Resources */,
 				269D55A613302C6000156F5E /* PostDetailsController.xib in Resources */,
 				262B64E21336C5DA0086EB20 /* zbyhoo.png in Resources */,
+				2647D7B6133AA22100540BFB /* ZoomedImageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +480,8 @@
 				264A60511332B63900037CEA /* GDPicture.m in Sources */,
 				264A60551332B63A00037CEA /* GDImagePost.m in Sources */,
 				262637E01336463A00366FB2 /* WebView.m in Sources */,
+				2647D7B5133AA22100540BFB /* ZoomedImageViewController.m in Sources */,
+				2647D7B9133AA6C400540BFB /* ImageButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,8 @@
 #import "GDImagePost.h"
 #import "GDPicture.h"
 #import "WebView.h"
+#import "ImageButton.h"
+#import "ZoomedImageViewController.h"
 
 @interface PostDetailsController (Private)
 
@@ -175,6 +177,23 @@ typedef enum {
     return self.imagesCell;
 }
 
+- (void)imageButtonClick:(id)sender {
+    ImageButton *button = (ImageButton*)sender;
+    
+    if (button.picture.largePictureData == nil) {
+        LogError(@"no data for picture for url: %@", button.picture.largePictureUrl);
+        return;
+    }
+    
+    LogDebug(@"clicked - img url: %@", button.picture.largePictureUrl);
+    
+    UIImage *image = [[UIImage alloc] initWithData:button.picture.largePictureData];
+    ZoomedImageViewController *zoomedImageView = [[ZoomedImageViewController alloc] initWithImage:image];
+    [image release];
+    [self.navigationController pushViewController:zoomedImageView animated:YES];
+    [zoomedImageView release];
+}
+
 - (void)updateImagesCell:(GDImagePost*)post {
 
     UITableViewCell *cell = [self getImagesCell:self.tableView];
@@ -192,13 +211,17 @@ typedef enum {
         if (picture.smallPictureData) {
             UIImage *image = [[UIImage alloc] initWithData:picture.smallPictureData];
             
-            
             int currentPosition = (imageSpacing / 2) + (imageCount * (imageWidth + imageSpacing));
             CGRect imageFrame = CGRectMake(currentPosition, imageSpacing / 2, imageWidth, imageHeight);
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
-            imageView.image = image;
-            [scrollView addSubview:imageView];
-            [imageView release];
+            
+            ImageButton *button = [[ImageButton buttonWithType:UIButtonTypeCustom] retain];
+            button.frame = imageFrame;
+            button.bounds = CGRectMake(0, 0, imageFrame.size.width, imageFrame.size.height);
+            [button setBackgroundImage:image forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(imageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            button.picture = picture;
+            [scrollView addSubview:button];
+            
             [image release];
             
             ++imageCount;
