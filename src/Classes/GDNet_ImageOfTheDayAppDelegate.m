@@ -38,6 +38,7 @@
     // Initializing navigation controller for main "Image of the Day" view
     imagesNavigationController = [[UINavigationController alloc] init];
     imagesNavigationController.navigationBar.tintColor = [UIColor blackColor];
+    imagesNavigationController.tabBarItem.image = [UIImage imageNamed:@"121-landscape.png"];
     [imagesNavigationController pushViewController:imagesListViewController animated:NO];
     [imagesListViewController release];
     
@@ -45,11 +46,12 @@
     ImagesListViewController *favouritesViewController = [[ImagesListViewController alloc] 
                                                           initWithNibName:@"ImagesListViewController" bundle:nil];
     [favouritesViewController setDataType:POST_FAVOURITE];
-    favouritesViewController.title = @"Favourites";
+    favouritesViewController.title = @"Favorites";
     
     // Initializing navigation controller for "Favourites" view
     favouritesNavigationController = [[UINavigationController alloc] init];
     favouritesNavigationController.navigationBar.tintColor = [UIColor blackColor];
+    favouritesNavigationController.tabBarItem.image = [UIImage imageNamed:@"28-star.png"];
     [favouritesNavigationController pushViewController:favouritesViewController animated:NO];
     [favouritesViewController release];
     
@@ -57,6 +59,7 @@
     SettingsViewController *settingsViewController = [[SettingsViewController alloc]
                                                        initWithNibName:@"SettingsViewController" bundle:nil];
     settingsViewController.title = @"Settings";
+    settingsViewController.tabBarItem.image = [UIImage imageNamed:@"20-gear2.png"];
     
     // Initializing main bar controller
 	tabBarController = [[UITabBarController alloc] init];

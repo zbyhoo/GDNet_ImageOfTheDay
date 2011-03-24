@@ -55,8 +55,8 @@
     [imageView release];
     
     _scrollView.contentSize = CGSizeMake(imageView.frame.size.width, imageView.frame.size.height);
-    _scrollView.maximumZoomScale = 4.0;
-    _scrollView.minimumZoomScale = 0.5;
+    _scrollView.maximumZoomScale = 8.0;
+    _scrollView.minimumZoomScale = 0.1;
     _scrollView.clipsToBounds = YES;
     _scrollView.delegate = self;
     _scrollView.backgroundColor = [UIColor blackColor];
