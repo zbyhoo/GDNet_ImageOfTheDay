@@ -100,7 +100,24 @@ static NSUInteger helperIndex = 60;
     return [dict autorelease];
 }
 
+- (NSString*)getLargeImageUrl:(NSString*)url {
+    
+    NSString *picPage = [self getData:url];
+    NSRange range;
+    range.location = 0;
+    range.length = picPage.length - 1;
+    
+    @try {
+        return [Utilities getSubstringFrom:picPage range:&range after:@"src=\"" before:@"\" title"];
+    }
+    @catch (NSException *exception) {
+        LogError(@"unknown exception catched");
+    }
+    return nil;
+}
+
 - (NSArray*)convertImageUrls:(NSString*)chunk {
+    
     NSRange range;
     range.location = 0;
     range.length = chunk.length - 1;
@@ -125,7 +142,7 @@ static NSUInteger helperIndex = 60;
                 break;
             }
             else if ([largeImage hasPrefix:@"gallery"]) {
-                largeImage = [NSString stringWithFormat:@"%@%@", GD_ARCHIVE_POST_PRE_URL, largeImage];
+                largeImage = [self getLargeImageUrl:[NSString stringWithFormat:@"%@%@", GD_ARCHIVE_POST_PRE_URL, largeImage]];
             }
             // TODO parse title here
             smallImage = [Utilities getSubstringFrom:chunk range:&range after:@"src=\"" before:@"\"></a>"];           
