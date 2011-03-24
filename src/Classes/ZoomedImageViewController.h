@@ -9,7 +9,10 @@
 @interface ZoomedImageViewController : UIViewController <UIScrollViewDelegate> {
     IBOutlet UIScrollView *_scrollView;
     UIImage *_image;
+    UIImageView *_imageView;
 }
+
+@property (nonatomic, retain) UIImageView *imageView;
 
 - (id)initWithImage:(UIImage*)image;
 
