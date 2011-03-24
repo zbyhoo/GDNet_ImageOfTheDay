@@ -207,10 +207,13 @@ static NSUInteger helperIndex = 60;
     int index = 0;
 
     for (NSString *url in imageUrls) {
+        
+        NSString *properUrl = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        
         NSString *key = [NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++];
-        LogDebug(@"IMG URL: %@", url);
+        LogDebug(@"IMG URL: %@", properUrl);
         LogDebug(@"FOR KEY: %@", key);
-        [dict setValue:url forKey:key];
+        [dict setValue:properUrl forKey:key];
     }
     [dict setValue:[NSNumber numberWithInt:index] forKey:KEY_IMAGES_COUNT];
     
