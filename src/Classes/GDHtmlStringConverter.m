@@ -25,10 +25,6 @@
     [super dealloc];
 }
 
-- (int)converterId {
-    return CONVERTER_GD;
-}
-
 - (NSArray*)convertGalleryWithDate:(NSNull*)timestamp latest:(BOOL)latest {
     
     NSString *pageContent = [self getData:self.mainUrl];

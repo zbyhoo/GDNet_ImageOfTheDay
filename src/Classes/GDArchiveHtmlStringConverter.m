@@ -19,10 +19,6 @@ static NSUInteger helperIndex = 60;
     helperIndex = index;
 }
 
-- (int)converterId {
-    return CONVERTER_GD_ARCHIVE;
-}
-
 - (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage {
     NSMutableArray *chunks = [NSMutableArray arrayWithArray:[htmlPage componentsSeparatedByString:GD_ARCHIVE_POST_SEPARATOR]];
     
