@@ -95,7 +95,7 @@ static NSUInteger helperIndex = 60;
     [dict setValue:postUrl forKey:KEY_POST_URL];
     [dict setValue:title forKey:KEY_TITLE];
     [dict setValue:imgUrl forKey:KEY_IMAGE_URL];
-    [dict setValue:[NSNumber numberWithInt:[self converterId]] forKey:KEY_TYPE];
+    [dict setValue:NSStringFromClass(self.class) forKey:KEY_TYPE];
     
     return [dict autorelease];
 }

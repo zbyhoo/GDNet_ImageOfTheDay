@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSNumber * postDate;
 @property (nonatomic, retain) NSNumber * favourite;
 @property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) NSNumber * type;
+@property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSSet* pictures;
 
 @end

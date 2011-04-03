@@ -14,32 +14,17 @@
 #import "DBHelper.h"
 #import "PostDetailsController.h"
 
-#import "GDArchiveHtmlStringConverter.h"
+#import "ConvertersManager.h"
 
 @implementation DataManager
 
+static ConvertersManager *convertersManager = nil;
 
-NSArray *converters = nil;
-
-+ (NSArray*)getConverters {
-    if (converters == nil) {
-        GDArchiveHtmlStringConverter *gdArchive = [[GDArchiveHtmlStringConverter alloc] init];
-        
-        converters = [[NSArray alloc] initWithObjects:gdArchive, nil];
-        
-        [gdArchive release];
++ (ConvertersManager*)getConvertersManager {
+    if (!convertersManager) {
+        convertersManager = [[ConvertersManager alloc] init];
     }
-    return converters;
-}
-
-+ (NSObject<GDDataConverter>*)getConverterType:(NSNumber*)type {
-    for (NSObject<GDDataConverter> *converter in [DataManager getConverters]) {
-        if ([converter converterId] == [type intValue]) {
-            return converter;
-        }
-    }
-    LogError(@"unknown converter type: %d", type);
-    return nil;
+    return convertersManager;
 }
 
 @synthesize posts = _posts;
@@ -222,7 +207,7 @@ NSArray *converters = nil;
     LogDebug(@"most recent post date: %d", [timestamp intValue]);
     
     // TODO download until timestamp met
-    for (NSObject<GDDataConverter> *converter in [DataManager getConverters])
+    for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
     {
         NSArray *webPosts = [converter convertGalleryWithDate:nil latest:YES];
         NSDictionary *objectDict;
@@ -262,7 +247,7 @@ NSArray *converters = nil;
     
     GDImagePost *post = [array objectAtIndex:0];
     
-    NSDictionary *postDict = [[DataManager getConverterType:post.type] convertPost:view.postId];
+    NSDictionary *postDict = [[[DataManager getConvertersManager] getConverterType:post.type] convertPost:view.postId];
     if (postDict == nil) {
         [pool drain];
         return;
