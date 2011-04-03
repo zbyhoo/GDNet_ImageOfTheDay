@@ -64,17 +64,32 @@ static ConvertersManager *convertersManager = nil;
 #pragma mark -
 #pragma mark Business stuff
 
+- (NSSortDescriptor*)getDateSortDescriptor {
+    
+    return [[[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:NO] autorelease];
+}
+
+- (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted {
+
+    BOOL typeFavorite = (_dataType == POST_FAVOURITE);
+    
+    NSString *predicateString = [NSString stringWithFormat:@"(deleted==%d) AND (favourite==%d)", deleted, typeFavorite];
+    return [NSPredicate predicateWithFormat:predicateString];
+}
+
+- (BOOL)shouldDownloadData {
+    
+    return (self.posts.count == 0 && _dataType != POST_FAVOURITE);
+}
+
 - (void)preloadData:(UITableView*)view {
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:NO];
     
-    NSString *predicateString = [NSString stringWithFormat:@"(deleted==%d) AND (favourite==%d)", NO, (_dataType == POST_FAVOURITE)];
-    LogDebug(@"preload predicate (data type %d): %@", _dataType, predicateString);
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
+    self.posts = [self.dbHelper 
+                  fetchObjects:@"GDImagePost" 
+                  predicate:[self getPredicateWithDeleted:NO] 
+                  sorting:[self getDateSortDescriptor]];
     
-    self.posts = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:sortDescriptor];
-    [sortDescriptor release];
-    
-    if (self.posts.count == 0 && _dataType != POST_FAVOURITE) {
+    if ([self shouldDownloadData]) {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
     
@@ -93,6 +108,7 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view {
+    
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     post.favourite = [NSNumber numberWithBool:YES];
     
@@ -103,7 +119,7 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent {
-    // TODO check in the future relationships
+
     if (permanent == YES) {
         if ([self.dbHelper deleteObject:[self.posts objectAtIndex:position.row]] == NO) {
             LogError(@"unable to delete post");

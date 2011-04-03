@@ -43,4 +43,8 @@
 - (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath;
 - (GDImagePost*)getPostAtIndex:(NSIndexPath*)indexPath;
 
+- (NSSortDescriptor*)getDateSortDescriptor;
+- (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted;
+- (BOOL)shouldDownloadData;
+
 @end
