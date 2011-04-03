@@ -107,7 +107,7 @@ static ConvertersManager *convertersManager = nil;
     return self.posts.count; 
 }
 
-- (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view {
+- (void)addToFavourites:(NSIndexPath*)position {
     
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     post.favourite = [NSNumber numberWithBool:YES];
@@ -118,41 +118,40 @@ static ConvertersManager *convertersManager = nil;
     }
 }
 
-- (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent {
-
-    if (permanent == YES) {
-        if ([self.dbHelper deleteObject:[self.posts objectAtIndex:position.row]] == NO) {
-            LogError(@"unable to delete post");
-            return;
-        }
-    }
-    else {
-        GDImagePost* post = [self.posts objectAtIndex:position.row];
-        post.deleted = [NSNumber numberWithBool:YES];
-    }
+- (void)markDeleted:(NSIndexPath*)position {
     
+    GDImagePost* post = [self.posts objectAtIndex:position.row];
+    post.deleted = [NSNumber numberWithBool:YES];
+    [self.posts removeObjectAtIndex:position.row];
+}
+
+- (void)permanentlyDeletePost:(NSIndexPath*)position {
+
+    if ([self.dbHelper deleteObject:[self.posts objectAtIndex:position.row]] == NO) {
+     
+        LogError(@"unable to delete post");
+        return;
+    }
     [self.posts removeObjectAtIndex:position.row];
 }
 
 - (NSNumber*)mostRecentPostDate {
     
-    NSSortDescriptor *sorting = [[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:YES];
-    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:nil sorting:sorting];
-    [sorting release];
+    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:nil sorting:[self getDateSortDescriptor]];
     
-    if (objects != nil && [objects count] > 0) {
-        GDImagePost* post = (GDImagePost*)[objects objectAtIndex:0];
-        return post.postDate;
+    if ([objects count] > 0) {
+        return ((GDImagePost*)[objects objectAtIndex:0]).postDate;
     }
     return nil;
 }
 
-- (BOOL)existsInDatabase:(NSDictionary*)objectDict {
-    NSPredicate *requestPredicate = [NSPredicate 
-                                     predicateWithFormat:[NSString stringWithFormat:@"(url like '%@')", [objectDict valueForKey:KEY_POST_URL]]];    
-    LogDebug(@"searching core data for: %@", [objectDict valueForKey:KEY_POST_URL]);
+- (NSPredicate*)getPredicateWithUrlFromDict:(NSDictionary*)dict {
+    return [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(url like '%@')", [dict valueForKey:KEY_POST_URL]]];    
+}
 
-    NSArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:requestPredicate sorting:nil];
+- (BOOL)existsInDatabase:(NSDictionary*)objectDict {
+
+    NSArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:[self getPredicateWithUrlFromDict:objectDict] sorting:nil];
     if (array == nil) {
         LogError(@"nil returned istead of array");
         return NO;
@@ -182,6 +181,7 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (void)downloadImages:(GDImagePost*)post {
+    
     GDPicture *picture;
     for (picture in post.pictures) {
         NSURL *imgUrl   = [NSURL URLWithString:picture.smallPictureUrl];
@@ -195,6 +195,7 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (void)addToDatabase:(NSDictionary*)objectDict {
+    
     GDImagePost* imagePost = (GDImagePost*)[self.dbHelper createNew:@"GDImagePost"];
     imagePost.author    = [objectDict valueForKey:KEY_AUTHOR];
     imagePost.title     = [objectDict valueForKey:KEY_TITLE];
@@ -217,6 +218,7 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (void)downloadData:(UITableView*)view {
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSNumber *timestamp = [self mostRecentPostDate];
@@ -244,10 +246,12 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (void)refreshFromWeb:(UITableView*)view {
+    
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
 - (void)downloadPostInfoWithView:(PostDetailsController*)view {
+    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];

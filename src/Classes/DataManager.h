@@ -33,8 +33,9 @@
 - (void)refreshFromWeb:(UITableView*)view;
 - (void)preloadData:(UITableView*)view;
 - (NSUInteger)postsCount;
-- (void)deletePost:(NSIndexPath*)position permanent:(BOOL)permanent;
-- (void)addToFavourites:(NSIndexPath*)position view:(UITableView*)view;
+- (void)markDeleted:(NSIndexPath*)position;
+- (void)permanentlyDeletePost:(NSIndexPath*)position;
+- (void)addToFavourites:(NSIndexPath*)position;
 - (void)refresh:(UITableView*)view;
 - (void)refreshFromWeb:(UITableView*)view;
 
