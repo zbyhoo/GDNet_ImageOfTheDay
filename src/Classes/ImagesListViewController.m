@@ -215,6 +215,7 @@
                                                             initWithNibName:@"PostDetailsController" bundle:nil];
     imageDetailViewController.title = [self.dataManager getTitleOfPostAtIndex:indexPath];
     imageDetailViewController.postId = [self.dataManager getPostIdAtIndex:indexPath];
+    imageDetailViewController.dataType = self.dataManager.dataType;
     
     [self.navigationController pushViewController:imageDetailViewController animated:YES];
     [imageDetailViewController release];

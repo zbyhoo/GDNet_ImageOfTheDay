@@ -24,6 +24,7 @@
 
 @property (retain, nonatomic) NSMutableArray *posts;
 @property (retain, nonatomic) DBHelper *dbHelper;
+@property (assign, nonatomic) int dataType;
 
 - (id)initWithDataType:(int)type 
               dbHelper:(DBHelper*)dbHelper;
@@ -36,6 +37,7 @@
 - (void)markDeleted:(NSIndexPath*)position;
 - (void)permanentlyDeletePost:(NSIndexPath*)position;
 - (void)addToFavourites:(NSIndexPath*)position;
+- (void)removeFromFavorites:(NSIndexPath*)position;
 - (void)refresh:(UITableView*)view;
 - (void)refreshFromWeb:(UITableView*)view;
 
@@ -43,9 +45,13 @@
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath;
 - (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath;
 - (GDImagePost*)getPostAtIndex:(NSIndexPath*)indexPath;
+- (GDImagePost*)getPostWithId:(NSString*)postId;
 
 - (NSSortDescriptor*)getDateSortDescriptor;
 - (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted;
 - (BOOL)shouldDownloadData;
+
+- (BOOL)addPostToFavourites:(GDImagePost*)post;
+- (BOOL)removePostFromFavorites:(GDImagePost*)post;
 
 @end

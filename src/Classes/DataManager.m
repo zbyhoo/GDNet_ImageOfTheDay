@@ -29,6 +29,7 @@ static ConvertersManager *convertersManager = nil;
 
 @synthesize posts = _posts;
 @synthesize dbHelper = _dbHelper;
+@synthesize dataType = _dataType;
 
 - (id)initWithDataType:(int)type 
               dbHelper:(DBHelper*)dbHelper {
@@ -49,7 +50,7 @@ static ConvertersManager *convertersManager = nil;
 
 - (id)init {
     if ((self = [super init])) {
-        _dataType = -1;
+        _dataType = POST_NORMAL;
         _dbHelper = [[DBHelper alloc]init];
     }
     return self;
@@ -97,25 +98,52 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (void)refresh:(UITableView*)view {
-    if ([self.dbHelper isModified]) {
+    //if ([self.dbHelper isModified]) {
         [self preloadData:view];
         [view reloadData];
-    }
+    //}
 }
 
 - (NSUInteger)postsCount { 
     return self.posts.count; 
 }
 
-- (void)addToFavourites:(NSIndexPath*)position {
+- (BOOL)addPostToFavourites:(GDImagePost*)post {
     
-    GDImagePost* post = [self.posts objectAtIndex:position.row];
     post.favourite = [NSNumber numberWithBool:YES];
     
     if ([self.dbHelper saveContext]) {
-        [self.posts removeObjectAtIndex:position.row];
+        
         [self.dbHelper markModified];
+        return YES;
     }
+    return NO;
+}
+
+- (BOOL)removePostFromFavorites:(GDImagePost*)post {
+    
+    post.favourite = [NSNumber numberWithBool:NO];
+    
+    if ([self.dbHelper saveContext]) {
+        
+        [self.dbHelper markModified];
+        return YES;
+    }
+    return NO;
+}
+
+- (void)addToFavourites:(NSIndexPath*)position {
+    
+    GDImagePost* post = [self.posts objectAtIndex:position.row];
+    if ([self addPostToFavourites:post])
+        [self.posts removeObjectAtIndex:position.row];
+}
+
+- (void)removeFromFavorites:(NSIndexPath *)position {
+    
+    GDImagePost* post = [self.posts objectAtIndex:position.row];
+    if ([self removePostFromFavorites:post])
+        [self.posts removeObjectAtIndex:position.row];
 }
 
 - (void)markDeleted:(NSIndexPath*)position {
@@ -304,16 +332,22 @@ static ConvertersManager *convertersManager = nil;
     [pool drain];
 }
 
-- (void)getPostInfoWithView:(PostDetailsController*)view {
+- (GDImagePost*)getPostWithId:(NSString*)postId {
     
-    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];
+    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", postId];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
     NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
     if (array.count != 1) {
         LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
-        return;
+        return nil;
     }
-    GDImagePost *post = [array objectAtIndex:0];
+   return [array objectAtIndex:0];
+}
+
+- (void)getPostInfoWithView:(PostDetailsController*)view {
+    
+    GDImagePost *post = [self getPostWithId:view.postId];
+    
     if ([post.postDescription length] > 0) {
         
         for (GDPicture *picture in post.pictures) {

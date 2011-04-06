@@ -37,6 +37,7 @@ typedef enum {
 } Sections;
 
 @synthesize dataManager     = _dataManager;
+@synthesize dataType        = _dataType;
 @synthesize postId          = _postId;
 
 @synthesize imagesCell      = _imagesCell;
@@ -89,13 +90,13 @@ typedef enum {
     [super viewDidLoad];
 
     _imageCellHeight = 40;
-    _favoriteCellHeight = 20;
+    _favoriteCellHeight = 30;
     _descCellHeight = 20;
     _commentsCellHeight = 20;
     
     _isDataLoaded = NO;
     
-    _dataManager = [[DataManager alloc] init];
+    _dataManager = [[DataManager alloc] initWithDataType:self.dataType];
     [_dataManager getPostInfoWithView:self];
 }
 
@@ -359,7 +360,7 @@ typedef enum {
         
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
         self.favoriteCell = cell;
-        self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleNone; //TODO
+        self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleGray; //TODO
         [cell release];
     }
     
@@ -368,6 +369,8 @@ typedef enum {
 
 - (void)updateFavoriteCell {
     // TODO
+    self.favoriteCell.textLabel.text = (self.dataManager.dataType == POST_FAVOURITE) ?
+                                        @"Add to Favorites" : @"Remove from Favorites";
 }
 
 - (UITableViewCell*)getCommentsCell:(UITableView*)tableView {
@@ -391,7 +394,7 @@ typedef enum {
     switch (indexPath.section) {
         case SECTION_IMAGES:        return _imageCellHeight;
         case SECTION_FAVORITE:      return _favoriteCellHeight;
-        case SECTION_DESCRIPTION:   NSLog(@"returning height : %d", _descCellHeight); return _descCellHeight;
+        case SECTION_DESCRIPTION:   return _descCellHeight;
         case SECTION_COMMENTS:      return _commentsCellHeight;
         default:                    return 0.0f;
     }
@@ -450,15 +453,28 @@ typedef enum {
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+{    
+    switch (indexPath.section) 
+    {
+        case SECTION_FAVORITE:
+        {
+            GDImagePost *post = [self.dataManager getPostWithId:_postId];
+            
+            if (self.dataManager.dataType == POST_NORMAL)
+                [self.dataManager addPostToFavourites:post];
+            else if (self.dataManager.dataType == POST_FAVOURITE)
+                [self.dataManager removePostFromFavorites:post];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; 
