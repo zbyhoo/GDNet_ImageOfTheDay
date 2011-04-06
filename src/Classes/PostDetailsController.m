@@ -92,7 +92,7 @@ typedef enum {
     _imageCellHeight = 40;
     _favoriteCellHeight = 30;
     _descCellHeight = 20;
-    _commentsCellHeight = 20;
+    _commentsCellHeight = 30;
     
     _isDataLoaded = NO;
     
@@ -360,33 +360,33 @@ typedef enum {
         
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
         self.favoriteCell = cell;
-        self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleGray; //TODO
+        self.favoriteCell.backgroundColor = [UIColor blackColor];
+        self.favoriteCell.textLabel.textColor = [UIColor whiteColor];
+        self.favoriteCell.textLabel.textAlignment = UITextAlignmentCenter;
+        self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleGray;
+        self.favoriteCell.textLabel.text = (self.dataManager.dataType == POST_NORMAL) ?
+                                            @"Add to Favorites" : @"Remove from Favorites";
         [cell release];
     }
     
     return self.favoriteCell;
 }
 
-- (void)updateFavoriteCell {
-    // TODO
-    self.favoriteCell.textLabel.text = (self.dataManager.dataType == POST_FAVOURITE) ?
-                                        @"Add to Favorites" : @"Remove from Favorites";
-}
-
 - (UITableViewCell*)getCommentsCell:(UITableView*)tableView {
+
     if (self.commentsCell == nil) {
         
         UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
         self.commentsCell = cell;
-        self.commentsCell.selectionStyle = UITableViewCellSelectionStyleNone; //TODO
+        self.commentsCell.backgroundColor = [UIColor blackColor];
+        self.commentsCell.textLabel.textColor = [UIColor whiteColor];
+        self.commentsCell.textLabel.textAlignment = UITextAlignmentCenter;
+        self.commentsCell.selectionStyle = UITableViewCellSelectionStyleGray;
+        self.commentsCell.textLabel.text = @"Comments (online)";
         [cell release];
     }
     
     return self.commentsCell;
-}
-
-- (void)updateCommentsCell:(GDImagePost*)post {
-    // TODO
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -404,9 +404,9 @@ typedef enum {
     
     switch (section) {
         case SECTION_IMAGES:        return @"Images";
-        case SECTION_FAVORITE:      return @"Favorite";
+        case SECTION_FAVORITE:      return @"";
         case SECTION_DESCRIPTION:   return @"Description";
-        case SECTION_COMMENTS:      return @"Comments";
+        case SECTION_COMMENTS:      return @"";
         default:                    return @"";
     }
 }
@@ -452,23 +452,25 @@ typedef enum {
 
 #pragma mark - Table view delegate
 
+- (void)favoriteButtonSelected {
+    
+    GDImagePost *post = [self.dataManager getPostWithId:_postId];
+    
+    if (self.dataManager.dataType == POST_NORMAL)
+        [self.dataManager addPostToFavourites:post];
+    else if (self.dataManager.dataType == POST_FAVOURITE)
+        [self.dataManager removePostFromFavorites:post];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     switch (indexPath.section) 
     {
         case SECTION_FAVORITE:
-        {
-            GDImagePost *post = [self.dataManager getPostWithId:_postId];
-            
-            if (self.dataManager.dataType == POST_NORMAL)
-                [self.dataManager addPostToFavourites:post];
-            else if (self.dataManager.dataType == POST_FAVOURITE)
-                [self.dataManager removePostFromFavorites:post];
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
+            [self favoriteButtonSelected];
             break;
-        }
             
         default:
             break;
@@ -495,8 +497,6 @@ typedef enum {
     
     [self updateImagesCell:post];
     [self updateDescriptionCell:post];
-    [self updateFavoriteCell];
-    [self updateCommentsCell:post];
     
     [self.tableView reloadData];
 }
