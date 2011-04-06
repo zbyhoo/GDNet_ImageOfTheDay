@@ -20,6 +20,8 @@
 
 - (UITableViewCell*)getImagesCell:(UITableView*)tableView;
 - (UITableViewCell*)getDescriptionCell:(UITableView*)tableView;
+- (UITableViewCell*)getFavoriteCell:(UITableView*)tableView;
+- (UITableViewCell*)getCommentsCell:(UITableView*)tableView;
 
 @end
 
@@ -27,19 +29,25 @@
 
 typedef enum {
     SECTION_IMAGES,
+    SECTION_FAVORITE,
     SECTION_DESCRIPTION,
+    SECTION_COMMENTS,
     
     SECTION_COUNT
 } Sections;
 
-@synthesize dataManager = _dataManager;
-@synthesize postId = _postId;
-@synthesize imagesCell = _imagesCell;
+@synthesize dataManager     = _dataManager;
+@synthesize postId          = _postId;
+
+@synthesize imagesCell      = _imagesCell;
+@synthesize favoriteCell    = _favoriteCell;
 @synthesize descriptionCell = _descriptionCell;
-@synthesize scrollView = _scrollView;
-@synthesize pageControll = _pageControll;
+@synthesize commentsCell    = _commentsCell;
+
+@synthesize scrollView      = _scrollView;
+@synthesize pageControll    = _pageControll;
 @synthesize imagesLoadingIndicator = _imagesLoadingIndicator;
-@synthesize webView = _webView;
+@synthesize webView         = _webView;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -52,6 +60,17 @@ typedef enum {
 
 - (void)dealloc
 {
+    self.dataManager = nil;
+    self.postId = nil;
+    self.imagesCell = nil;
+    self.favoriteCell = nil;
+    self.descriptionCell = nil;
+    self.commentsCell = nil;
+    self.scrollView = nil;
+    self.pageControll = nil;
+    self.imagesLoadingIndicator = nil;
+    self.webView = nil;
+    
     [super dealloc];
 }
 
@@ -70,7 +89,9 @@ typedef enum {
     [super viewDidLoad];
 
     _imageCellHeight = 40;
+    _favoriteCellHeight = 20;
     _descCellHeight = 20;
+    _commentsCellHeight = 20;
     
     _dataManager = [[DataManager alloc] init];
     [_dataManager getPostInfoWithView:self];
@@ -78,14 +99,14 @@ typedef enum {
 
 - (void)viewDidUnload
 {
-    self.dataManager = nil;
-    self.postId = nil;
-    self.imagesCell = nil;
-    self.descriptionCell = nil;
-    self.scrollView = nil;
-    self.pageControll = nil;
+    self.dataManager        = nil;
+    self.postId             = nil;
+    self.imagesCell         = nil;
+    self.descriptionCell    = nil;
+    self.scrollView         = nil;
+    self.pageControll       = nil;
     self.imagesLoadingIndicator = nil;
-    self.webView = nil;
+    self.webView            = nil;
     
     [super viewDidUnload];
 }
@@ -112,7 +133,6 @@ typedef enum {
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -120,13 +140,11 @@ typedef enum {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return SECTION_COUNT;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return 1;
 }
 
@@ -138,8 +156,14 @@ typedef enum {
         case SECTION_IMAGES:
             cell = [self getImagesCell:tableView];
             break;
+        case SECTION_FAVORITE:
+            cell = [self getFavoriteCell:tableView];
+            break;
         case SECTION_DESCRIPTION:
             cell = [self getDescriptionCell:tableView];
+            break;
+        case SECTION_COMMENTS:
+            cell = [self getCommentsCell:tableView];
             break;
         default:
             break;
@@ -275,6 +299,8 @@ typedef enum {
         self.descriptionCell = cell;
         self.descriptionCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell release];
+        
+        _tableView = tableView;
     }
     
     return self.descriptionCell;
@@ -301,15 +327,15 @@ typedef enum {
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView {
+    
     int contentHeight = [[self.webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"] intValue];
     LogDebug(@"content height: %d", contentHeight);
     contentHeight += 10;
     self.webView.frame = CGRectMake(5, 5, self.webView.frame.size.width, contentHeight);
     _descCellHeight = contentHeight + 10;
-    UITableViewCell *cell = (UITableViewCell*)[self.webView superview];
-    CGRect frame = cell.frame;
+    CGRect frame = self.descriptionCell.frame;
     frame.size.height = _descCellHeight;
-    cell.frame = frame;
+    self.descriptionCell.frame = frame;
     
     for (UIView *view in self.webView.subviews) {
         if ([[view class] isSubclassOfClass:[UIScrollView class]]) {
@@ -317,8 +343,7 @@ typedef enum {
         }
     }
     
-    UITableView *tableView = (UITableView*)cell.superview.superview;
-    [tableView reloadData];
+    [_tableView reloadData];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -326,11 +351,46 @@ typedef enum {
     return NO;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell*)getFavoriteCell:(UITableView*)tableView {
+    
+    if (self.favoriteCell == nil) {
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
+        self.favoriteCell = cell;
+        self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleNone; //TODO
+        [cell release];
+    }
+    
+    return self.favoriteCell;
+}
+
+- (void)updateFavoriteCell {
+    // TODO
+}
+
+- (UITableViewCell*)getCommentsCell:(UITableView*)tableView {
+    if (self.commentsCell == nil) {
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
+        self.commentsCell = cell;
+        self.commentsCell.selectionStyle = UITableViewCellSelectionStyleNone; //TODO
+        [cell release];
+    }
+    
+    return self.commentsCell;
+}
+
+- (void)updateCommentsCell:(GDImagePost*)post {
+    // TODO
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     switch (indexPath.section) {
         case SECTION_IMAGES:        return _imageCellHeight;
-        case SECTION_DESCRIPTION:   return _descCellHeight;
+        case SECTION_FAVORITE:      return _favoriteCellHeight;
+        case SECTION_DESCRIPTION:   NSLog(@"returning height : %d", _descCellHeight); return _descCellHeight;
+        case SECTION_COMMENTS:      return _commentsCellHeight;
         default:                    return 0.0f;
     }
 }
@@ -339,7 +399,9 @@ typedef enum {
     
     switch (section) {
         case SECTION_IMAGES:        return @"Images";
+        case SECTION_FAVORITE:      return @"Favorite";
         case SECTION_DESCRIPTION:   return @"Description";
+        case SECTION_COMMENTS:      return @"Comments";
         default:                    return @"";
     }
 }
@@ -412,6 +474,8 @@ typedef enum {
 
     [self updateImagesCell:post];
     [self updateDescriptionCell:post];
+    [self updateFavoriteCell];
+    [self updateCommentsCell:post];
     
     [self.tableView reloadData];
 }

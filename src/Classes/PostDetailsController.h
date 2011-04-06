@@ -15,23 +15,31 @@
     DataManager *_dataManager;
     NSString *_postId;    
     
-    IBOutlet UITableViewCell *_imagesCell;
-    IBOutlet UITableViewCell *_descriptionCell;
+    UITableViewCell *_imagesCell;
+    UITableViewCell *_descriptionCell;
+    UITableViewCell *_favoriteCell;
+    UITableViewCell *_commentsCell;
     
     UIScrollView *_scrollView;
     UIPageControl *_pageControll;
     UIActivityIndicatorView *_imagesLoadingIndicator;
     
     int _imageCellHeight;
+    int _favoriteCellHeight;
     int _descCellHeight;
+    int _commentsCellHeight;
     
     WebView *_webView;
+    
+    UITableView *_tableView;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;
 @property (nonatomic, retain) NSString *postId;
 @property (nonatomic, retain) UITableViewCell *descriptionCell;
+@property (nonatomic, retain) UITableViewCell *favoriteCell;
 @property (nonatomic, retain) UITableViewCell *imagesCell;
+@property (nonatomic, retain) UITableViewCell *commentsCell;
 
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) UIPageControl *pageControll;
