@@ -363,7 +363,7 @@ typedef enum {
         self.favoriteCell.backgroundColor = [UIColor blackColor];
         self.favoriteCell.textLabel.textColor = [UIColor whiteColor];
         self.favoriteCell.textLabel.textAlignment = UITextAlignmentCenter;
-        self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleGray;
+        self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleNone;
         self.favoriteCell.textLabel.text = (self.dataManager.dataType == POST_NORMAL) ?
                                             @"Add to Favorites" : @"Remove from Favorites";
         [cell release];
@@ -381,7 +381,7 @@ typedef enum {
         self.commentsCell.backgroundColor = [UIColor blackColor];
         self.commentsCell.textLabel.textColor = [UIColor whiteColor];
         self.commentsCell.textLabel.textAlignment = UITextAlignmentCenter;
-        self.commentsCell.selectionStyle = UITableViewCellSelectionStyleGray;
+        self.commentsCell.selectionStyle = UITableViewCellSelectionStyleNone;
         self.commentsCell.textLabel.text = @"Comments (online)";
         [cell release];
     }
@@ -464,12 +464,24 @@ typedef enum {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)commentsButtonSelected {
+    
+    GDImagePost *post = [self.dataManager getPostWithId:_postId];
+    
+    NSURL *url = [[NSURL alloc] initWithString:post.url];
+    [[UIApplication sharedApplication ] openURL: [url autorelease]];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     switch (indexPath.section) 
     {
         case SECTION_FAVORITE:
             [self favoriteButtonSelected];
+            break;
+        
+        case SECTION_COMMENTS:
+            [self commentsButtonSelected];
             break;
             
         default:
