@@ -32,6 +32,8 @@
     WebView *_webView;
     
     UITableView *_tableView;
+    
+    BOOL _isDataLoaded;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;

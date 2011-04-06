@@ -93,6 +93,8 @@ typedef enum {
     _descCellHeight = 20;
     _commentsCellHeight = 20;
     
+    _isDataLoaded = NO;
+    
     _dataManager = [[DataManager alloc] init];
     [_dataManager getPostInfoWithView:self];
 }
@@ -140,12 +142,12 @@ typedef enum {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return SECTION_COUNT;
+    return _isDataLoaded ? SECTION_COUNT : 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return _isDataLoaded ? 1 : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -472,6 +474,9 @@ typedef enum {
 
 - (void)updateView:(GDImagePost*)post {
 
+    _isDataLoaded = YES;
+    [self.tableView reloadData];
+    
     [self updateImagesCell:post];
     [self updateDescriptionCell:post];
     [self updateFavoriteCell];
