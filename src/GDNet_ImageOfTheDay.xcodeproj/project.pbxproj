@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		26105571134E389300513008 /* FavoritesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26105570134E389300513008 /* FavoritesListViewController.m */; };
 		262637E01336463A00366FB2 /* WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 262637DF1336463A00366FB2 /* WebView.m */; };
 		262B64DE1336AC7D0086EB20 /* sample_archive_post.html in Resources */ = {isa = PBXBuildFile; fileRef = 262B64DD1336AC7D0086EB20 /* sample_archive_post.html */; };
 		262B64E21336C5DA0086EB20 /* zbyhoo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E11336C5DA0086EB20 /* zbyhoo.png */; };
@@ -85,6 +86,8 @@
 		1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNet_ImageOfTheDayAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDNet_ImageOfTheDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2610556F134E389300513008 /* FavoritesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesListViewController.h; sourceTree = "<group>"; };
+		26105570134E389300513008 /* FavoritesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesListViewController.m; sourceTree = "<group>"; };
 		262637DE1336463900366FB2 /* WebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebView.h; sourceTree = "<group>"; };
 		262637DF1336463A00366FB2 /* WebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebView.m; sourceTree = "<group>"; };
 		262B64DD1336AC7D0086EB20 /* sample_archive_post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_archive_post.html; path = Tests/data/sample_archive_post.html; sourceTree = "<group>"; };
@@ -315,6 +318,8 @@
 				2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */,
 				2647D7B7133AA6C300540BFB /* ImageButton.h */,
 				2647D7B8133AA6C300540BFB /* ImageButton.m */,
+				2610556F134E389300513008 /* FavoritesListViewController.h */,
+				26105570134E389300513008 /* FavoritesListViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -504,6 +509,7 @@
 				2647D7B5133AA22100540BFB /* ZoomedImageViewController.m in Sources */,
 				2647D7B9133AA6C400540BFB /* ImageButton.m in Sources */,
 				26E73C4513487043008ACB18 /* ConvertersManager.m in Sources */,
+				26105571134E389300513008 /* FavoritesListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface GDNet_ImageOfTheDayAppDelegate : NSObject <UIApplicationDelegate> {
-    
+@interface GDNet_ImageOfTheDayAppDelegate : NSObject <UIApplicationDelegate> 
+{    
     UIWindow *window;
     UITabBarController *tabBarController;
     UINavigationController *imagesNavigationController;

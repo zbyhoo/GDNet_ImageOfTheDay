@@ -13,6 +13,7 @@
 #import "GDHtmlStringConverter.h"
 #import "GDArchiveHtmlStringConverter.h"
 #import "DBHelper.h"
+#import "FavoritesListViewController.h"
 
 @implementation GDNet_ImageOfTheDayAppDelegate
 
@@ -43,8 +44,8 @@
     [imagesListViewController release];
     
     // Initializing Favourites view controller
-    ImagesListViewController *favouritesViewController = [[ImagesListViewController alloc] 
-                                                          initWithNibName:@"ImagesListViewController" bundle:nil];
+    FavoritesListViewController *favouritesViewController = [[FavoritesListViewController alloc] 
+                                                             initWithNibName:@"ImagesListViewController" bundle:nil];
     [favouritesViewController setDataType:POST_FAVOURITE];
     favouritesViewController.title = @"Favorites";
     
