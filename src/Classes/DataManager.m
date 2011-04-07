@@ -183,9 +183,8 @@ static ConvertersManager *convertersManager = nil;
 - (BOOL)existsInDatabase:(NSDictionary*)objectDict 
 {
     NSArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:[self getPredicateWithUrlFromDict:objectDict] sorting:nil];
-    if (array == nil || array.count != (NSUInteger)1) 
+    if (array == nil || array.count <= (NSUInteger)0) 
     {
-        LogError(@"no or wrong number of objects returned");
         return NO;
     }
     
@@ -240,7 +239,7 @@ static ConvertersManager *convertersManager = nil;
 
 - (void)downloadImages:(GDImagePost*)post
 {    
-    [self downloadImages:post withLarge:YES]; // TODO modify to not download large images at once
+    [self downloadImages:post withLarge:NO];
 }
 
 - (void)addToDatabase:(NSDictionary*)objectDict 
@@ -295,13 +294,17 @@ static ConvertersManager *convertersManager = nil;
 - (void)downloadData:(UITableView*)view 
 {    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSNumber *timestamp = [self mostRecentPostDate];
-    LogDebug(@"most recent post date: %d", [timestamp intValue]);
     
-    // TODO download until timestamp met
-    for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
+    @synchronized(self)
     {
-        [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
+        NSNumber *timestamp = [self mostRecentPostDate];
+        LogDebug(@"most recent post date: %d", [timestamp intValue]);
+    
+        // TODO download until timestamp met
+        for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
+        {
+            [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
+        }
     }
     
     [pool drain];
