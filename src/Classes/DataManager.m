@@ -20,37 +20,31 @@
 
 static ConvertersManager *convertersManager = nil;
 
-+ (ConvertersManager*)getConvertersManager {
-    if (!convertersManager) {
++ (ConvertersManager*)getConvertersManager 
+{
+    if (!convertersManager) 
+    {
         convertersManager = [[ConvertersManager alloc] init];
     }
     return convertersManager;
 }
 
-@synthesize posts = _posts;
-@synthesize dbHelper = _dbHelper;
-@synthesize dataType = _dataType;
+@synthesize posts       = _posts;
+@synthesize dbHelper    = _dbHelper;
 
-- (id)initWithDataType:(int)type 
-              dbHelper:(DBHelper*)dbHelper {
-    if ((self = [super init])) {
-        _dataType = type;
+- (id)initWithDbHelper:(DBHelper*)dbHelper 
+{
+    if ((self = [super init])) 
+    {
         self.dbHelper = dbHelper;
     }
     return self;
 }
 
-- (id)initWithDataType:(int)type {
-    if ((self = [super init])) {
-        _dataType = type;
-        _dbHelper = [[DBHelper alloc]init];
-    }
-    return self;
-}
-
-- (id)init {
-    if ((self = [super init])) {
-        _dataType = POST_NORMAL;
+- (id)init 
+{
+    if ((self = [super init])) 
+        {
         _dbHelper = [[DBHelper alloc]init];
     }
     return self;
@@ -65,22 +59,20 @@ static ConvertersManager *convertersManager = nil;
 #pragma mark -
 #pragma mark Business stuff
 
-- (NSSortDescriptor*)getDateSortDescriptor {
-    
+- (NSSortDescriptor*)getDateSortDescriptor 
+{    
     return [[[NSSortDescriptor alloc] initWithKey:@"postDate" ascending:NO] autorelease];
 }
 
-- (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted {
-
-    BOOL typeFavorite = (_dataType == POST_FAVOURITE);
-    
-    NSString *predicateString = [NSString stringWithFormat:@"(deleted==%d) AND (favourite==%d)", deleted, typeFavorite];
+- (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted 
+{    
+    NSString *predicateString = [NSString stringWithFormat:@"(deleted==%d) AND (favourite==0)", deleted];
     return [NSPredicate predicateWithFormat:predicateString];
 }
 
-- (BOOL)shouldDownloadData {
-    
-    return (self.posts.count == 0 && _dataType != POST_FAVOURITE);
+- (BOOL)shouldDownloadData 
+{    
+    return (self.posts.count == 0);
 }
 
 - (void)preloadData:(UITableView*)view {

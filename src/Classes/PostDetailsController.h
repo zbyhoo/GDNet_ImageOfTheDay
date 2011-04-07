@@ -13,7 +13,6 @@
 @interface PostDetailsController : UITableViewController <UIWebViewDelegate> {
 @private
     DataManager *_dataManager;
-    int _dataType;
     NSString *_postId;    
     
     UITableViewCell *_imagesCell;
@@ -38,7 +37,6 @@
 }
 
 @property (nonatomic, retain) DataManager *dataManager;
-@property (assign, nonatomic) int dataType;
 @property (nonatomic, retain) NSString *postId;
 @property (nonatomic, retain) UITableViewCell *descriptionCell;
 @property (nonatomic, retain) UITableViewCell *favoriteCell;
@@ -52,5 +50,9 @@
 
 
 - (void)updateView:(GDImagePost*)post;
+
+- (void)setupDataManager;
+- (NSString*)getFavoriteString;
+- (void)favoriteButtonSelected;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "../DataManager.h"
+#import "FavoritesDataManager.h"
 #import "../GDImagePost.h"
 #import "../DBHelper.h"
 #import "../GDArchiveHtmlStringConverter.h"
@@ -51,7 +52,7 @@
 - (void)test_getPredicateWithDeletedAndFavorite_deletedFavorite {
     
     // given
-    DataManager *manager = [[[DataManager alloc] initWithDataType:POST_FAVOURITE] autorelease];
+    FavoritesDataManager *manager = [[[FavoritesDataManager alloc] init] autorelease];
     
     // when
     NSPredicate *predicate = [manager getPredicateWithDeleted:YES];
@@ -97,7 +98,7 @@
 - (void)test_shouldDownloadData_favoritePostsType {
     
     // given
-    DataManager *manager = [[[DataManager alloc] initWithDataType:POST_FAVOURITE] autorelease];
+    FavoritesDataManager *manager = [[[FavoritesDataManager alloc] init] autorelease];
     GHAssertEquals(manager.posts.count, (NSUInteger)0, @"no posts");
     
     // when

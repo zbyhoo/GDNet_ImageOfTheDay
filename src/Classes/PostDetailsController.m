@@ -37,7 +37,6 @@ typedef enum {
 } Sections;
 
 @synthesize dataManager     = _dataManager;
-@synthesize dataType        = _dataType;
 @synthesize postId          = _postId;
 
 @synthesize imagesCell      = _imagesCell;
@@ -96,8 +95,15 @@ typedef enum {
     
     _isDataLoaded = NO;
     
-    _dataManager = [[DataManager alloc] initWithDataType:self.dataType];
-    [_dataManager getPostInfoWithView:self];
+    [self setupDataManager];
+    [self.dataManager getPostInfoWithView:self];
+}
+
+- (void)setupDataManager
+{
+    DataManager *manager = [[DataManager alloc] init];
+    self.dataManager = manager;
+    [manager release];
 }
 
 - (void)viewDidUnload
@@ -354,6 +360,11 @@ typedef enum {
     return NO;
 }
 
+- (NSString*)getFavoriteString
+{
+    return @"Add to Favorites";
+}
+
 - (UITableViewCell*)getFavoriteCell:(UITableView*)tableView {
     
     if (self.favoriteCell == nil) {
@@ -364,8 +375,7 @@ typedef enum {
         self.favoriteCell.textLabel.textColor = [UIColor whiteColor];
         self.favoriteCell.textLabel.textAlignment = UITextAlignmentCenter;
         self.favoriteCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.favoriteCell.textLabel.text = (self.dataManager.dataType == POST_NORMAL) ?
-                                            @"Add to Favorites" : @"Remove from Favorites";
+        self.favoriteCell.textLabel.text = [self getFavoriteString];
         [cell release];
     }
     
@@ -452,15 +462,10 @@ typedef enum {
 
 #pragma mark - Table view delegate
 
-- (void)favoriteButtonSelected {
-    
-    GDImagePost *post = [self.dataManager getPostWithId:_postId];
-    
-    if (self.dataManager.dataType == POST_NORMAL)
-        [self.dataManager addPostToFavourites:post];
-    else if (self.dataManager.dataType == POST_FAVOURITE)
-        [self.dataManager removePostFromFavorites:post];
-    
+- (void)favoriteButtonSelected 
+{    
+    GDImagePost *post = [self.dataManager getPostWithId:self.postId];
+    [self.dataManager addPostToFavourites:post];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -11,6 +11,7 @@
 #import "EGORefreshTableHeaderView.h"
 
 @class DataManager;
+@class PostDetailsController;
 
 @interface ImagesListViewController : UITableViewController <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource> {
     IBOutlet TableViewCell *tblCell;
@@ -28,6 +29,7 @@
 - (void)setupNavigationButtons;
 - (void)setupRefreshHeaderAndFooter;
 - (void)setupDataManager;
+- (PostDetailsController*)allocDetailsViewController;
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)reloadTableViewDataSource;

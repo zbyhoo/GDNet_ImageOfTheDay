@@ -19,16 +19,12 @@
 @private
     DBHelper *_dbHelper;
     NSMutableArray *_posts;
-    int _dataType;
 }
 
 @property (retain, nonatomic) NSMutableArray *posts;
 @property (retain, nonatomic) DBHelper *dbHelper;
-@property (assign, nonatomic) int dataType;
 
-- (id)initWithDataType:(int)type 
-              dbHelper:(DBHelper*)dbHelper;
-- (id)initWithDataType:(int)type;
+- (id)initWithDbHelper:(DBHelper*)dbHelper;
 - (id)init;
 
 - (void)refreshFromWeb:(UITableView*)view;
@@ -53,5 +49,10 @@
 
 - (BOOL)addPostToFavourites:(GDImagePost*)post;
 - (BOOL)removePostFromFavorites:(GDImagePost*)post;
+
+
+
+- (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted;
+- (BOOL)shouldDownloadData;
 
 @end

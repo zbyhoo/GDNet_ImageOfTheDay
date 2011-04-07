@@ -56,7 +56,7 @@
 
 - (void)setupDataManager
 {
-    DataManager *manager = [[DataManager alloc] initWithDataType:POST_NORMAL];
+    DataManager *manager = [[DataManager alloc] init];
     self.dataManager = manager;
     [manager release];
 }
@@ -250,14 +250,17 @@
 #pragma mark -
 #pragma mark Table view delegate
 
+- (PostDetailsController*)allocDetailsViewController
+{
+    return [[PostDetailsController alloc] initWithNibName:@"PostDetailsController" bundle:nil];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PostDetailsController *imageDetailViewController = [[PostDetailsController alloc] 
-                                                            initWithNibName:@"PostDetailsController" bundle:nil];
+    PostDetailsController *imageDetailViewController = [self allocDetailsViewController];
     
     imageDetailViewController.title     = [self.dataManager getTitleOfPostAtIndex:indexPath];
     imageDetailViewController.postId    = [self.dataManager getPostIdAtIndex:indexPath];
-    imageDetailViewController.dataType  = self.dataManager.dataType;
     
     [self.navigationController pushViewController:imageDetailViewController animated:YES];
     [imageDetailViewController release];

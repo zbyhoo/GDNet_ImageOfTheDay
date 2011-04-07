@@ -12,6 +12,9 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		26105571134E389300513008 /* FavoritesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26105570134E389300513008 /* FavoritesListViewController.m */; };
+		26105574134E477D00513008 /* FavoritesDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26105573134E477D00513008 /* FavoritesDataManager.m */; };
+		26105575134E477D00513008 /* FavoritesDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26105573134E477D00513008 /* FavoritesDataManager.m */; };
+		26105578134E4EB500513008 /* FavoritePostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26105577134E4EB500513008 /* FavoritePostDetailsController.m */; };
 		262637E01336463A00366FB2 /* WebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 262637DF1336463A00366FB2 /* WebView.m */; };
 		262B64DE1336AC7D0086EB20 /* sample_archive_post.html in Resources */ = {isa = PBXBuildFile; fileRef = 262B64DD1336AC7D0086EB20 /* sample_archive_post.html */; };
 		262B64E21336C5DA0086EB20 /* zbyhoo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E11336C5DA0086EB20 /* zbyhoo.png */; };
@@ -88,6 +91,10 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2610556F134E389300513008 /* FavoritesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesListViewController.h; sourceTree = "<group>"; };
 		26105570134E389300513008 /* FavoritesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesListViewController.m; sourceTree = "<group>"; };
+		26105572134E477D00513008 /* FavoritesDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesDataManager.h; sourceTree = "<group>"; };
+		26105573134E477D00513008 /* FavoritesDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesDataManager.m; sourceTree = "<group>"; };
+		26105576134E4EB500513008 /* FavoritePostDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritePostDetailsController.h; sourceTree = "<group>"; };
+		26105577134E4EB500513008 /* FavoritePostDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritePostDetailsController.m; sourceTree = "<group>"; };
 		262637DE1336463900366FB2 /* WebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebView.h; sourceTree = "<group>"; };
 		262637DF1336463A00366FB2 /* WebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebView.m; sourceTree = "<group>"; };
 		262B64DD1336AC7D0086EB20 /* sample_archive_post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_archive_post.html; path = Tests/data/sample_archive_post.html; sourceTree = "<group>"; };
@@ -266,6 +273,8 @@
 				2678BF5F132816E9003CF4C7 /* DBHelper.m */,
 				26E73C4313487043008ACB18 /* ConvertersManager.h */,
 				26E73C4413487043008ACB18 /* ConvertersManager.m */,
+				26105572134E477D00513008 /* FavoritesDataManager.h */,
+				26105573134E477D00513008 /* FavoritesDataManager.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -320,6 +329,8 @@
 				2647D7B8133AA6C300540BFB /* ImageButton.m */,
 				2610556F134E389300513008 /* FavoritesListViewController.h */,
 				26105570134E389300513008 /* FavoritesListViewController.m */,
+				26105576134E4EB500513008 /* FavoritePostDetailsController.h */,
+				26105577134E4EB500513008 /* FavoritePostDetailsController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -510,6 +521,8 @@
 				2647D7B9133AA6C400540BFB /* ImageButton.m in Sources */,
 				26E73C4513487043008ACB18 /* ConvertersManager.m in Sources */,
 				26105571134E389300513008 /* FavoritesListViewController.m in Sources */,
+				26105574134E477D00513008 /* FavoritesDataManager.m in Sources */,
+				26105578134E4EB500513008 /* FavoritePostDetailsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +548,7 @@
 				264A605B1332CE8800037CEA /* DBHelperTest.m in Sources */,
 				26E73C4613487043008ACB18 /* ConvertersManager.m in Sources */,
 				26E73C491348782A008ACB18 /* ConvertersManagerTest.m in Sources */,
+				26105575134E477D00513008 /* FavoritesDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

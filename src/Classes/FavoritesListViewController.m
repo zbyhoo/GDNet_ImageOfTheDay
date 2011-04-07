@@ -7,13 +7,14 @@
 //
 
 #import "FavoritesListViewController.h"
-#import "DataManager.h"
+#import "FavoritesDataManager.h"
+#import "FavoritePostDetailsController.h"
 
 @implementation FavoritesListViewController
 
 - (void)setupDataManager
 {
-    DataManager *manager = [[DataManager alloc] initWithDataType:POST_FAVOURITE];
+    FavoritesDataManager *manager = [[FavoritesDataManager alloc] init];
     self.dataManager = manager;
     [manager release];
 }
@@ -24,5 +25,9 @@
     // do nothing - no refresh header or footer needed
 }
 
+- (PostDetailsController*)allocDetailsViewController
+{
+    return [[FavoritePostDetailsController alloc] initWithNibName:@"PostDetailsController" bundle:nil];
+}
 
 @end
