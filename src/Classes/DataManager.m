@@ -16,6 +16,10 @@
 
 #import "ConvertersManager.h"
 
+@interface DataManager (Private)
+- (BOOL)saveModifiedContext;
+@end
+
 @implementation DataManager
 
 static ConvertersManager *convertersManager = nil;
@@ -44,13 +48,14 @@ static ConvertersManager *convertersManager = nil;
 - (id)init 
 {
     if ((self = [super init])) 
-        {
+    {
         _dbHelper = [[DBHelper alloc]init];
     }
     return self;
 }
 
-- (void)dealloc {
+- (void)dealloc 
+{
     self.posts = nil;
     self.dbHelper = nil;
     [super dealloc];
@@ -75,123 +80,124 @@ static ConvertersManager *convertersManager = nil;
     return (self.posts.count == 0);
 }
 
-- (void)preloadData:(UITableView*)view {
-    
+- (void)preloadData:(UITableView*)view 
+{    
     self.posts = [self.dbHelper 
                   fetchObjects:@"GDImagePost" 
                   predicate:[self getPredicateWithDeleted:NO] 
                   sorting:[self getDateSortDescriptor]];
     
-    if ([self shouldDownloadData]) {
+    if ([self shouldDownloadData])
+    {
         [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
     }
     
     [self.dbHelper markUpdated];
 }
 
-- (void)refresh:(UITableView*)view {
-    //if ([self.dbHelper isModified]) {
-        [self preloadData:view];
-        [view reloadData];
-    //}
+- (void)refresh:(UITableView*)view
+{
+    [self preloadData:view];
+    [view reloadData];
 }
 
-- (NSUInteger)postsCount { 
+- (NSUInteger)postsCount
+{ 
     return self.posts.count; 
 }
 
-- (BOOL)addPostToFavourites:(GDImagePost*)post {
-    
+- (BOOL)saveModifiedContext
+{
+    if ([self.dbHelper saveContext]) 
+    {
+        [self.dbHelper markModified];
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)addPostToFavourites:(GDImagePost*)post
+{    
     post.favourite = [NSNumber numberWithBool:YES];
-    
-    if ([self.dbHelper saveContext]) {
-        
-        [self.dbHelper markModified];
-        return YES;
-    }
-    return NO;
+    return [self saveModifiedContext];
 }
 
-- (BOOL)removePostFromFavorites:(GDImagePost*)post {
-    
+- (BOOL)removePostFromFavorites:(GDImagePost*)post
+{    
     post.favourite = [NSNumber numberWithBool:NO];
-    
-    if ([self.dbHelper saveContext]) {
-        
-        [self.dbHelper markModified];
-        return YES;
-    }
-    return NO;
+    return [self saveModifiedContext];
 }
 
-- (void)addToFavourites:(NSIndexPath*)position {
-    
+- (void)addToFavourites:(NSIndexPath*)position 
+{    
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     if ([self addPostToFavourites:post])
+    {
         [self.posts removeObjectAtIndex:position.row];
+    }
 }
 
-- (void)removeFromFavorites:(NSIndexPath *)position {
-    
+- (void)removeFromFavorites:(NSIndexPath *)position
+{    
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     if ([self removePostFromFavorites:post])
+    {
         [self.posts removeObjectAtIndex:position.row];
+    }
 }
 
-- (void)markDeleted:(NSIndexPath*)position {
-    
+- (void)markDeleted:(NSIndexPath*)position
+{    
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     post.deleted = [NSNumber numberWithBool:YES];
     [self.posts removeObjectAtIndex:position.row];
 }
 
-- (void)permanentlyDeletePost:(NSIndexPath*)position {
-
-    if ([self.dbHelper deleteObject:[self.posts objectAtIndex:position.row]] == NO) {
-     
+- (void)permanentlyDeletePost:(NSIndexPath*)position
+{
+    if ([self.dbHelper deleteObject:[self.posts objectAtIndex:position.row]] == NO)
+    {
         LogError(@"unable to delete post");
         return;
     }
     [self.posts removeObjectAtIndex:position.row];
 }
 
-- (NSNumber*)mostRecentPostDate {
-    
+- (NSNumber*)mostRecentPostDate
+{    
     NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:nil sorting:[self getDateSortDescriptor]];
     
-    if ([objects count] > 0) {
+    if ([objects count] > 0) 
+    {
         return ((GDImagePost*)[objects objectAtIndex:0]).postDate;
     }
     return nil;
 }
 
-- (NSPredicate*)getPredicateWithUrlFromDict:(NSDictionary*)dict {
+- (NSPredicate*)getPredicateWithUrlFromDict:(NSDictionary*)dict 
+{
     return [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(url like '%@')", [dict valueForKey:KEY_POST_URL]]];    
 }
 
-- (BOOL)existsInDatabase:(NSDictionary*)objectDict {
-
+- (BOOL)existsInDatabase:(NSDictionary*)objectDict 
+{
     NSArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:[self getPredicateWithUrlFromDict:objectDict] sorting:nil];
-    if (array == nil) {
-        LogError(@"nil returned istead of array");
+    if (array == nil || array.count != (NSUInteger)1) 
+    {
+        LogError(@"no or wrong number of objects returned");
         return NO;
     }
     
-    if ([array count] == (NSUInteger)1) {
-        return YES;
-    }
-    else if ([array count] > (NSUInteger)1) {
-        LogError(@"many objects found for key: %@", [objectDict valueForKey:KEY_POST_URL]);
-    }
-    
-    return NO;
+    return YES;
 }
 
-- (void)addNewPost:(GDImagePost*)post {
-    GDImagePost *stored;
+- (void)addNewPost:(GDImagePost*)post 
+{
     NSUInteger index = 0;
-    for (stored in self.posts) {
-        if ([post.postDate intValue] >= [stored.postDate intValue]) {
+    for (GDImagePost *stored in self.posts) 
+    {
+        if ([post.postDate intValue] >= [stored.postDate intValue])
+        {
             [self.posts insertObject:post atIndex:index];
             return;
         }
@@ -200,22 +206,31 @@ static ConvertersManager *convertersManager = nil;
     [self.posts addObject:post];
 }
 
-- (void)downloadImages:(GDImagePost*)post {
-    
-    GDPicture *picture;
-    for (picture in post.pictures) {
-        NSURL *imgUrl   = [NSURL URLWithString:picture.smallPictureUrl];
-        picture.smallPictureData = [NSData dataWithContentsOfURL:imgUrl];
+- (NSData*)downloadImageFromUrl:(NSString*)url
+{
+    return [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+}
+
+- (void)downloadImages:(GDImagePost*)post withLarge:(BOOL)largeAlso
+{
+    for (GDPicture *picture in post.pictures) 
+    {
+        picture.smallPictureData = [self downloadImageFromUrl:picture.smallPictureUrl];
         
-        if (picture.largePictureUrl) {
-            imgUrl = [NSURL URLWithString:picture.largePictureUrl];
-            picture.largePictureData = [NSData dataWithContentsOfURL:imgUrl];
+        if (largeAlso && picture.largePictureUrl) 
+        {
+            picture.largePictureData = [self downloadImageFromUrl:picture.largePictureUrl];
         }
     }
 }
 
-- (void)addToDatabase:(NSDictionary*)objectDict {
-    
+- (void)downloadImages:(GDImagePost*)post
+{    
+    [self downloadImages:post withLarge:YES]; // TODO modify to not download large images at once
+}
+
+- (void)addToDatabase:(NSDictionary*)objectDict 
+{    
     GDImagePost* imagePost = (GDImagePost*)[self.dbHelper createNew:@"GDImagePost"];
     imagePost.author    = [objectDict valueForKey:KEY_AUTHOR];
     imagePost.title     = [objectDict valueForKey:KEY_TITLE];
@@ -232,82 +247,79 @@ static ConvertersManager *convertersManager = nil;
     
     [self downloadImages:imagePost];
     
-    if([self.dbHelper saveContext]) {
+    if([self.dbHelper saveContext])
+    {
         [self performSelectorOnMainThread:@selector(addNewPost:) withObject:imagePost waitUntilDone:YES];
     }
 }
 
-- (void)downloadData:(UITableView*)view {
+- (void)updateTableView:(UITableView*)tableView
+{
+    [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+}
+
+- (BOOL)shouldAddNewPost:(NSDictionary*)dict timestamp:(int)timestamp
+{    
+    NSNumber *postDate = [dict valueForKey:KEY_DATE];
+    return ([self existsInDatabase:dict] == NO && [postDate intValue] >= timestamp);
+}
+
+- (void)getPostsFromConverter:(NSObject<GDDataConverter>*)converter timestamp:(int)timestamp view:(UITableView*)view
+{
+    NSArray *webPosts = [converter convertGalleryWithDate:nil latest:YES];
     
+    for (NSDictionary *objectDict in webPosts)
+    {
+        if ([self shouldAddNewPost:objectDict timestamp:timestamp])
+        {
+            [self addToDatabase:objectDict];
+            [self updateTableView:view];
+        }
+    }
+}
+
+- (void)downloadData:(UITableView*)view 
+{    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
     NSNumber *timestamp = [self mostRecentPostDate];
     LogDebug(@"most recent post date: %d", [timestamp intValue]);
     
     // TODO download until timestamp met
     for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
     {
-        NSArray *webPosts = [converter convertGalleryWithDate:nil latest:YES];
-        NSDictionary *objectDict;
-        for (objectDict in webPosts) {
-            if ([self existsInDatabase:objectDict] == NO) {
-                NSNumber *postDate = [objectDict valueForKey:KEY_DATE];
-                if ([postDate intValue] >= [timestamp intValue]) {
-                    [self addToDatabase:objectDict];
-                    if (view != nil) {
-                        [view reloadData];
-                    }
-                }
-            }
-        }
+        [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
     }
     
     [pool drain];
 }
 
-- (void)refreshFromWeb:(UITableView*)view {
-    
+- (void)refreshFromWeb:(UITableView*)view 
+{    
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
-- (void)downloadPostInfoWithView:(PostDetailsController*)view {
-    
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
-    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", view.postId];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
-    LogDebug(@"Post ID predicate: %@", predicateString);
-    
-    NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
-    if (array.count != 1) {
-        LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
-        [pool drain];
-        return;
-    }
-    
-    GDImagePost *post = [array objectAtIndex:0];
-    
-    NSDictionary *postDict = [[[DataManager getConvertersManager] getConverterType:post.type] convertPost:view.postId];
-    if (postDict == nil) {
-        [pool drain];
-        return;
-    }
-    
+- (NSPredicate*)getPostPredicateWithId:(NSString*)postId
+{
+    return [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(url LIKE \"%@\")", postId]];
+}
+
+- (void)updatePost:(GDImagePost*)post withData:(NSDictionary*)postDict
+{
     post.postDescription = [postDict objectForKey:KEY_DESCRIPTION];
-    LogDebug(@"--> TS : %d", [post.postDate intValue]);
     post.postDate = [postDict objectForKey:KEY_DATE];
-    LogDebug(@"--> TS : %d", [post.postDate intValue]);
     
     NSMutableSet *picturesSet = [NSMutableSet setWithSet:post.pictures];
     
     int index = 0;
-    for (GDPicture* mainPicture in picturesSet) {
+    for (GDPicture* mainPicture in picturesSet) 
+    {
         mainPicture.largePictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
         LogDebug(@"%@", mainPicture.largePictureUrl);
     }
     
     NSNumber *count = [postDict objectForKey:KEY_IMAGES_COUNT];
-    while (index < [count intValue]) {
+    while (index < [count intValue]) 
+    {
         GDPicture *picture = (GDPicture*)[self.dbHelper createNew:@"GDPicture"];
         picture.imagePost = post;
         picture.smallPictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
@@ -316,16 +328,47 @@ static ConvertersManager *convertersManager = nil;
     }
     [self downloadImages:post];
     post.pictures = [NSSet setWithArray:[picturesSet allObjects]];
+}
+
+- (GDImagePost*)downloadPostWithId:(NSString*)postId
+{
+    NSMutableArray *array = [self.dbHelper 
+                             fetchObjects:@"GDImagePost" 
+                             predicate:[self getPostPredicateWithId:postId] 
+                             sorting:nil];
     
-    if([self.dbHelper saveContext]) {
+    if (!array || array.count != 1) 
+    {
+        LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
+        return nil;
+    }
+    
+    GDImagePost *post = [array objectAtIndex:0];
+    NSDictionary *postDict = [[[DataManager getConvertersManager] getConverterType:post.type] convertPost:postId];
+    if (!postDict) 
+    {
+        return nil;
+    }
+    [self updatePost:post withData:postDict];
+    
+    return post;
+}
+
+- (void)downloadPostInfoWithView:(PostDetailsController*)view 
+{    
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    GDImagePost *post = [self downloadPostWithId:view.postId];
+    if (post && [self.dbHelper saveContext])
+    {
         [view performSelectorOnMainThread:@selector(updateView:) withObject:post waitUntilDone:NO];
     }
     
     [pool drain];
 }
 
-- (GDImagePost*)getPostWithId:(NSString*)postId {
-    
+- (GDImagePost*)getPostWithId:(NSString*)postId 
+{    
     NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", postId];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
     NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
@@ -336,13 +379,14 @@ static ConvertersManager *convertersManager = nil;
    return [array objectAtIndex:0];
 }
 
-- (void)getPostInfoWithView:(PostDetailsController*)view {
-    
+- (void)getPostInfoWithView:(PostDetailsController*)view 
+{    
     GDImagePost *post = [self getPostWithId:view.postId];
     
-    if ([post.postDescription length] > 0) {
-        
-        for (GDPicture *picture in post.pictures) {
+    if ([post.postDescription length] > 0) 
+    {
+        for (GDPicture *picture in post.pictures) 
+        {
             LogDebug(@"small url: %@", picture.smallPictureUrl);
             LogDebug(@"large url: %@", picture.largePictureUrl);  
             LogDebug(@"small data: %d", picture.smallPictureData);
@@ -351,22 +395,26 @@ static ConvertersManager *convertersManager = nil;
         
         [view updateView:post];
     }
-    else {
+    else 
+    {
         [NSThread detachNewThreadSelector:@selector(downloadPostInfoWithView:) toTarget:self withObject:view];
     }
 }
 
-- (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath {
+- (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath 
+{
     GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
     return post.title;
 }
 
-- (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath {
+- (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath 
+{
     GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
     return post.url;
 }
 
-- (GDImagePost*)getPostAtIndex:(NSIndexPath*)indexPath {
+- (GDImagePost*)getPostAtIndex:(NSIndexPath*)indexPath 
+{
     GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
     return post;
 }
