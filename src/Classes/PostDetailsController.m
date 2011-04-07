@@ -213,12 +213,18 @@ typedef enum {
 - (void)imageButtonClick:(id)sender {
     ImageButton *button = (ImageButton*)sender;
     
-    if (button.picture.largePictureData == nil) {
-        LogError(@"no data for picture for url: %@", button.picture.largePictureUrl);
-        return;
-    }
+//    if (button.picture.largePictureData == nil) {
+//        LogError(@"no data for picture for url: %@", button.picture.largePictureUrl);
+//        return;
+//    }
     
     LogDebug(@"clicked - img url: %@", button.picture.largePictureUrl);
+    
+    if (![self.dataManager downloadLargeImage:button.picture])
+    {
+        LogError(@"unable to delete large picture");
+        return;
+    }
     
     UIImage *image = [[UIImage alloc] initWithData:button.picture.largePictureData];
     ZoomedImageViewController *zoomedImageView = [[ZoomedImageViewController alloc] initWithImage:image];

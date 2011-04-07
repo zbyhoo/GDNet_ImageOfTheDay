@@ -212,6 +212,19 @@ static ConvertersManager *convertersManager = nil;
     return [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
 }
 
+- (BOOL)downloadLargeImage:(GDPicture*)picture
+{
+    if (picture.largePictureData)
+    {
+        return YES;
+    }
+    
+    picture.largePictureData = [self downloadImageFromUrl:picture.largePictureUrl];
+    BOOL success = (picture.largePictureData != nil);
+    success |= [self saveModifiedContext];
+    return success;
+}
+
 - (void)downloadImages:(GDImagePost*)post withLarge:(BOOL)largeAlso
 {
     for (GDPicture *picture in post.pictures) 
@@ -327,7 +340,7 @@ static ConvertersManager *convertersManager = nil;
         picture.largePictureUrl = [postDict objectForKey:[NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++]];
         [picturesSet addObject: picture];
     }
-    [self downloadImages:post];
+    [self downloadImages:post withLarge:NO];
     post.pictures = [NSSet setWithArray:[picturesSet allObjects]];
 }
 
@@ -370,10 +383,12 @@ static ConvertersManager *convertersManager = nil;
 
 - (GDImagePost*)getPostWithId:(NSString*)postId 
 {    
-    NSString *predicateString = [NSString stringWithFormat:@"(url LIKE \"%@\")", postId];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
-    NSMutableArray *array = [self.dbHelper fetchObjects:@"GDImagePost" predicate:predicate sorting:nil];
-    if (array.count != 1) {
+    NSMutableArray *array = [self.dbHelper 
+                             fetchObjects:@"GDImagePost" 
+                             predicate:[self getPostPredicateWithId:postId] 
+                             sorting:nil];
+    if (array.count != 1) 
+    {
         LogError(@"wrong number of returned elements: expected %d, current %d", 1, array.count);
         return nil;
     }

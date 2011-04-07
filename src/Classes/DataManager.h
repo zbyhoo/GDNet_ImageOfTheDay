@@ -14,6 +14,7 @@
 @class DBHelper;
 @class PostDetailsController;
 @class GDImagePost;
+@class GDPicture;
 
 @interface DataManager : NSObject {
 @private
@@ -51,8 +52,8 @@
 - (BOOL)removePostFromFavorites:(GDImagePost*)post;
 
 
-
 - (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted;
 - (BOOL)shouldDownloadData;
+- (BOOL)downloadLargeImage:(GDPicture*)picture;
 
 @end
