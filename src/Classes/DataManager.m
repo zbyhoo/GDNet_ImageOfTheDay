@@ -150,6 +150,7 @@ static ConvertersManager *convertersManager = nil;
 {    
     GDImagePost* post = [self.posts objectAtIndex:position.row];
     post.deleted = [NSNumber numberWithBool:YES];
+    [self saveModifiedContext];
     [self.posts removeObjectAtIndex:position.row];
 }
 
