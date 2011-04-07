@@ -7,8 +7,22 @@
 //
 
 #import "FavoritesListViewController.h"
-
+#import "DataManager.h"
 
 @implementation FavoritesListViewController
+
+- (void)setupDataManager
+{
+    DataManager *manager = [[DataManager alloc] initWithDataType:POST_FAVOURITE];
+    self.dataManager = manager;
+    [manager release];
+}
+
+
+- (void)setupRefreshHeaderAndFooter 
+{
+    // do nothing - no refresh header or footer needed
+}
+
 
 @end

@@ -18,15 +18,19 @@
 @private
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _reloading;
-    int _dataType;
     DataManager *_dataManager;
 }
 
-@property (retain, nonatomic) DataManager *dataManager;
+@property (nonatomic, retain) DataManager *dataManager;
+@property (nonatomic, retain) EGORefreshTableHeaderView *refreshHeaderView;
+@property (nonatomic, assign) BOOL reloading;
+
+- (void)setupNavigationButtons;
+- (void)setupRefreshHeaderAndFooter;
+- (void)setupDataManager;
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;
-- (void)setDataType:(int)type;
 
 @end

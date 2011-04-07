@@ -33,7 +33,6 @@
     // Initializing Images list view controller
     ImagesListViewController *imagesListViewController = [[ImagesListViewController alloc] 
                                                            initWithNibName:@"ImagesListViewController" bundle:nil];
-    [imagesListViewController setDataType:POST_NORMAL];
     imagesListViewController.title = @"Image of the Day";
     
     // Initializing navigation controller for main "Image of the Day" view
@@ -46,7 +45,6 @@
     // Initializing Favourites view controller
     FavoritesListViewController *favouritesViewController = [[FavoritesListViewController alloc] 
                                                              initWithNibName:@"ImagesListViewController" bundle:nil];
-    [favouritesViewController setDataType:POST_FAVOURITE];
     favouritesViewController.title = @"Favorites";
     
     // Initializing navigation controller for "Favourites" view

@@ -14,50 +14,97 @@
 #import "GDImagePost.h"
 #import "GDPicture.h"
 
-@interface ImagesListViewController (Private)
+@interface ImagesListViewController (Protected)
 
 - (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell;
+- (BOOL)isRefreshHeaderNeeded;
+- (void)createRefreshHeader;
+- (NSString*)getDateFromPost:(GDImagePost*)post;
+- (UIImage*)getMainPicture:(GDImagePost*)post;
+- (void)setupRefreshHeader;
+- (void)configureRefreshHeader;
+- (TableViewCell*)createCell:(UITableView*)tableView;
     
 @end
 
 @implementation ImagesListViewController
 
-@synthesize dataManager=_dataManager;
+@synthesize dataManager         = _dataManager;
+@synthesize refreshHeaderView   = _refreshHeaderView;
+
+@synthesize reloading = _reloading;
 
 #pragma mark -
 #pragma mark View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 
+    [self setupNavigationButtons];
+    [self setupRefreshHeaderAndFooter];
+    [self setupDataManager];
+    
+    [self.dataManager preloadData:self.tableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated 
+{
+    [self.dataManager refresh:self.tableView];
+    [super viewWillAppear:animated];
+}
+
+- (void)setupDataManager
+{
+    DataManager *manager = [[DataManager alloc] initWithDataType:POST_NORMAL];
+    self.dataManager = manager;
+    [manager release];
+}
+
+- (void)setupRefreshHeaderAndFooter 
+{
+    if ([self isRefreshHeaderNeeded]) 
+    {
+		[self createRefreshHeader];
+        [self setupRefreshHeader];
+	}
+}
+
+- (void)setupNavigationButtons
+{
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle:@"back" 
+                                   style:UIBarButtonItemStyleBordered 
+                                   target:nil 
+                                   action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     [backButton release];
-    
-    if (_refreshHeaderView == nil && _dataType == POST_NORMAL) {
-		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
-		view.delegate = self;
-		[self.tableView addSubview:view];
-		_refreshHeaderView = view;
-		[view release];
-	}
-	[_refreshHeaderView refreshLastUpdatedDate];
-    _reloading = NO;
-    
-    _dataManager = [[DataManager alloc] initWithDataType:_dataType];
-    [_dataManager preloadData:self.tableView];
 }
 
-- (void)setDataType:(int)type {
-    _dataType = type;
+- (BOOL)isRefreshHeaderNeeded
+{
+    return self.refreshHeaderView == nil;
 }
 
+- (void)setupRefreshHeader
+{
+    [self.tableView addSubview:self.refreshHeaderView];
+    [self.refreshHeaderView refreshLastUpdatedDate];
+    self.reloading = NO;
+}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [_dataManager refresh:self.tableView];
-    [super viewWillAppear:animated];
+- (void)createRefreshHeader
+{
+    EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] 
+                                       initWithFrame:CGRectMake(0.0f, 
+                                                                0.0f - self.tableView.bounds.size.height, 
+                                                                self.view.frame.size.width, 
+                                                                self.tableView.bounds.size.height)];
+    view.delegate = self;
+    self.refreshHeaderView = view;
+    [view release];
 }
 
 /*
@@ -87,53 +134,64 @@
 #pragma mark -
 #pragma mark Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1; //TODO probably it will stay this way
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
+{
+    return 1;
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [self.dataManager postsCount];
 }
 
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+- (TableViewCell*)createCell:(UITableView*)tableView
+{
+    TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (!cell) 
+    {
         [[NSBundle mainBundle] loadNibNamed:@"TableViewCell" owner:self options:nil];
         cell = tblCell;
     }
     
-    // Configure the cell...
+    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{    
+    TableViewCell *cell = [self createCell:tableView];    
     [self updatePostAtIndex:indexPath cell:cell];
     
     return cell;
 }
 
-- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell {
-    
-    GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
-    cell.titleLabel.text = post.title;
-    cell.authorLabel.text = post.author;
-    
+- (NSString*)getDateFromPost:(GDImagePost*)post
+{
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[post.postDate intValue]];
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
     [df setDateFormat:@"MM.dd.yyyy"];
-    cell.dateLabel.text = [df stringFromDate:date];
-    [df release];
-    
-    for (GDPicture *picture in post.pictures) {
-        if (picture.pictureDescription != nil && [picture.pictureDescription compare:MAIN_IMAGE_OBJ] == NSOrderedSame) {
-            UIImage *image = [UIImage imageWithData:picture.smallPictureData];
-            cell.postImageView.image = image;
+    return [df stringFromDate:date];
+}
+
+- (UIImage*)getMainPicture:(GDImagePost*)post
+{
+    for (GDPicture *picture in post.pictures) 
+    {
+        if (picture.pictureDescription != nil && [picture.pictureDescription compare:MAIN_IMAGE_OBJ] == NSOrderedSame)
+        {
+            return [UIImage imageWithData:picture.smallPictureData];
         }
     }
+    return nil;
+}
+
+- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell 
+{    
+    GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
+    
+    cell.titleLabel.text        = post.title;
+    cell.authorLabel.text       = post.author;
+    cell.dateLabel.text         = [self getDateFromPost:post];
+    cell.postImageView.image    = [self getMainPicture:post];
 }
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath
@@ -153,22 +211,14 @@
 }
 */
 
-
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath 
+{    
+    if (editingStyle == UITableViewCellEditingStyleDelete) 
+    {
         [self.dataManager markDeleted:indexPath];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-        
-    }   
-    /*else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }*/   
-}
-
+    }
+}   
 
 /*
 // Override to support rearranging the table view.
@@ -200,22 +250,14 @@
 #pragma mark -
 #pragma mark Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
-    
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     PostDetailsController *imageDetailViewController = [[PostDetailsController alloc] 
                                                             initWithNibName:@"PostDetailsController" bundle:nil];
-    imageDetailViewController.title = [self.dataManager getTitleOfPostAtIndex:indexPath];
-    imageDetailViewController.postId = [self.dataManager getPostIdAtIndex:indexPath];
-    imageDetailViewController.dataType = self.dataManager.dataType;
+    
+    imageDetailViewController.title     = [self.dataManager getTitleOfPostAtIndex:indexPath];
+    imageDetailViewController.postId    = [self.dataManager getPostIdAtIndex:indexPath];
+    imageDetailViewController.dataType  = self.dataManager.dataType;
     
     [self.navigationController pushViewController:imageDetailViewController animated:YES];
     [imageDetailViewController release];
@@ -224,57 +266,53 @@
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
-	
-	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	[self.refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-	
-	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-	
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+	[self.refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];	
 }
 
 
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
 
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
-	
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{	
 	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
-	
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];	
 }
 
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-	
-	return _reloading; // should return if data source model is reloading
-	
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
+{	
+	return self.reloading;	
 }
 
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-	
-	return [NSDate date]; // should return date data source was last changed
-	
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
+{	
+	return [NSDate date];	
 }
 
 #pragma mark -
 #pragma mark Data Source Loading / Reloading Methods
 
-- (void)reloadTableViewDataSource {
+- (void)reloadTableViewDataSource 
+{
     [self.dataManager refreshFromWeb:self.tableView];
-	_reloading = YES;
-	
+	self.reloading = YES;	
 }
 
-- (void)doneLoadingTableViewData {
-	_reloading = NO;
-	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-	
+- (void)doneLoadingTableViewData 
+{
+	self.reloading = NO;
+	[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];	
 }
 
-- (void)reloadData {
+- (void)reloadData 
+{
     [self doneLoadingTableViewData];
     [self.tableView reloadData];
 }
@@ -282,23 +320,24 @@
 #pragma mark -
 #pragma mark Memory management
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning 
+{
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Relinquish ownership any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload 
+{
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
 }
 
 
-- (void)dealloc {
-    if (_refreshHeaderView != nil) {
-        [_refreshHeaderView release];
-    }
+- (void)dealloc 
+{
+    self.refreshHeaderView = nil;
     self.dataManager = nil;
     [super dealloc];
 }
