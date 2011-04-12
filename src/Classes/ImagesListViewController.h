@@ -6,9 +6,7 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "TableViewCell.h"
-
+@class TableViewCell;
 @class DataManager;
 @class PostDetailsController;
 @class EGORefreshTableHeaderView;
@@ -40,5 +38,6 @@
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)reloadTableViewDataSource;
 - (void)doneLoadingTableViewData;
+- (void)reloadViewData;
 
 @end

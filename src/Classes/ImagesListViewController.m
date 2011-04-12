@@ -6,6 +6,7 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
+#import "TableViewCell.h"
 #import "ImagesListViewController.h"
 #import "PostDetailsController.h"
 #import "DataManager.h"
@@ -57,13 +58,13 @@
     [self setupRefreshHeaderAndFooter];
     [self setupDataManager];
     
-    [self.dataManager preloadData:self.tableView];
+    [self.dataManager preloadData:self];
     [self doneLoadingTableViewData];
 }
 
 - (void)viewWillAppear:(BOOL)animated 
 {
-    [self.dataManager refresh:self.tableView];
+    [self.dataManager refresh:self];
     [super viewWillAppear:animated];
 }
 
@@ -160,7 +161,8 @@
 {
     // calculate height of table view (modify for multiple sections)
     float currentHeight = self.tableView.rowHeight * [self tableView:self.tableView numberOfRowsInSection:0];
-    
+    if (currentHeight < 431.0f)
+        return 431.0f;
     return currentHeight;
 }
 
@@ -274,6 +276,7 @@
     {
         [self.dataManager markDeleted:indexPath];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+        [self repositionRefreshViews];
     }
 }   
 
@@ -325,14 +328,14 @@
 
 - (void)reloadTableViewDataSource
 {
-    [self.dataManager refreshFromWeb:self.tableView];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+    [self.dataManager refreshFromWeb:self];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
 }
 
 - (void)getOlderDataSource
 {
-    [self.dataManager getOlderFromWeb:self.tableView];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+    [self.dataManager getOlderFromWeb:self];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
 }
 
 - (void)doneLoadingTableViewData
@@ -475,6 +478,7 @@
 - (void)repositionRefreshViews 
 {
     self.refreshFooterView.center = CGPointMake(160.0f, [self tableViewHeight] + 300.0f);
+    [self.refreshFooterView setNeedsDisplay];
 }
 
 - (float)endOfTableView:(UIScrollView *)scrollView 
@@ -482,7 +486,7 @@
     return [self tableViewHeight] - scrollView.bounds.size.height - scrollView.bounds.origin.y;
 }
 
-- (void)reloadData 
+- (void)reloadViewData 
 {
     [self.tableView reloadData];
     [self doneLoadingTableViewData];

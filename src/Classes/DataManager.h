@@ -15,6 +15,7 @@
 @class PostDetailsController;
 @class GDImagePost;
 @class GDPicture;
+@class ImagesListViewController;
 
 @interface DataManager : NSObject {
 @private
@@ -28,16 +29,16 @@
 - (id)initWithDbHelper:(DBHelper*)dbHelper;
 - (id)init;
 
-- (void)refreshFromWeb:(UITableView*)view;
-- (void)getOlderFromWeb:(UITableView*)view;
-- (void)preloadData:(UITableView*)view;
+- (void)refreshFromWeb:(ImagesListViewController*)view;
+- (void)getOlderFromWeb:(ImagesListViewController*)view;
+- (void)preloadData:(ImagesListViewController*)view;
 - (NSUInteger)postsCount;
 - (void)markDeleted:(NSIndexPath*)position;
 - (void)permanentlyDeletePost:(NSIndexPath*)position;
 - (void)addToFavourites:(NSIndexPath*)position;
 - (void)removeFromFavorites:(NSIndexPath*)position;
-- (void)refresh:(UITableView*)view;
-- (void)refreshFromWeb:(UITableView*)view;
+- (void)refresh:(ImagesListViewController*)view;
+- (void)refreshFromWeb:(ImagesListViewController*)view;
 
 - (void)getPostInfoWithView:(PostDetailsController*)view;
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath;

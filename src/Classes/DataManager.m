@@ -13,6 +13,7 @@
 #import "GDPicture.h"
 #import "DBHelper.h"
 #import "PostDetailsController.h"
+#import "ImagesListViewController.h"
 
 #import "ConvertersManager.h"
 
@@ -80,7 +81,7 @@ static ConvertersManager *convertersManager = nil;
     return (self.posts.count == 0);
 }
 
-- (void)preloadData:(UITableView*)view 
+- (void)preloadData:(ImagesListViewController*)view 
 {    
     self.posts = [self.dbHelper 
                   fetchObjects:@"GDImagePost" 
@@ -95,10 +96,10 @@ static ConvertersManager *convertersManager = nil;
     [self.dbHelper markUpdated];
 }
 
-- (void)refresh:(UITableView*)view
+- (void)refresh:(ImagesListViewController*)view
 {
     [self preloadData:view];
-    [view reloadData];
+    [view reloadViewData];
 }
 
 - (NSUInteger)postsCount
@@ -266,9 +267,12 @@ static ConvertersManager *convertersManager = nil;
     }
 }
 
-- (void)updateTableView:(UITableView*)tableView
+- (void)updateTableView:(ImagesListViewController*)view
 {
-    [tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    @synchronized(view)
+    {
+        [view performSelectorOnMainThread:NSSelectorFromString(@"reloadViewData") withObject:nil waitUntilDone:YES];
+    }
 }
 
 - (BOOL)shouldAddNewPost:(NSDictionary*)dict timestamp:(int)timestamp
@@ -277,7 +281,7 @@ static ConvertersManager *convertersManager = nil;
     return ([self existsInDatabase:dict] == NO && [postDate intValue] >= timestamp);
 }
 
-- (void)getPostsFromConverter:(NSObject<GDDataConverter>*)converter timestamp:(int)timestamp view:(UITableView*)view
+- (void)getPostsFromConverter:(NSObject<GDDataConverter>*)converter timestamp:(int)timestamp view:(ImagesListViewController*)view
 {
     NSArray *webPosts = [converter convertGalleryWithDate:nil latest:YES];
     
@@ -291,31 +295,29 @@ static ConvertersManager *convertersManager = nil;
     }
 }
 
-- (void)downloadData:(UITableView*)view 
+- (void)downloadData:(ImagesListViewController*)view 
 {    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    @synchronized(self)
-    {
-        NSNumber *timestamp = [self mostRecentPostDate];
-        LogDebug(@"most recent post date: %d", [timestamp intValue]);
+    NSNumber *timestamp = [self mostRecentPostDate];
+    LogDebug(@"most recent post date: %d", [timestamp intValue]);
     
-        // TODO download until timestamp met
-        for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
-        {
-            [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
-        }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
+    {
+        [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
     }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     [pool drain];
 }
 
-- (void)refreshFromWeb:(UITableView*)view 
+- (void)refreshFromWeb:(ImagesListViewController*)view 
 {    
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
-- (void)getOlderFromWeb:(UITableView *)view
+- (void)getOlderFromWeb:(ImagesListViewController *)view
 {
     //TODO
 }
