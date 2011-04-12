@@ -329,13 +329,11 @@
 - (void)reloadTableViewDataSource
 {
     [self.dataManager refreshFromWeb:self];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
 }
 
 - (void)getOlderDataSource
 {
     [self.dataManager getOlderFromWeb:self];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
 }
 
 - (void)doneLoadingTableViewData

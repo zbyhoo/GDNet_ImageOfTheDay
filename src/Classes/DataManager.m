@@ -269,10 +269,7 @@ static ConvertersManager *convertersManager = nil;
 
 - (void)updateTableView:(ImagesListViewController*)view
 {
-    @synchronized(view)
-    {
-        [view performSelectorOnMainThread:NSSelectorFromString(@"reloadViewData") withObject:nil waitUntilDone:YES];
-    }
+    [view performSelectorOnMainThread:NSSelectorFromString(@"reloadViewData") withObject:nil waitUntilDone:YES];
 }
 
 - (BOOL)shouldAddNewPost:(NSDictionary*)dict timestamp:(int)timestamp
@@ -299,15 +296,20 @@ static ConvertersManager *convertersManager = nil;
 {    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    NSNumber *timestamp = [self mostRecentPostDate];
-    LogDebug(@"most recent post date: %d", [timestamp intValue]);
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
+    @synchronized(view.tableView)
     {
-        [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
+        NSNumber *timestamp = [self mostRecentPostDate];
+        LogDebug(@"most recent post date: %d", [timestamp intValue]);
+    
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
+        {
+            [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
+        }
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    [view performSelectorOnMainThread:@selector(doneLoadingTableViewData) withObject:nil waitUntilDone:NO];
     
     [pool drain];
 }
