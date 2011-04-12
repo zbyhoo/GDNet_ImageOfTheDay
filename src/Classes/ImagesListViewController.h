@@ -8,23 +8,29 @@
 
 #import <UIKit/UIKit.h>
 #import "TableViewCell.h"
-#import "EGORefreshTableHeaderView.h"
 
 @class DataManager;
 @class PostDetailsController;
+@class EGORefreshTableHeaderView;
+@class EGORefreshTableFooterView;
 
-@interface ImagesListViewController : UITableViewController <EGORefreshTableHeaderDelegate, UITableViewDelegate, UITableViewDataSource> {
+@interface ImagesListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource> {
     IBOutlet TableViewCell *tblCell;
     
 @private
     EGORefreshTableHeaderView *_refreshHeaderView;
-    BOOL _reloading;
+    EGORefreshTableFooterView *_refreshFooterView;
+    BOOL _reloadingHeader;
+    BOOL _reloadingFooter;
+    
     DataManager *_dataManager;
 }
 
 @property (nonatomic, retain) DataManager *dataManager;
 @property (nonatomic, retain) EGORefreshTableHeaderView *refreshHeaderView;
-@property (nonatomic, assign) BOOL reloading;
+@property (nonatomic, retain) EGORefreshTableFooterView *refreshFooterView;
+@property (nonatomic, assign) BOOL reloadingHeader;
+@property (nonatomic, assign) BOOL reloadingFooter;
 
 - (void)setupNavigationButtons;
 - (void)setupRefreshHeaderAndFooter;

@@ -14,16 +14,26 @@
 #import "GDImagePost.h"
 #import "GDPicture.h"
 
+#import "EGORefreshTableHeaderView.h"
+#import "EGORefreshTableFooterView.h"
+
 @interface ImagesListViewController (Protected)
 
 - (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell;
 - (BOOL)isRefreshHeaderNeeded;
+- (BOOL)isRefreshFooterNeeded;
 - (void)createRefreshHeader;
+- (void)createRefreshFooter;
 - (NSString*)getDateFromPost:(GDImagePost*)post;
 - (UIImage*)getMainPicture:(GDImagePost*)post;
 - (void)setupRefreshHeader;
+- (void)setupRefreshFooter;
 - (void)configureRefreshHeader;
 - (TableViewCell*)createCell:(UITableView*)tableView;
+- (float)tableViewHeight;
+- (float)endOfTableView:(UIScrollView *)scrollView;
+- (void)dataSourceDidFinishLoadingNewData;
+- (void)repositionRefreshViews;
     
 @end
 
@@ -31,8 +41,10 @@
 
 @synthesize dataManager         = _dataManager;
 @synthesize refreshHeaderView   = _refreshHeaderView;
+@synthesize refreshFooterView   = _refreshFooterView;
 
-@synthesize reloading = _reloading;
+@synthesize reloadingHeader = _reloadingHeader;
+@synthesize reloadingFooter = _reloadingFooter;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -46,6 +58,7 @@
     [self setupDataManager];
     
     [self.dataManager preloadData:self.tableView];
+    [self doneLoadingTableViewData];
 }
 
 - (void)viewWillAppear:(BOOL)animated 
@@ -68,6 +81,11 @@
 		[self createRefreshHeader];
         [self setupRefreshHeader];
 	}
+    if ([self isRefreshFooterNeeded])
+    {
+        [self createRefreshFooter];
+        [self setupRefreshFooter];
+    }
 }
 
 - (void)setupNavigationButtons
@@ -88,11 +106,21 @@
     return self.refreshHeaderView == nil;
 }
 
+- (BOOL)isRefreshFooterNeeded
+{
+    return self.refreshFooterView == nil;
+}
+
 - (void)setupRefreshHeader
 {
     [self.tableView addSubview:self.refreshHeaderView];
-    [self.refreshHeaderView refreshLastUpdatedDate];
-    self.reloading = NO;
+    self.reloadingHeader = NO;
+}
+
+- (void)setupRefreshFooter
+{
+    [self.tableView addSubview:self.refreshFooterView];
+    self.reloadingFooter = NO;
 }
 
 - (void)createRefreshHeader
@@ -100,11 +128,40 @@
     EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] 
                                        initWithFrame:CGRectMake(0.0f, 
                                                                 0.0f - self.tableView.bounds.size.height, 
-                                                                self.view.frame.size.width, 
+                                                                320.0f, 
                                                                 self.tableView.bounds.size.height)];
-    view.delegate = self;
     self.refreshHeaderView = view;
     [view release];
+    self.refreshHeaderView.backgroundColor = [UIColor colorWithRed:226.0/255.0 
+                                                             green:231.0/255.0 
+                                                              blue:237.0/255.0 
+                                                             alpha:1.0];
+}
+
+- (void)createRefreshFooter
+{
+    EGORefreshTableFooterView *view = [[EGORefreshTableFooterView alloc] 
+                                       initWithFrame:CGRectMake(0.0f, 
+                                                                [self tableViewHeight], 
+                                                                320.0f, 
+                                                                600.0f)];
+    self.refreshFooterView = view;
+    [view release];
+    self.refreshFooterView.backgroundColor = [UIColor colorWithRed:226.0/255.0 
+                                                             green:231.0/255.0 
+                                                              blue:237.0/255.0 
+                                                             alpha:1.0];
+    self.refreshFooterView.pullingLabelText = @"Pull up to get older posts";
+    self.refreshFooterView.releaseLabelText = @"Release to get older posts";
+    [self.refreshFooterView setState:EGOOPullRefreshNormal];
+}
+
+- (float)tableViewHeight 
+{
+    // calculate height of table view (modify for multiple sections)
+    float currentHeight = self.tableView.rowHeight * [self tableView:self.tableView numberOfRowsInSection:0];
+    
+    return currentHeight;
 }
 
 /*
@@ -266,58 +323,169 @@
     [imageDetailViewController release];
 }
 
+- (void)reloadTableViewDataSource
+{
+    [self.dataManager refreshFromWeb:self.tableView];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+}
+
+- (void)getOlderDataSource
+{
+    [self.dataManager getOlderFromWeb:self.tableView];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+}
+
+- (void)doneLoadingTableViewData
+{
+	//  model should call this when its done loading
+	[self dataSourceDidFinishLoadingNewData];
+}
+
 #pragma mark -
-#pragma mark UIScrollViewDelegate Methods
+#pragma mark EGORefreshTable Methods
+
+- (void)updateRefreshHeaderWhenScrollDidScroll:(UIScrollView *)scrollView
+{
+    if (self.refreshHeaderView == nil)
+        return;
+    
+    if (self.refreshHeaderView.state == EGOOPullRefreshPulling && 
+        scrollView.contentOffset.y > -65.0f && 
+        scrollView.contentOffset.y < 0.0f && 
+        !self.reloadingHeader) 
+    {
+        [self.refreshHeaderView setState:EGOOPullRefreshNormal];
+    } 
+    else if (self.refreshHeaderView.state == EGOOPullRefreshNormal && 
+             scrollView.contentOffset.y < -65.0f && 
+             !self.reloadingHeader) 
+    {
+        [self.refreshHeaderView setState:EGOOPullRefreshPulling];
+    }
+}
+
+- (void)updateRefreshFooterWhenScrollDidScroll:(UIScrollView *)scrollView
+{
+    if (self.refreshFooterView == nil)
+        return;
+    
+    float endOfTable = [self endOfTableView:scrollView];
+    if (self.refreshFooterView.state == EGOOPullRefreshPulling && 
+        endOfTable < 0.0f && 
+        endOfTable > -65.0f && 
+        !self.reloadingFooter) 
+    {
+        [self.refreshFooterView setState:EGOOPullRefreshNormal];
+    } 
+    else if (self.refreshFooterView.state == EGOOPullRefreshNormal 
+             && endOfTable < -65.0f && 
+             !self.reloadingFooter) 
+    {
+        [self.refreshFooterView setState:EGOOPullRefreshPulling];
+    }
+}
+
+- (void)updateRefreshViewsWhenScrollDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.isDragging) 
+    {
+		[self updateRefreshHeaderWhenScrollDidScroll:scrollView];
+        [self updateRefreshFooterWhenScrollDidScroll:scrollView];
+	}
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{		
+    [self updateRefreshViewsWhenScrollDidScroll:scrollView];
+}
+
+- (void)updateRefreshHeaderWhenScrollEndDragging:(UIScrollView *)scrollView
 {
-	[self.refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    if (self.refreshHeaderView == nil)
+        return;
+    
+    if (scrollView.contentOffset.y <= - 65.0f && !self.reloadingHeader) 
+    {
+        self.reloadingHeader = YES;
+        [self reloadTableViewDataSource];
+        [self.refreshHeaderView setState:EGOOPullRefreshLoading];
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.2];
+        self.tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
+        [UIView commitAnimations];
+	}
+}
+
+- (void)updateRefreshFooterWhenScrollEndDragging:(UIScrollView *)scrollView
+{
+    if (self.refreshFooterView == nil)
+        return;
+    
+    if ([self endOfTableView:scrollView] <= -65.0f && !self.reloadingFooter) 
+    {
+        self.reloadingFooter = YES;
+        [self getOlderDataSource];
+        [self.refreshFooterView setState:EGOOPullRefreshLoading];
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.2];
+        self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 60.0f, 0.0f);
+        [UIView commitAnimations];
+	}
+}
+
+- (void)updateRefreshViewsWhenScrollEndDragging:(UIScrollView *)scrollView
+{
+    [self updateRefreshHeaderWhenScrollEndDragging:scrollView];
+    [self updateRefreshFooterWhenScrollEndDragging:scrollView];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{	
+    [self updateRefreshViewsWhenScrollEndDragging:scrollView];
+}
+
+- (void)dataSourceDidFinishLoadingNewData
 {
-	[self.refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];	
-}
-
-
-#pragma mark -
-#pragma mark EGORefreshTableHeaderDelegate Methods
-
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
-{	
-	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];	
-}
-
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
-{	
-	return self.reloading;	
-}
-
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
-{	
-	return [NSDate date];	
+	self.reloadingHeader = NO;
+    self.reloadingFooter = NO;
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:.3];
+	[self.tableView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+	[UIView commitAnimations];
+	
+    if ([self.refreshHeaderView state] != EGOOPullRefreshNormal) 
+    {
+        [self.refreshHeaderView setState:EGOOPullRefreshNormal];
+        [self.refreshHeaderView setCurrentDate];  //  should check if data reload was successful 
+    }
+    
+    if ([self.refreshFooterView state] != EGOOPullRefreshNormal) 
+    {
+        [self.refreshFooterView setState:EGOOPullRefreshNormal];
+        [self.refreshFooterView setCurrentDate];  //  should check if data reload was successful 
+    }
+    
+    [self repositionRefreshViews];
 }
 
 #pragma mark -
 #pragma mark Data Source Loading / Reloading Methods
 
-- (void)reloadTableViewDataSource 
+- (void)repositionRefreshViews 
 {
-    [self.dataManager refreshFromWeb:self.tableView];
-	self.reloading = YES;	
+    self.refreshFooterView.center = CGPointMake(160.0f, [self tableViewHeight] + 300.0f);
 }
 
-- (void)doneLoadingTableViewData 
+- (float)endOfTableView:(UIScrollView *)scrollView 
 {
-	self.reloading = NO;
-	[self.refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];	
+    return [self tableViewHeight] - scrollView.bounds.size.height - scrollView.bounds.origin.y;
 }
 
 - (void)reloadData 
 {
-    [self doneLoadingTableViewData];
     [self.tableView reloadData];
+    [self doneLoadingTableViewData];
 }
 
 #pragma mark -
@@ -341,6 +509,7 @@
 - (void)dealloc 
 {
     self.refreshHeaderView = nil;
+    self.refreshFooterView = nil;
     self.dataManager = nil;
     [super dealloc];
 }

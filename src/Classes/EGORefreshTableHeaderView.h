@@ -27,37 +27,45 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+
 typedef enum{
 	EGOOPullRefreshPulling = 0,
 	EGOOPullRefreshNormal,
 	EGOOPullRefreshLoading,	
 } EGOPullRefreshState;
 
-@protocol EGORefreshTableHeaderDelegate;
 @interface EGORefreshTableHeaderView : UIView {
 	
-	id _delegate;
-	EGOPullRefreshState _state;
-
 	UILabel *_lastUpdatedLabel;
 	UILabel *_statusLabel;
 	CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;
 	
+	EGOPullRefreshState _state;
 
+@protected
+    CGRect _lastUpdatedLabelFrame;
+    CGRect _statusLabelFrame;
+    CGRect _arrowImageFrame;
+    CGRect _activityViewFrame;
+    
+    CATransform3D _arrowPullingTransform;
+    CATransform3D _arrowNormalTransform;
+    
+    NSString *_releaseLabelText;
+    NSString *_pullingLabelText;
+    NSString *_loadingLabelText;
+    
+    NSString *_userDefaultsKey;
 }
 
-@property(nonatomic,assign) id <EGORefreshTableHeaderDelegate> delegate;
+@property(nonatomic,assign) EGOPullRefreshState state;
+@property(nonatomic,retain) NSString *releaseLabelText;
+@property(nonatomic,retain) NSString *pullingLabelText;
+@property(nonatomic,retain) NSString *loadingLabelText;
 
-- (void)refreshLastUpdatedDate;
-- (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
-- (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
-- (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
+- (void)setCurrentDate;
+- (void)setState:(EGOPullRefreshState)aState;
+- (void)setup:(CGRect)frame;
 
-@end
-@protocol EGORefreshTableHeaderDelegate
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view;
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view;
-@optional
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view;
 @end

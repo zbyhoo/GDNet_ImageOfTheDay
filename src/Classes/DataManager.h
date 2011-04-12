@@ -29,6 +29,7 @@
 - (id)init;
 
 - (void)refreshFromWeb:(UITableView*)view;
+- (void)getOlderFromWeb:(UITableView*)view;
 - (void)preloadData:(UITableView*)view;
 - (NSUInteger)postsCount;
 - (void)markDeleted:(NSIndexPath*)position;

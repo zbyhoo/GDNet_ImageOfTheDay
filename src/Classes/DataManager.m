@@ -315,6 +315,11 @@ static ConvertersManager *convertersManager = nil;
     [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
 }
 
+- (void)getOlderFromWeb:(UITableView *)view
+{
+    //TODO
+}
+
 - (NSPredicate*)getPostPredicateWithId:(NSString*)postId
 {
     return [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"(url LIKE \"%@\")", postId]];
