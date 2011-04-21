@@ -8,8 +8,14 @@
 
 #import "GDHtmlStringConverter.h"
 
-@interface GDArchiveHtmlStringConverter : GDHtmlStringConverter {
-    
+@interface GDArchiveHtmlStringConverter : GDHtmlStringConverter 
+{
+@private
+    NSString *_templateUrl;
+    int _currentPage;
 }
-+ (void)setHelperIndex:(int)index;
+
+- (void)resetUrlCounter;
+- (NSString*)getNextUrl;
+
 @end

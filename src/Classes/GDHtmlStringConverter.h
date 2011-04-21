@@ -8,16 +8,24 @@
 
 #import "GDDataConverter.h"
 
-@interface GDHtmlStringConverter : NSObject <GDDataConverter> {
-@private
-    NSString *_mainUrl;
+@interface GDHtmlStringConverter : NSObject <GDDataConverter> 
+{
 }
-
-@property (nonatomic, retain) NSString *mainUrl;
 
 - (NSString*)getData:(NSString*)urlString;
 - (NSPredicate*)isPostLikePredicate;
 - (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage;
 - (NSDictionary*)parsePost:(NSString*)chunk;
+
+- (void)resetUrlCounter;
+- (NSString*)getNextUrl;
+
+- (NSArray*)getNewPostsStartingFrom:(NSNumber*)timestamp;
+- (NSArray*)getOldPostsStartingFrom:(NSNumber*)timestamp;
+
+- (NSPredicate*)getNewerPostsPredicate:(NSNumber*)timestamp;
+- (NSPredicate*)getOlderPostsPredicate:(NSNumber*)timestamp;
+
+- (NSArray*)getPosts;
 
 @end

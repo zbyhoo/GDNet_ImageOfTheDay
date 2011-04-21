@@ -8,7 +8,7 @@
 
 @protocol GDDataConverter
 
-- (NSArray*)convertGalleryWithDate:(NSNull*)timestamp latest:(BOOL)latest;
+- (NSArray*)convertGalleryWithDate:(NSNumber*)timestamp latest:(BOOL)latest;
 - (NSDictionary*)convertPost:(NSString*)data;
 
 @end

@@ -90,7 +90,7 @@ static ConvertersManager *convertersManager = nil;
     
     if ([self shouldDownloadData])
     {
-        [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
+        [NSThread detachNewThreadSelector:@selector(downloadNewData:) toTarget:self withObject:view];
     }
     
     [self.dbHelper markUpdated];
@@ -172,6 +172,17 @@ static ConvertersManager *convertersManager = nil;
     if ([objects count] > 0) 
     {
         return ((GDImagePost*)[objects objectAtIndex:0]).postDate;
+    }
+    return nil;
+}
+
+- (NSNumber*)oldestPostDate
+{    
+    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:nil sorting:[self getDateSortDescriptor]];
+    
+    if ([objects count] > 0) 
+    {
+        return ((GDImagePost*)[objects lastObject]).postDate;
     }
     return nil;
 }
@@ -273,14 +284,13 @@ static ConvertersManager *convertersManager = nil;
 }
 
 - (BOOL)shouldAddNewPost:(NSDictionary*)dict timestamp:(int)timestamp
-{    
-    NSNumber *postDate = [dict valueForKey:KEY_DATE];
-    return ([self existsInDatabase:dict] == NO && [postDate intValue] >= timestamp);
+{
+    return ([self existsInDatabase:dict] == NO);
 }
 
-- (void)getPostsFromConverter:(NSObject<GDDataConverter>*)converter timestamp:(int)timestamp view:(ImagesListViewController*)view
+- (void)getPostsFromConverter:(NSObject<GDDataConverter>*)converter timestamp:(int)timestamp view:(ImagesListViewController*)view latest:(BOOL)latest
 {
-    NSArray *webPosts = [converter convertGalleryWithDate:nil latest:YES];
+    NSArray *webPosts = [converter convertGalleryWithDate:[NSNumber numberWithInt:timestamp] latest:latest];
     
     for (NSDictionary *objectDict in webPosts)
     {
@@ -292,19 +302,16 @@ static ConvertersManager *convertersManager = nil;
     }
 }
 
-- (void)downloadData:(ImagesListViewController*)view 
+- (void)downloadData:(ImagesListViewController*)view new:(BOOL)newData timestamp:(NSNumber*)timestamp
 {    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
     @synchronized(view.tableView)
-    {
-        NSNumber *timestamp = [self mostRecentPostDate];
-        LogDebug(@"most recent post date: %d", [timestamp intValue]);
-    
+    {        
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
         {
-            [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view];
+            [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view latest:newData];
         }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     }
@@ -314,15 +321,29 @@ static ConvertersManager *convertersManager = nil;
     [pool drain];
 }
 
+- (void)downloadNewData:(ImagesListViewController*)view 
+{    
+    NSNumber *timestamp = [self mostRecentPostDate];
+    LogDebug(@"most recent post date timestamp: %d", [timestamp intValue]);
+    
+    [self downloadData:view new:YES timestamp:timestamp];
+}
+
+- (void)downloadOldData:(ImagesListViewController*)view 
+{   
+    NSNumber *timestamp = [self oldestPostDate];
+    LogDebug(@"oldest post date timestamp: %d", [timestamp intValue]);
+    [self downloadData:view new:NO timestamp:timestamp];
+}
+
 - (void)refreshFromWeb:(ImagesListViewController*)view 
 {    
-    [NSThread detachNewThreadSelector:@selector(downloadData:) toTarget:self withObject:view];
+    [NSThread detachNewThreadSelector:@selector(downloadNewData:) toTarget:self withObject:view];
 }
 
 - (void)getOlderFromWeb:(ImagesListViewController *)view
 {
-    //TODO
-    [view doneLoadingTableViewData];
+    [NSThread detachNewThreadSelector:@selector(downloadOldData:) toTarget:self withObject:view];
 }
 
 - (NSPredicate*)getPostPredicateWithId:(NSString*)postId

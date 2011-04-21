@@ -13,10 +13,24 @@
 
 @implementation GDArchiveHtmlStringConverter
 
-static NSUInteger helperIndex = 60;
+- (id)init
+{
+    if ((self = [super init])) 
+    {
+        _templateUrl = @"http://archive.gamedev.net/community/forums/gallery.asp?forum_id=62&PageSize=16&WhichPage=";
+    }
+    return self;
+}
 
-+ (void)setHelperIndex:(int)index {
-    helperIndex = index;
+- (void)resetUrlCounter
+{
+    _currentPage = 0;
+}
+
+- (NSString*)getNextUrl
+{
+    _currentPage += 1;
+    return [NSString stringWithFormat:@"%@%d", _templateUrl, _currentPage];
 }
 
 - (NSMutableArray*)splitHtmlToPosts:(NSString*)htmlPage {
@@ -59,10 +73,7 @@ static NSUInteger helperIndex = 60;
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"MM/dd/yyyy"];
         double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
-        timestamp += (helperIndex--); // trick to properly sort posts by timestamp (here we have only day, no exact time)
-        if (helperIndex == 0) {
-            helperIndex = 60;
-        }
+        
         date = [NSNumber numberWithDouble:timestamp];
         [df release];
         LogDebug(@"Date: %@", date);

@@ -11,36 +11,16 @@
 
 @implementation GDHtmlStringConverter
 
-@synthesize mainUrl = _mainUrl;
-
-- (id)init {
-    if ((self = [super init])) {
-        self.mainUrl = GD_ARCHIVE_IOTD_PAGE_URL;
-    }
-    return self;
-}
-
 - (void)dealloc {
-    self.mainUrl = nil;
     [super dealloc];
 }
 
-- (NSArray*)convertGalleryWithDate:(NSNull*)timestamp latest:(BOOL)latest {
-    
-    NSString *pageContent = [self getData:self.mainUrl];
-    NSMutableArray *chunks = [self splitHtmlToPosts:pageContent];
-    LogInfo(@"%@", chunks);
-    
-    NSMutableArray *posts = [[NSMutableArray alloc] init];
-    NSString *chunk;
-    for (chunk in chunks) {
-        NSDictionary *newPost = [self parsePost:chunk];
-        if (newPost != nil) {
-            [posts addObject:newPost];
-        }
-    }
-    
-    return [posts autorelease];
+- (NSArray*)convertGalleryWithDate:(NSNumber*)timestamp latest:(BOOL)latest 
+{    
+    if (latest)
+        return [self getNewPostsStartingFrom:timestamp];
+    else
+        return [self getOldPostsStartingFrom:timestamp];
 }
 
 - (NSDictionary*)parsePost:(NSString*)chunk {
@@ -73,6 +53,86 @@
 - (NSDictionary*)convertPost:(NSString*)data {
     LogError(@"method not implemented");
     return nil;
+}
+
+- (void)resetUrlCounter
+{
+}
+
+- (NSString*)getNextUrl
+{
+    return nil;
+}
+
+- (NSArray*)getPosts
+{
+    NSMutableArray *posts = [[NSMutableArray alloc] init];
+    
+    NSString *pageContent = [self getData:[self getNextUrl]];
+    NSMutableArray *chunks = [self splitHtmlToPosts:pageContent];
+    
+    for (NSString *chunk in chunks) 
+    {
+        NSDictionary *newPost = [self parsePost:chunk];
+        if (newPost != nil) 
+        {
+            [posts addObject:newPost];
+        }
+    }
+    
+    return [posts autorelease];
+}
+
+- (NSArray*)getNewPostsStartingFrom:(NSNumber*)timestamp
+{
+    [self resetUrlCounter];
+    NSMutableArray *posts = [[NSMutableArray alloc] init];
+    BOOL morePosts = YES;
+    
+    while (morePosts)
+    {
+        [posts addObjectsFromArray:[self getPosts]];
+        if (timestamp && [timestamp intValue] > 0)
+        {
+            NSUInteger counter =  posts.count;
+            [posts filterUsingPredicate:[self getNewerPostsPredicate:timestamp]];
+            if (counter > posts.count)
+                morePosts = NO;
+        }
+        else
+        {
+            return [posts autorelease];
+        }
+    }
+    
+    return [posts autorelease];
+}
+
+- (NSArray*)getOldPostsStartingFrom:(NSNumber*)timestamp
+{
+    [self resetUrlCounter];
+    NSMutableArray *posts = [[NSMutableArray alloc] init];
+    
+    while (posts.count < (NSUInteger)10)
+    {
+        [posts addObjectsFromArray:[self getPosts]];
+        [posts filterUsingPredicate:[self getOlderPostsPredicate:timestamp]];
+    }
+    
+    return [posts autorelease];
+
+}
+
+- (NSPredicate*)getNewerPostsPredicate:(NSNumber*)timestamp
+{
+    NSString *predicateString = [NSString stringWithFormat:@"(%@ >= %d)", KEY_DATE, [timestamp intValue]];
+    return [NSPredicate predicateWithFormat:predicateString];
+}
+
+- (NSPredicate*)getOlderPostsPredicate:(NSNumber*)timestamp
+{
+    NSString *predicateString = [NSString stringWithFormat:@"(%@ < %d)", KEY_DATE, [timestamp intValue]];
+    return [NSPredicate predicateWithFormat:predicateString];
 }
 
 @end
