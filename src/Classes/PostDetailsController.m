@@ -210,27 +210,36 @@ typedef enum {
     return self.imagesCell;
 }
 
-- (void)imageButtonClick:(id)sender {
-    ImageButton *button = (ImageButton*)sender;
+- (void)pushZoomedImageView:(ZoomedImageViewController*)viewController
+{
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)goToLargeImageView:(GDPicture*)picture
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-//    if (button.picture.largePictureData == nil) {
-//        LogError(@"no data for picture for url: %@", button.picture.largePictureUrl);
-//        return;
-//    }
-    
-    LogDebug(@"clicked - img url: %@", button.picture.largePictureUrl);
-    
-    if (![self.dataManager downloadLargeImage:button.picture])
+    if (![self.dataManager downloadLargeImage:picture])
     {
-        LogError(@"unable to delete large picture");
+        LogError(@"unable to download large picture");
         return;
     }
     
-    UIImage *image = [[UIImage alloc] initWithData:button.picture.largePictureData];
+    UIImage *image = [[UIImage alloc] initWithData:picture.largePictureData];
     ZoomedImageViewController *zoomedImageView = [[ZoomedImageViewController alloc] initWithImage:image];
     [image release];
-    [self.navigationController pushViewController:zoomedImageView animated:YES];
+    [self performSelectorOnMainThread:@selector(pushZoomedImageView:) withObject:zoomedImageView waitUntilDone:YES];
     [zoomedImageView release];
+    
+    [pool drain];
+}
+
+- (void)imageButtonClick:(id)sender {
+    ImageButton *button = (ImageButton*)sender;
+    
+    LogDebug(@"clicked - img url: %@", button.picture.largePictureUrl);
+    
+    [NSThread detachNewThreadSelector:@selector(goToLargeImageView:) toTarget:self withObject:button.picture];
 }
 
 - (void)updateImagesCell:(GDImagePost*)post {

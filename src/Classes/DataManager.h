@@ -21,6 +21,7 @@
 @private
     DBHelper *_dbHelper;
     NSMutableArray *_posts;
+    int _downloadingDataCounter;
 }
 
 @property (retain, nonatomic) NSMutableArray *posts;
@@ -57,5 +58,8 @@
 - (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted;
 - (BOOL)shouldDownloadData;
 - (BOOL)downloadLargeImage:(GDPicture*)picture;
+
+- (void)dataDownloadStarted;
+- (void)dataDownloadEnded;
 
 @end

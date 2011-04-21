@@ -42,6 +42,7 @@ static ConvertersManager *convertersManager = nil;
     if ((self = [super init])) 
     {
         self.dbHelper = dbHelper;
+        _downloadingDataCounter = 0;
     }
     return self;
 }
@@ -51,6 +52,7 @@ static ConvertersManager *convertersManager = nil;
     if ((self = [super init])) 
     {
         _dbHelper = [[DBHelper alloc]init];
+        _downloadingDataCounter = 0;
     }
     return self;
 }
@@ -220,7 +222,11 @@ static ConvertersManager *convertersManager = nil;
 
 - (NSData*)downloadImageFromUrl:(NSString*)url
 {
-    return [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    [self dataDownloadStarted];
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    [self dataDownloadEnded];
+    
+    return imageData;
 }
 
 - (BOOL)downloadLargeImage:(GDPicture*)picture
@@ -308,12 +314,12 @@ static ConvertersManager *convertersManager = nil;
     
     @synchronized(view.tableView)
     {        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [self dataDownloadStarted];
         for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
         {
             [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view latest:newData];
         }
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        [self dataDownloadEnded];
     }
     
     [view performSelectorOnMainThread:@selector(doneLoadingTableViewData) withObject:nil waitUntilDone:NO];
@@ -392,7 +398,11 @@ static ConvertersManager *convertersManager = nil;
     }
     
     GDImagePost *post = [array objectAtIndex:0];
+    
+    [self dataDownloadStarted];
     NSDictionary *postDict = [[[DataManager getConvertersManager] getConverterType:post.type] convertPost:postId];
+    [self dataDownloadEnded];
+    
     if (!postDict) 
     {
         return nil;
@@ -467,6 +477,47 @@ static ConvertersManager *convertersManager = nil;
 {
     GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
     return post;
+}
+
+
+
+- (void)dataDownloadStarted_mainThread
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    @synchronized(self)
+    {
+        NSLog(@"DD -- : %d", _downloadingDataCounter);
+        if (_downloadingDataCounter == 0)
+        {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        }
+        ++_downloadingDataCounter;
+    }
+    
+    [pool drain];
+}
+
+- (void)dataDownloadStarted
+{
+    [self performSelectorOnMainThread:@selector(dataDownloadStarted_mainThread) withObject:nil waitUntilDone:YES];
+}
+
+- (void)dataDownloadEnded_mainThread
+{
+    @synchronized(self)
+    {
+        --_downloadingDataCounter;
+        if (_downloadingDataCounter == 0)
+        {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }
+    }
+}
+
+- (void)dataDownloadEnded
+{
+    [self performSelectorOnMainThread:@selector(dataDownloadEnded_mainThread) withObject:nil waitUntilDone:YES];
 }
 
 @end
