@@ -51,6 +51,13 @@
 		2678BF60132816E9003CF4C7 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
 		267AE029132E928E00C25A85 /* DataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 267AE028132E928E00C25A85 /* DataManagerTest.m */; };
 		267AE02A132E9B6000C25A85 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
+		269AA4051367425F00C7618E /* GameDevArchiveDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */; };
+		269AA4061367425F00C7618E /* GameDevArchiveDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */; };
+		269AA40913674C5300C7618E /* DevMasterHtmlConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */; };
+		269AA40A13674C5300C7618E /* DevMasterHtmlConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */; };
+		269AA40D13674EDD00C7618E /* DevMasterHtmlConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA40C13674EDD00C7618E /* DevMasterHtmlConverterTest.m */; };
+		269AA40F1367557000C7618E /* sample_devmaster_main.html in Resources */ = {isa = PBXBuildFile; fileRef = 269AA40E1367556F00C7618E /* sample_devmaster_main.html */; };
+		269AA41113675B0000C7618E /* devmaster_post.html in Resources */ = {isa = PBXBuildFile; fileRef = 269AA41013675B0000C7618E /* devmaster_post.html */; };
 		269D55A513302C6000156F5E /* PostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269D55A313302C5C00156F5E /* PostDetailsController.m */; };
 		269D55A613302C6000156F5E /* PostDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 269D55A413302C5C00156F5E /* PostDetailsController.xib */; };
 		26AF997B131ED4810096C002 /* GDNet_ImageOfTheDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */; };
@@ -136,6 +143,13 @@
 		2678BF5E132816E9003CF4C7 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
 		2678BF5F132816E9003CF4C7 /* DBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHelper.m; sourceTree = "<group>"; };
 		267AE028132E928E00C25A85 /* DataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManagerTest.m; path = Tests/DataManagerTest.m; sourceTree = "<group>"; };
+		269AA4031367425F00C7618E /* GameDevArchiveDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDevArchiveDataManager.h; sourceTree = "<group>"; };
+		269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDevArchiveDataManager.m; sourceTree = "<group>"; };
+		269AA40713674C5200C7618E /* DevMasterHtmlConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevMasterHtmlConverter.h; sourceTree = "<group>"; };
+		269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevMasterHtmlConverter.m; sourceTree = "<group>"; };
+		269AA40C13674EDD00C7618E /* DevMasterHtmlConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevMasterHtmlConverterTest.m; sourceTree = "<group>"; };
+		269AA40E1367556F00C7618E /* sample_devmaster_main.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_devmaster_main.html; path = Tests/data/sample_devmaster_main.html; sourceTree = "<group>"; };
+		269AA41013675B0000C7618E /* devmaster_post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = devmaster_post.html; path = Tests/data/devmaster_post.html; sourceTree = "<group>"; };
 		269D55A213302C5B00156F5E /* PostDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailsController.h; sourceTree = "<group>"; };
 		269D55A313302C5C00156F5E /* PostDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailsController.m; sourceTree = "<group>"; };
 		269D55A413302C5C00156F5E /* PostDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PostDetailsController.xib; path = Classes/PostDetailsController.xib; sourceTree = "<group>"; };
@@ -236,6 +250,7 @@
 				267AE028132E928E00C25A85 /* DataManagerTest.m */,
 				264A605A1332CE8800037CEA /* DBHelperTest.m */,
 				26E73C481348782A008ACB18 /* ConvertersManagerTest.m */,
+				269AA40C13674EDD00C7618E /* DevMasterHtmlConverterTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -245,6 +260,8 @@
 			children = (
 				264F31C1130C6D8300BEB7C7 /* sample_archive_main_page.html */,
 				262B64DD1336AC7D0086EB20 /* sample_archive_post.html */,
+				269AA40E1367556F00C7618E /* sample_devmaster_main.html */,
+				269AA41013675B0000C7618E /* devmaster_post.html */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -278,6 +295,10 @@
 				26E73C4413487043008ACB18 /* ConvertersManager.m */,
 				26105572134E477D00513008 /* FavoritesDataManager.h */,
 				26105573134E477D00513008 /* FavoritesDataManager.m */,
+				269AA4031367425F00C7618E /* GameDevArchiveDataManager.h */,
+				269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */,
+				269AA40713674C5200C7618E /* DevMasterHtmlConverter.h */,
+				269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -494,6 +515,8 @@
 				264F31C2130C6D8300BEB7C7 /* sample_archive_main_page.html in Resources */,
 				262B64DE1336AC7D0086EB20 /* sample_archive_post.html in Resources */,
 				262B64E41336C5ED0086EB20 /* zbyhoo_test.png in Resources */,
+				269AA40F1367557000C7618E /* sample_devmaster_main.html in Resources */,
+				269AA41113675B0000C7618E /* devmaster_post.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +552,8 @@
 				26105574134E477D00513008 /* FavoritesDataManager.m in Sources */,
 				26105578134E4EB500513008 /* FavoritePostDetailsController.m in Sources */,
 				26FBA5931354EB6300B919A6 /* EGORefreshTableFooterView.m in Sources */,
+				269AA4051367425F00C7618E /* GameDevArchiveDataManager.m in Sources */,
+				269AA40913674C5300C7618E /* DevMasterHtmlConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +580,9 @@
 				26E73C4613487043008ACB18 /* ConvertersManager.m in Sources */,
 				26E73C491348782A008ACB18 /* ConvertersManagerTest.m in Sources */,
 				26105575134E477D00513008 /* FavoritesDataManager.m in Sources */,
+				269AA4061367425F00C7618E /* GameDevArchiveDataManager.m in Sources */,
+				269AA40A13674C5300C7618E /* DevMasterHtmlConverter.m in Sources */,
+				269AA40D13674EDD00C7618E /* DevMasterHtmlConverterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

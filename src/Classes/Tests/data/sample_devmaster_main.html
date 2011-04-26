@@ -1,0 +1,659 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html dir="ltr" lang="en"> 
+    
+    <head> 
+        <link rel='stylesheet' type='text/css' href='../devmaster_f36ce932.css' /> 
+        <style type="text/css" id="vbulletin_css">
+            <!--
+            /* vBulletin 3 CSS For Style 'Default Style' (styleid: 2) */
+            body
+            {
+                background: #E1E1E2;
+                color: #000000;
+                font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                margin: 5px 10px 10px 10px;
+                padding: 0px;
+            }
+            a:link
+            {
+                color: #22229C;
+            }
+            a:visited
+            {
+                color: #22229C;
+            }
+            a:hover, a:active
+            {
+                color: #FF4400;
+            }
+            .page
+            {
+                background: #FFFFFF;
+                color: #000000;
+            }
+            td, th, p, li
+            {
+                font-family: verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .tborder
+            {
+                background: #D1D1E1;
+                color: #000000;
+                border: 1px solid #0B198C;
+            }
+            .tcat
+            {
+                background: #869BBF url(/forums/images/gradients/gradient_tcat.gif) repeat-x top left;
+                color: #FFFFFF;
+                font: bold 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .tcat a:link
+            {
+                color: #ffffff;
+                text-decoration: none;
+            }
+            .tcat a:visited
+            {
+                color: #ffffff;
+                text-decoration: none;
+            }
+            .tcat a:hover, .tcat a:active
+            {
+                color: #FFFF66;
+                text-decoration: underline;
+            }
+            .thead
+            {
+                background: #5C7099 url(/forums/images/gradients/gradient_thead.gif) repeat-x top left;
+                color: #FFFFFF;
+                font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .thead a:link
+            {
+                color: #FFFFFF;
+            }
+            .thead a:visited
+            {
+                color: #FFFFFF;
+            }
+            .thead a:hover, .thead a:active
+            {
+                color: #FFFF00;
+            }
+            .tfoot
+            {
+                background: #3E5C92;
+                color: #E0E0F6;
+            }
+            .tfoot a:link
+            {
+                color: #E0E0F6;
+            }
+            .tfoot a:visited
+            {
+                color: #E0E0F6;
+            }
+            .tfoot a:hover, .tfoot a:active
+            {
+                color: #FFFF66;
+            }
+            .alt1, .alt1Active
+            {
+                background: #F5F5FF;
+                color: #000000;
+            }
+            .alt2, .alt2Active
+            {
+                background: #E1E4F2;
+                color: #000000;
+            }
+            td.inlinemod
+            {
+                background: #FFFFCC;
+                color: #000000;
+            }
+            .wysiwyg
+            {
+                background: #F5F5FF;
+                color: #000000;
+                font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            textarea, .bginput
+            {
+                font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .button
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            select
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            option, optgroup
+            {
+                font-size: 11px;
+                font-family: verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .smallfont
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .time
+            {
+                color: #666686;
+            }
+            .navbar
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .highlight
+            {
+                color: #FF0000;
+                font-weight: bold;
+            }
+            .fjsel
+            {
+                background: #3E5C92;
+                color: #E0E0F6;
+            }
+            .fjdpth0
+            {
+                background: #F7F7F7;
+                color: #000000;
+            }
+            .panel
+            {
+                background: #E4E7F5 url(images/gradients/gradient_panel.gif) repeat-x top left;
+                color: #000000;
+                padding: 10px;
+                border: 2px outset;
+            }
+            .panelsurround
+            {
+                background: #D5D8E5 url(images/gradients/gradient_panelsurround.gif) repeat-x top left;
+                color: #000000;
+            }
+            legend
+            {
+                color: #22229C;
+                font: 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .vbmenu_control
+            {
+                background: #738FBF;
+                color: #FFFFFF;
+                font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                padding: 3px 6px 3px 6px;
+                white-space: nowrap;
+            }
+            .vbmenu_control a:link
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_control a:visited
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_control a:hover, .vbmenu_control a:active
+            {
+                color: #FFFFFF;
+                text-decoration: underline;
+            }
+            .vbmenu_popup
+            {
+                background: #FFFFFF;
+                color: #000000;
+                border: 1px solid #0B198C;
+            }
+            .vbmenu_option
+            {
+                background: #BBC7CE;
+                color: #000000;
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+            .vbmenu_option a:link
+            {
+                color: #22229C;
+                text-decoration: none;
+            }
+            .vbmenu_option a:visited
+            {
+                color: #22229C;
+                text-decoration: none;
+            }
+            .vbmenu_option a:hover, .vbmenu_option a:active
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_hilite
+            {
+                background: #8A949E;
+                color: #FFFFFF;
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+            .vbmenu_hilite a:link
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_hilite a:visited
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_hilite a:hover, .vbmenu_hilite a:active
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .headerStyle { background: #FFFFFF; }
+            
+            /* ***** styling for 'big' usernames on postbit etc. ***** */
+            .bigusername { font-size: 14pt; }
+            
+            /* ***** small padding on 'thead' elements ***** */
+            td.thead, div.thead { padding: 4px; }
+            
+            /* ***** basic styles for multi-page nav elements */
+            .pagenav a { text-decoration: none; }
+            .pagenav td { padding: 2px 4px 2px 4px; }
+            
+            /* ***** define margin and font-size for elements inside panels ***** */
+            .fieldset { margin-bottom: 6px; }
+            .fieldset, .fieldset td, .fieldset p, .fieldset li { font-size: 11px; }
+            
+            /* ***** don't change the following ***** */
+            form { display: inline; }
+            label { cursor: default; }
+            .normal { font-weight: normal; }
+            .inlineimg { vertical-align: middle; }
+            
+            H1 {
+                FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #00006f;
+            }
+            H2 {
+                FONT-WEIGHT: bold; FONT-SIZE: 11pt; MARGIN-BOTTOM: 0.2em; FONT-FAMILY: Tahoma, Sans-serif
+            }
+            H3 {
+                FONT-WEIGHT: bold; FONT-SIZE: 10pt; MARGIN-BOTTOM: 0.2em; FONT-FAMILY: Tahoma, Sans-serif
+            }
+            H5 {
+                FONT-WEIGHT: bold; MARGIN-BOTTOM: 0.2em; BORDER-BOTTOM: black 0.1em solid; FONT-FAMILY: Tahoma, Sans-serif
+            }
+            -->
+            </style>	<link rel='alternate' type='application/rss+xml' title='RSS' href='http://www.devmaster.net/rss/' /> 
+                <link rel="shortcut icon" href="http://www.devmaster.net/favicon.ico" type="image/x-icon" /> 
+                <meta name="Keywords" content="game development, game programming, graphics programming, OpenGL, DirectX, Direct3D, Engine, 3D, Graphics, AI, artificial intelligence, game design, game, gamedev, development, programming, c++, games, create, design, shading, tutorial, art, devmaster, articles, forum" /> 
+                <meta name="Description" content="DevMaster.net is a game development website that provides articles, a 3D engines database, daily news updates, and an active forum!" /> 
+                <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> 
+                <title>DevMaster.net - The Daily Image Archive</title> 
+                <script type="text/javascript"> 
+                
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', 'UA-20324558-1']);
+                _gaq.push(['_trackPageview']);
+                
+                (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                })();
+                
+                </script> 
+                </head> 
+                
+                <body> 
+                
+                
+                <a name="top"></a> 
+                <table class="headerStyle" border="0" width="100%" cellpadding="0" cellspacing="0" align="center"> 
+                <tr> 
+                <td align="left"><a href="http://www.devmaster.net/"><img border="0" src="../logo.gif" alt="DevMaster.net - Your source for game development" title="DevMaster.net - Your source for game development" /></a></td> 
+                <td align="right"><script type='text/javascript'><!--//<![CDATA[
+                var m3_u = (location.protocol=='https:'?'https://www.devmaster.net/adsrvr/www/delivery/ajs.php':'http://www.devmaster.net/adsrvr/www/delivery/ajs.php');
+                var m3_r = Math.floor(Math.random()*99999999999);
+                if (!document.MAX_used) document.MAX_used = ',';
+                document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                document.write ("?zoneid=1");
+                document.write ('&amp;cb=' + m3_r);
+                if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                document.write ("&amp;loc=" + escape(window.location));
+                if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+                if (document.context) document.write ("&context=" + escape(document.context));
+                if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                document.write ("'><\/scr"+"ipt>");
+                //]]>--></script><noscript><a href='http://www.devmaster.net/adsrvr/www/delivery/ck.php?n=afba2a08&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://www.devmaster.net/adsrvr/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=afba2a08' border='0' alt='' /></a></noscript></td> 
+                </tr> 
+                </table> 
+                
+                <table class="tborder" cellpadding="6" cellspacing="1" width="100%"> 
+                <tbody><tr> 
+                <td class="tcat" style="color: rgb(255, 193, 37);" colspan="2" align="center" nowrap="nowrap" width="60%"> 
+                [[ <b><a href="/">Home</a> |
+                <a href="../forums/">Forums</a> | 
+                <a href="../engines/">3D Engines Database</a> | 
+                <a href="../articles.php">Articles/Tutorials</a> | 
+                <a href="../jobs.php">Game Dev Jobs</a> | 
+                <a href="../chat/">IRC Chat Network</a> |
+                <a href="../forums/sendmessage.php">Contact Us</a></b> ]]
+                </td> 
+                </tr> 
+                </tbody></table> 
+                <div class="smallfont">Welcome Guest!</div> 
+                <div align="center"> 
+                <div class="page" style="width:100%; text-align:left"> 
+                <div style="padding:0px 15px 0px 15px"> 
+                
+                <table border="0" cellpadding="5" cellspacing="3" width="100%"> 
+                <tr> 
+                <td width="85%" valign="top"> 
+                <br /> 
+                <br> 
+                <br> 
+                <center><a href="submit.php">Submit Image</a></center> 
+                <br /> 
+                
+                <div align='center'>&lt;&lt; 1 <a href='index.php?start=16'>2</a> <a href='index.php?start=32'>3</a> <a href='index.php?start=48'>4</a> <a href='index.php?start=64'>5</a> <a href='index.php?start=80'>6</a> <a href='index.php?start=96'>7</a> <a href='index.php?start=112'>8</a> <a href='index.php?start=128'>9</a> <a href='index.php?start=144'>10</a> <a href='index.php?start=160'>11</a> <a href='index.php?start=176'>12</a> <a href='index.php?start=192'>13</a> <a href='index.php?start=208'>14</a> <a href='index.php?start=224'>15</a> <a href='index.php?start=240'>16</a> <a href='index.php?start=256'>17</a> <a href='index.php?start=272'>18</a> <a href='index.php?start=288'>19</a> <a href='index.php?start=304'>20</a> <a href='index.php?start=16'>&gt;&gt;</a></div><br> 
+                <table class="tborder" cellpadding="0" cellspacing="1" border="0" width="70%" align="center"> 
+                <tr> 
+                <td class="tcat" colspan="4"><div style="margin-top: 7px; margin-bottom: 7px">&nbsp; The Daily Image Archive</div></td> 
+                </tr> 
+                <tr> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>PixelLight Dungeon Demo V1.2</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Christian Ofenberg</i><br /> 
+                Mon, 25 Apr 2011<br /> 
+                <a href="../forums/showthread.php?t=17402"><img border="2" title="PixelLight Dungeon Demo V1.2" alt="[PixelLight Dungeon Demo V1.2]" src="images/11-04-24.thm.jpg"></a><br /> 
+                8 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Shadow Explorer</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Intel</i><br /> 
+                Mon, 4 Apr 2011<br /> 
+                <a href="../forums/showthread.php?t=17305"><img border="2" title="Shadow Explorer" alt="[Shadow Explorer]" src="images/11-04-03.thm.jpg"></a><br /> 
+                1 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Helion</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Simon Michelmore</i><br /> 
+                Thu, 31 Mar 2011<br /> 
+                <a href="../forums/showthread.php?t=17279"><img border="2" title="Helion" alt="[Helion]" src="images/11-03-31.thm.jpg"></a><br /> 
+                0 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Rubber Track</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Skyler Fehnel</i><br /> 
+                Sun, 27 Mar 2011<br /> 
+                <a href="../forums/showthread.php?t=17244"><img border="2" title="Rubber Track" alt="[Rubber Track]" src="images/11-03-25.thm.jpg"></a><br /> 
+                5 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                </tr> 
+                <tr> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Realtime Tire deformation system.</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Chris</i><br /> 
+                Fri, 25 Mar 2011<br /> 
+                <a href="../forums/showthread.php?t=17242"><img border="2" title="Realtime Tire deformation system." alt="[Realtime Tire deformation system.]" src="images/11-03-24.thm.jpg"></a><br /> 
+                9 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Dot Boxing</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Chris</i><br /> 
+                Sun, 20 Mar 2011<br /> 
+                <a href="../forums/showthread.php?t=17215"><img border="2" title="Dot Boxing" alt="[Dot Boxing]" src="images/11-03-20.thm.jpg"></a><br /> 
+                1 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>PixelLight SciFi demo prototype </b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Christian Ofenberg</i><br /> 
+                Sat, 12 Mar 2011<br /> 
+                <a href="../forums/showthread.php?t=17180"><img border="2" title="PixelLight SciFi demo prototype " alt="[PixelLight SciFi demo prototype ]" src="images/11-03-11.thm.jpg"></a><br /> 
+                4 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>fps game demo</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>awingsoft</i><br /> 
+                Mon, 7 Mar 2011<br /> 
+                <a href="../forums/showthread.php?t=17159"><img border="2" title="fps game demo" alt="[fps game demo]" src="images/11-03-07.thm.jpg"></a><br /> 
+                0 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                </tr> 
+                <tr> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Qoat of the Hill</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Tuomo</i><br /> 
+                Wed, 2 Mar 2011<br /> 
+                <a href="../forums/showthread.php?t=17130"><img border="2" title="Qoat of the Hill" alt="[Qoat of the Hill]" src="images/11-03-01.thm.jpg"></a><br /> 
+                2 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Liquid on iPhone and iPad</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Reinder</i><br /> 
+                Thu, 10 Feb 2011<br /> 
+                <a href="../forums/showthread.php?t=17020"><img border="2" title="Liquid on iPhone and iPad" alt="[Liquid on iPhone and iPad]" src="images/11-02-09.thm.jpg"></a><br /> 
+                2 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Asteroid Command - New game from casualgames.nu based on Farseer Physics &amp; Silverlight </b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Fredrik</i><br /> 
+                Mon, 31 Jan 2011<br /> 
+                <a href="../forums/showthread.php?t=16971"><img border="2" title="Asteroid Command - New game from casualgames.nu based on Farseer Physics &amp; Silverlight " alt="[Asteroid Command - New game from casualgames.nu based on Farseer Physics &amp; Silverlight ]" src="images/11-01-30.thm.jpg"></a><br /> 
+                3 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>jMonkeyEngine 3.0 post process water </b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>R&amp;amp;eacute;my Bouquet aka Nehon</i><br /> 
+                Mon, 24 Jan 2011<br /> 
+                <a href="../forums/showthread.php?t=16941"><img border="2" title="jMonkeyEngine 3.0 post process water " alt="[jMonkeyEngine 3.0 post process water ]" src="images/11-01-23.thm.jpg"></a><br /> 
+                0 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                </tr> 
+                <tr> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Custom CMYK-“halftone” printing</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Tuomo</i><br /> 
+                Wed, 19 Jan 2011<br /> 
+                <a href="../forums/showthread.php?t=16910"><img border="2" title="Custom CMYK-“halftone” printing" alt="[Custom CMYK-“halftone” printing]" src="images/11-01-18.thm.jpg"></a><br /> 
+                4 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Esenthel Engine Sci-Fi Benchmark</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Esenthel</i><br /> 
+                Tue, 11 Jan 2011<br /> 
+                <a href="../forums/showthread.php?t=16881"><img border="2" title="Esenthel Engine Sci-Fi Benchmark" alt="[Esenthel Engine Sci-Fi Benchmark]" src="images/11-01-10.thm.jpg"></a><br /> 
+                4 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Galactica </b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Roberto</i><br /> 
+                Fri, 7 Jan 2011<br /> 
+                <a href="../forums/showthread.php?t=16859"><img border="2" title="Galactica " alt="[Galactica ]" src="images/11-01-05.thm.jpg"></a><br /> 
+                0 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                <td class="alt1" width="25%" valign="top"> 
+				<table width="100%" class="smallfont" border="0" cellpadding="0" cellspacing="0"> 
+				<tr class="alt2" align="center" height="32px"> 
+                <td><b>Linderdaum Asteroids</b></td> 
+				</tr> 
+				<tr align="center"> 
+                <td> 
+                <i>Sergey Kosarevsky</i><br /> 
+                Wed, 5 Jan 2011<br /> 
+                <a href="../forums/showthread.php?t=16842"><img border="2" title="Linderdaum Asteroids" alt="[Linderdaum Asteroids]" src="images/11-01-03.thm.jpg"></a><br /> 
+                0 comment(s)
+                </td> 
+				</tr> 
+				</table> 
+                </td> 
+                </tr> 
+                </table> 
+                
+                <div style="width:85%" align="right" class="smallfont"><b>318</b> results returned</div> 
+                
+                <br> 
+                <h2>How to Submit your own Image</h2> 
+                <p>Do you have an image of a recent project or demo you would like to share related to game and grahics development? Would you like to have the satisfaction of sharing your
+                learning experience with everyone! Please <a href="submit.php">submit it</a> and if relevant, we will post it as a featured image on
+                the main page. All items submitted will be added to a queue which is processed daily (every 24-hours). After approval by a
+                moderator, your entry will be displayed depending on the amount of submissions we receive (submissions are processed on a
+                first-come-first-serve basis). Your submission will also link to a forum thread to provide user feedback.</p><br> 
+                </td> 
+                </tr> 
+                </table> 
+                
+                </div>	
+                </div> 
+                </div> 
+                
+                <div align="center"> 
+                <table cellpadding="6" cellspacing="0" border="0" width="100%" class="page" align="center">
+                <tr>
+                <td class="tfoot" align="right" width="100%">
+                <div class="smallfont">
+                <strong>
+				<a href="../forums/sendmessage.php" rel="nofollow">Contact Us</a> -
+				<a href="../legal.html">Privacy Statement</a> -
+				<a href="#top" onclick="self.scrollTo(0, 0); return false;">Top</a>
+                </strong>
+                </div>
+                </td>
+                </tr>
+                </table>
+                
+                <br />
+                
+                <div align="center" class="smallfont">
+                Copyright ©2003-2011, DevMaster.net. All rights reserved.
+                </div></div> 
+                
+                </body> 
+                </html>

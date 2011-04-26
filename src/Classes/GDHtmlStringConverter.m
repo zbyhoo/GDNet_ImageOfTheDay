@@ -9,6 +9,8 @@
 #import "GDHtmlStringConverter.h"
 #import "Constants.h"
 
+NSString * const GD_POST_SEPARATOR  = @"<div class='gallery_album";
+
 @implementation GDHtmlStringConverter
 
 - (void)dealloc {

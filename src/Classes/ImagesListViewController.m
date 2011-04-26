@@ -9,7 +9,7 @@
 #import "TableViewCell.h"
 #import "ImagesListViewController.h"
 #import "PostDetailsController.h"
-#import "DataManager.h"
+#import "GameDevArchiveDataManager.h"
 #import "DBHelper.h"
 #import "GDArchiveHtmlStringConverter.h"
 #import "GDImagePost.h"
@@ -70,7 +70,7 @@
 
 - (void)setupDataManager
 {
-    DataManager *manager = [[DataManager alloc] init];
+    GameDevArchiveDataManager *manager = [[GameDevArchiveDataManager alloc] init];
     self.dataManager = manager;
     [manager release];
 }

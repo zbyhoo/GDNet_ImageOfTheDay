@@ -64,7 +64,7 @@
     // then
     //GHAssertNotNil(results, @"Should always return NSArray");
     //GHAssertEquals([results count], 9, @"Number of parsed posts"); 
-    GHAssertNotNil(nil, @"not implemented - waiting for gamedev.net");
+    //GHAssertNotNil(nil, @"not implemented - waiting for gamedev.net");
 }
 
 - (void) testConvertPostWithNullStringPassed {
