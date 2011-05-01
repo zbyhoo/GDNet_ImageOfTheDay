@@ -9,7 +9,8 @@
 #import "../GDArchiveHtmlStringConverter.h"
 #import "../Constants.h"
 
-@interface GDArchiveHtmlStringConverterTest : GHTestCase {
+@interface GDArchiveHtmlStringConverterTest : GHTestCase 
+{
 @private
     GDArchiveHtmlStringConverter *_converter;
 }
@@ -18,22 +19,24 @@
 + (NSString*)readSamplePost;
 @end
 
-@interface GDArchiveHtmlStringConverterMock : GDArchiveHtmlStringConverter {
-}
+@interface GDArchiveHtmlStringConverterMock : GDArchiveHtmlStringConverter 
 @end
 
 @implementation GDArchiveHtmlStringConverterMock
-- (NSString*)getData:(NSString*)urlString {
+- (NSString*)getData:(NSString*)urlString 
+{
     return [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
 }
 @end
 
-@interface GDArchiveHtmlStringConverterMock2 : GDArchiveHtmlStringConverter {
+@interface GDArchiveHtmlStringConverterMock2 : GDArchiveHtmlStringConverter 
+{
 }
 @end
 
 @implementation GDArchiveHtmlStringConverterMock2
-- (NSString*)getData:(NSString*)urlString {
+- (NSString*)getData:(NSString*)urlString 
+{
     return [GDArchiveHtmlStringConverterTest readSamplePost];
 }
 @end
@@ -42,26 +45,30 @@
 
 @synthesize converter = _converter;
 
-+ (NSString*)readSampleMainPageFile {
++ (NSString*)readSampleMainPageFile 
+{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_archive_main_page" ofType:@"html"]; 
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
-+ (NSString*)readSamplePost {
++ (NSString*)readSamplePost 
+{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"sample_archive_post" ofType:@"html"]; 
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
-- (void)setUpClass {
+- (void)setUpClass 
+{
     _converter = [[GDArchiveHtmlStringConverter alloc] init];
 }
 
-- (void)tearDownClass {
+- (void)tearDownClass 
+{
     self.converter = nil;
 }
 
-- (void)test_SplitHtmlToPosts {
-    
+- (void)test_SplitHtmlToPosts 
+{    
     // given 
     NSString *htmlContent = [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
     
@@ -73,8 +80,8 @@
     GHAssertEquals([posts count], (NSUInteger)16, @"number of posts per page");
 }
 
-- (void)test_SplitHtmlToPosts_noPosts {
-    
+- (void)test_SplitHtmlToPosts_noPosts 
+{    
     // given
     NSString *htmlContent = @"nothing interesting here";
     
@@ -86,8 +93,8 @@
     GHAssertEquals([posts count], (NSUInteger)0, @"number of posts per page");
 }
 
-- (void)test_SplitHtmlToPosts_halfOfPageOnly {
-    
+- (void)test_SplitHtmlToPosts_halfOfPageOnly 
+{    
     // given
     NSString *htmlContent = [GDArchiveHtmlStringConverterTest readSampleMainPageFile];
     htmlContent = [htmlContent substringToIndex:([htmlContent length]/2)];
@@ -100,7 +107,8 @@
     GHAssertEquals([posts count], (NSUInteger)2, @"number of posts per page");
 }
 
-- (void)test_ConvertGalleryWithSampleImagesPage {
+- (void)test_ConvertGalleryWithSampleImagesPage 
+{
 //    // TODO needs refactoring
 //    // given
 //    
@@ -112,8 +120,8 @@
 //    GHAssertEquals([results count], (NSUInteger)16, @"number of parsed posts");
 }
 
-- (void)test_ParsePost {
-    
+- (void)test_ParsePost
+{    
     // given
     NSString *dateString = @"1/4/2011";
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -142,8 +150,8 @@
     GHAssertEqualObjects([imagePost valueForKey:KEY_IMAGE_URL], imgUrl, @"image url comaprison");
 }
 
-- (void)test_convertPost {
-    
+- (void)test_convertPost 
+{    
     // given
     GDArchiveHtmlStringConverterMock2 *converter = [[GDArchiveHtmlStringConverterMock2 alloc] init];
     
