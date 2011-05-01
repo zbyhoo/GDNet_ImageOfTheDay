@@ -35,6 +35,12 @@
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
++ (NSString*)readPostPageFile 
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"devmaster_post_page" ofType:@"html"]; 
+    return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+}
+
 - (void)test_init
 {
     // given
@@ -126,9 +132,61 @@
     GHAssertNotNil(parsedPost, @"");
     GHAssertEqualObjects([parsedPost valueForKey:KEY_TITLE], @"Dot Boxing", @"");
     GHAssertEqualObjects([parsedPost valueForKey:KEY_AUTHOR], @"Chris", @"");
-    //GHAssertEqualObjects([parsedPost valueForKey:KEY_DATE], @"Dot Boxing", @"");
+    GHAssertEqualObjects([parsedPost valueForKey:KEY_DATE], [NSNumber numberWithInt:1300575600], @"");
     GHAssertEqualObjects([parsedPost valueForKey:KEY_POST_URL], @"http://www.devmaster.net/snapshot/../forums/showthread.php?t=17215", @"");
     GHAssertEqualObjects([parsedPost valueForKey:KEY_IMAGE_URL], @"http://www.devmaster.net/snapshot/images/11-03-20.thm.jpg", @"");
+    
+    [converter release];
+}
+
+- (void)test_stringToTimestamp
+{
+    // given
+    DevMasterHtmlConverter *converter = [[DevMasterHtmlConverter alloc] init];
+    NSString *dateString = @"20 Mar 2011";
+    
+    // when
+    NSNumber *timestamp = [converter stringToTimestamp:dateString];
+    
+    // then
+    GHAssertNotNil(timestamp, @"");
+    GHAssertEquals([timestamp intValue], 1300575600, @"");
+    
+    [converter release];
+}
+
+- (void)test_convertPost
+{
+    // given
+    DevMasterHtmlConverter *converter = [[DevMasterHtmlConverter alloc] init];
+    NSString *pageContent = [DevMasterHtmlConverterTest readPostPageFile];
+//!!    // TODO - mock getDate
+    
+    // when
+    NSDictionary *convertedPost = [converter convertPost:pageContent];
+    
+    // then
+    GHAssertNotNil(convertedPost, @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_DESCRIPTION], @"description", @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_DATE], [NSNumber numberWithInt:11111111], @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_IMAGE_URL], @"key_url", @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_IMAGES_COUNT], [NSNumber numberWithInt:1], @"");
+    
+    [converter release];
+}
+
+- (void)test_convertPostExactDate
+{
+    // given
+    DevMasterHtmlConverter *converter = [[DevMasterHtmlConverter alloc] init];
+    NSString *dateString = @"\n    03-27-2011, 02:00 AM\n    \n    ";
+    
+    // when
+    NSNumber *timestamp = [converter convertPostExactDate:dateString];
+    
+    // then
+    GHAssertNotNil(timestamp, @"");
+    GHAssertEquals([timestamp intValue], 1301194800, @"");
     
     [converter release];
 }

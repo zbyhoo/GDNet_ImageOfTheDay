@@ -23,6 +23,12 @@ NSString * const DM_URL_END             = @"\"><img";
 NSString * const DM_POST_URL            = @"http://www.devmaster.net/snapshot/";
 NSString * const DM_IMG_URL_START       = @"src=\"";
 NSString * const DM_IMG_URL_END         = @"\"></a>";
+NSString * const DM_POST_DATE_START     = @"alt=\"Old\" border=\"0\" /></a>";
+NSString * const DM_POST_DATE_END       = @"<!-- / status icon and date -->";
+NSString * const DM_POST_IMGS_START     = @"<div id=\"post_message_82392\"><div align=\"center\"><img src=\"";
+NSString * const DM_POST_IMGS_END       = @"\" border";
+NSString * const DM_POST_DESC_START     = @"Description</font></b><br />";
+NSString * const DM_POST_DESC_END       = @"</div>";
 
 
 @implementation DevMasterHtmlConverter
@@ -75,11 +81,13 @@ NSString * const DM_IMG_URL_END         = @"\"></a>";
 - (NSNumber*)stringToTimestamp:(NSString*)dateString
 {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"MM/dd/yyyy"];
+    NSLocale* usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en-US"];
+    [df setLocale:usLocale];
+    [usLocale release];
+    [df setDateFormat:@"dd MMMMM yyyy"];
     double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
     NSNumber *date = [NSNumber numberWithDouble:timestamp];
     [df release];
-    
     return date;
 }
 
@@ -130,134 +138,61 @@ NSString * const DM_IMG_URL_END         = @"\"></a>";
     return [dict autorelease];
 }
 
-- (NSString*)getLargeImageUrl:(NSString*)url 
-{    
-//    NSString *picPage = [self getData:url];
-//    NSRange range;
-//    range.location = 0;
-//    range.length = picPage.length - 1;
-//    
-//    @try {
-//        return [Utilities getSubstringFrom:picPage range:&range after:@"src=\"" before:@"\" title"];
-//    }
-//    @catch (NSException *exception) {
-//        LogError(@"unknown exception catched");
-//    }
-    return nil;
-}
-
-- (NSArray*)convertImageUrls:(NSString*)chunk 
-{    
-//    NSRange range;
-//    range.location = 0;
-//    range.length = chunk.length - 1;
-//    
-//    NSMutableArray *array = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-//    
-//    @try 
-//    {
-//        NSString *mainImage = [Utilities getSubstringFrom:chunk range:&range after:@"\" src=\"" before:@"\" title"];
-//        [array addObject:mainImage];
-//    }
-//    @catch (NSException *exception) 
-//    {
-//        LogError(@"unable to get url of main image");
-//        return nil;
-//    }
-//    
-//    @try 
-//    {
-//        NSString *largeImage;
-//        NSString *smallImage;
-//        while (YES) 
-//        {
-//            largeImage = [Utilities getSubstringFrom:chunk range:&range after:@"<a href=\"" before:@"\" target"];
-//            if (largeImage == nil) 
-//            {
-//                break;
-//            }
-//            else if ([largeImage hasPrefix:@"gallery"]) 
-//            {
-//                largeImage = [self getLargeImageUrl:[NSString stringWithFormat:@"%@%@", GD_ARCHIVE_POST_PRE_URL, largeImage]];
-//            }
-//            // TODO parse title here
-//            smallImage = [Utilities getSubstringFrom:chunk range:&range after:@"src=\"" before:@"\"></a>"];           
-//            
-//            [array addObject:smallImage];
-//            [array addObject:largeImage];
-//        }
-//    }
-//    @catch (NSException *exception) 
-//    {
-//        LogError(@"unknown exception catched");
-//    }
-//    LogDebug(@"finished parsing images");
-//    
-//    LogDebug(@"%@", array);
-//    
-//    return array;
-    return nil;
+- (NSNumber*)convertPostExactDate:(NSString*)dateString
+{
+    NSInteger i = 0;
+    while ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[dateString characterAtIndex:i]]) 
+    {
+        i++;
+    }
+    dateString = [dateString substringFromIndex:i];
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    NSLocale* usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en-US"];
+    [df setLocale:usLocale];
+    [df setDateFormat:@"MM-dd-yyyy, HH:mm a"];
+    double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
+    
+    [df release];
+    
+    return [NSNumber numberWithDouble:timestamp];
 }
 
 - (NSDictionary*)convertPost:(NSString*)data 
 {
-//    NSString *page = [self getData:data];
-//    
-//    NSString *dateString;
-//    NSString *imagesChunk;
-//    NSString *description;
-//    
-//    NSRange range;
-//    range.location = 0;
-//    range.length = page.length - 1;
-//    
-//    @try {
-//        dateString = [Utilities getSubstringFrom:page range:&range after:GD_ARCHIVE_POST_DATE_START before:GD_ARCHIVE_POST_DATE_END];
-//        NSInteger i = 0;
-//        while ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[dateString characterAtIndex:i]]) {
-//            i++;
-//        }
-//        dateString = [dateString substringFromIndex:i];
-//        LogDebug(@"Post date: %@", dateString);
-//        
-//        imagesChunk = [Utilities getSubstringFrom:page range:&range after:GD_ARCHIVE_POST_IMGS_START before:GD_ARCHIVE_POST_IMGS_END];
-//        LogDebug(@"Images URLs:\n%@", imagesChunk);
-//        
-//        description = [Utilities getSubstringFrom:page range:&range after:GD_ARCHIVE_POST_DESC_START before:GD_ARCHIVE_POST_DESC_END];
-//        LogDebug(@"Description:\n%@", description);
-//    }
-//    @catch (NSException *exception) {
-//        LogError(@"error with parsing post details:\n%@", page);
-//        return nil;
-//    }
-//    
-//    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-//    [dict setValue:description forKey:KEY_DESCRIPTION];
-//    
-//    NSLocale* usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en-US"];
-//    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-//    [df setLocale:usLocale];
-//    [df setDateFormat:@"MM/dd/yyyy HH:mm:ss a"];
-//    double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
-//    [df release];
-//    [dict setValue:[NSNumber numberWithDouble:timestamp] forKey:KEY_DATE];
-//    
-//    NSArray *imageUrls = [self convertImageUrls:imagesChunk];
-//    int index = 0;
-//    
-//    for (NSString *url in imageUrls) {
-//        
-//        NSString *properUrl = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-//        
-//        NSString *key = [NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, index++];
-//        LogDebug(@"IMG URL: %@", properUrl);
-//        LogDebug(@"FOR KEY: %@", key);
-//        [dict setValue:properUrl forKey:key];
-//    }
-//    [dict setValue:[NSNumber numberWithInt:index] forKey:KEY_IMAGES_COUNT];
-//    
-//    return [dict autorelease];
-    return nil;
+    NSString *page = [self getData:data];
+    
+    NSString *dateString;
+    NSString *imageUrl;
+    NSString *description;
+    
+    NSRange range;
+    range.location = 0;
+    range.length = page.length - 1;
+    
+    @try {
+        dateString = [Utilities getSubstringFrom:page range:&range after:DM_POST_DATE_START before:DM_POST_DATE_END];
+        LogDebug(@"Post date: %@", dateString);
+        
+        imageUrl = [Utilities getSubstringFrom:page range:&range after:DM_POST_IMGS_START before:DM_POST_IMGS_END];
+        LogDebug(@"Images URLs:\n%@", imageUrl);
+        
+        description = [Utilities getSubstringFrom:page range:&range after:DM_POST_DESC_START before:DM_POST_DESC_END];
+        LogDebug(@"Description:\n%@", description);
+    }
+    @catch (NSException *exception) {
+        LogError(@"error with parsing post details:\n%@", page);
+        return nil;
+    }
+    
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue:description forKey:KEY_DESCRIPTION];
+    [dict setValue:[self convertPostExactDate:dateString] forKey:KEY_DATE];
+    NSString *key = [NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, 0];
+    [dict setValue:imageUrl forKey:key];
+    [dict setValue:[NSNumber numberWithInt:1] forKey:KEY_IMAGES_COUNT];
+    
+    return [dict autorelease];
 }
 
 

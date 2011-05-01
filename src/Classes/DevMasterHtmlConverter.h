@@ -20,4 +20,7 @@
 @property (nonatomic, readonly) int step;
 @property (nonatomic, readonly) int currentPage;
 
+- (NSNumber*)convertPostExactDate:(NSString*)dateString;
+- (NSNumber*)stringToTimestamp:(NSString*)dateString;
+
 @end

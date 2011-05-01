@@ -58,6 +58,7 @@
 		269AA40D13674EDD00C7618E /* DevMasterHtmlConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA40C13674EDD00C7618E /* DevMasterHtmlConverterTest.m */; };
 		269AA40F1367557000C7618E /* sample_devmaster_main.html in Resources */ = {isa = PBXBuildFile; fileRef = 269AA40E1367556F00C7618E /* sample_devmaster_main.html */; };
 		269AA41113675B0000C7618E /* devmaster_post.html in Resources */ = {isa = PBXBuildFile; fileRef = 269AA41013675B0000C7618E /* devmaster_post.html */; };
+		269AA4131368822100C7618E /* devmaster_post_page.html in Resources */ = {isa = PBXBuildFile; fileRef = 269AA4121368822100C7618E /* devmaster_post_page.html */; };
 		269D55A513302C6000156F5E /* PostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269D55A313302C5C00156F5E /* PostDetailsController.m */; };
 		269D55A613302C6000156F5E /* PostDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 269D55A413302C5C00156F5E /* PostDetailsController.xib */; };
 		26AF997B131ED4810096C002 /* GDNet_ImageOfTheDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2819305F112F816700ECF9B4 /* GDNet_ImageOfTheDay.xcdatamodeld */; };
@@ -150,6 +151,7 @@
 		269AA40C13674EDD00C7618E /* DevMasterHtmlConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevMasterHtmlConverterTest.m; sourceTree = "<group>"; };
 		269AA40E1367556F00C7618E /* sample_devmaster_main.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_devmaster_main.html; path = Tests/data/sample_devmaster_main.html; sourceTree = "<group>"; };
 		269AA41013675B0000C7618E /* devmaster_post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = devmaster_post.html; path = Tests/data/devmaster_post.html; sourceTree = "<group>"; };
+		269AA4121368822100C7618E /* devmaster_post_page.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = devmaster_post_page.html; path = Tests/data/devmaster_post_page.html; sourceTree = "<group>"; };
 		269D55A213302C5B00156F5E /* PostDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailsController.h; sourceTree = "<group>"; };
 		269D55A313302C5C00156F5E /* PostDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailsController.m; sourceTree = "<group>"; };
 		269D55A413302C5C00156F5E /* PostDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PostDetailsController.xib; path = Classes/PostDetailsController.xib; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				262B64DD1336AC7D0086EB20 /* sample_archive_post.html */,
 				269AA40E1367556F00C7618E /* sample_devmaster_main.html */,
 				269AA41013675B0000C7618E /* devmaster_post.html */,
+				269AA4121368822100C7618E /* devmaster_post_page.html */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				2648D04C1301F8FB006941E9 /* Resources */,
 				2648D04D1301F8FB006941E9 /* Sources */,
 				2648D04E1301F8FB006941E9 /* Frameworks */,
+				26C69584136D8A6100150993 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -517,10 +521,28 @@
 				262B64E41336C5ED0086EB20 /* zbyhoo_test.png in Resources */,
 				269AA40F1367557000C7618E /* sample_devmaster_main.html in Resources */,
 				269AA41113675B0000C7618E /* devmaster_post.html in Resources */,
+				269AA4131368822100C7618E /* devmaster_post_page.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26C69584136D8A6100150993 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nset -o errexit\n\n# If we aren't running from the command line, then exit\nif [ \"$GHUNIT_CLI\" = \"\" ] && [ \"$GHUNIT_AUTORUN\" = \"\" ]; then\nexit 0\nfi\n\nexport DYLD_ROOT_PATH=\"$SDKROOT\"\nexport DYLD_FRAMEWORK_PATH=\"$CONFIGURATION_BUILD_DIR\"\nexport IPHONE_SIMULATOR_ROOT=\"$SDKROOT\"\n\nexport MallocScribble=YES\nexport MallocPreScribble=YES\nexport MallocGuardEdges=YES\nexport MallocStackLogging=YES\nexport MallocStackLoggingNoCompact=YES\n\nexport NSDebugEnabled=YES\nexport NSZombieEnabled=YES\nexport NSDeallocateZombies=NO\nexport NSHangOnUncaughtException=YES\nexport NSAutoreleaseFreedObjectCheckEnabled=YES\n\nexport DYLD_FRAMEWORK_PATH=\"$CONFIGURATION_BUILD_DIR\"\n\nTEST_TARGET_EXECUTABLE_PATH=\"$TARGET_BUILD_DIR/$EXECUTABLE_PATH\"\n\nif [ ! -e \"$TEST_TARGET_EXECUTABLE_PATH\" ]; then\necho \"\"\necho \"  ------------------------------------------------------------------------\"\necho \"  Missing executable path: \"\necho \"     $TEST_TARGET_EXECUTABLE_PATH.\"\necho \"  The product may have failed to build or could have an old xcodebuild in your path (from 3.x instead of 4.x).\"\necho \"  ------------------------------------------------------------------------\"\necho \"\"\nexit 1\nfi\n\nRUN_CMD=\"$TEST_TARGET_EXECUTABLE_PATH -RegisterForSystemEvents\"\n\necho \"Running: $RUN_CMD\"    \n$RUN_CMD\nRETVAL=$?\n\nunset DYLD_ROOT_PATH\nunset DYLD_FRAMEWORK_PATH\nunset IPHONE_SIMULATOR_ROOT\n\nif [ -n \"$WRITE_JUNIT_XML\" ]; then\nMY_TMPDIR=`/usr/bin/getconf DARWIN_USER_TEMP_DIR`\nRESULTS_DIR=\"${MY_TMPDIR}test-results\"\n\nif [ -d \"$RESULTS_DIR\" ]; then\n`$CP -r \"$RESULTS_DIR\" \"$BUILD_DIR\" && rm -r \"$RESULTS_DIR\"`\nfi\nfi\n\nexit $RETVAL";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -671,7 +693,7 @@
 				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				GCC_PREFIX_HEADER = Tests_Prefix.pch;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
