@@ -6,8 +6,13 @@
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-
 #import "DevMasterHtmlConverter.h"
+
+@interface DevMasterHtmlConverterTest : GHTestCase
++ (NSString*)readSampleMainPageFile;
++ (NSString*)readSamplePostFile;
++ (NSString*)readPostPageFile;
+@end
 
 @interface DevMasterHtmlConverterMock : DevMasterHtmlConverter 
 - (void)setCurrentPage:(int)value;
@@ -17,10 +22,12 @@
 {
     _currentPage = value;
 }
+- (NSString*)getData:(NSString*)urlString
+{
+    return [DevMasterHtmlConverterTest readPostPageFile];
+}
 @end
 
-@interface DevMasterHtmlConverterTest : GHTestCase
-@end
 @implementation DevMasterHtmlConverterTest
 
 + (NSString*)readSampleMainPageFile 
@@ -155,27 +162,31 @@
     [converter release];
 }
 
-- (void)TODO_test_convertPost
+- (void)test_convertPost
 {
     // given
-    DevMasterHtmlConverter *converter = [[DevMasterHtmlConverter alloc] init];
-    NSString *pageContent = [DevMasterHtmlConverterTest readPostPageFile];
-//!!    // TODO - mock getDate
+    DevMasterHtmlConverter *converter = [[DevMasterHtmlConverterMock alloc] init];
+    //Method m1 = class_getInstanceMethod(converter.class, @selector(getData:));
+    //Method m2 = class_getInstanceMethod(self.class, @selector(getDataMock:));
+    //method_exchangeImplementations(m1, m2);
     
     // when
-    NSDictionary *convertedPost = [converter convertPost:pageContent];
+    NSDictionary *convertedPost = [converter convertPost:nil];
     
     // then
     GHAssertNotNil(convertedPost, @"");
-    GHAssertEqualObjects([convertedPost valueForKey:KEY_DESCRIPTION], @"description", @"");
-    GHAssertEqualObjects([convertedPost valueForKey:KEY_DATE], [NSNumber numberWithInt:11111111], @"");
-    GHAssertEqualObjects([convertedPost valueForKey:KEY_IMAGE_URL], @"key_url", @"");
+    GHAssertTrue([((NSString*)[convertedPost valueForKey:KEY_DESCRIPTION]) rangeOfString:@"As a personal project"].location != NSNotFound, @"");
+    GHAssertTrue([((NSString*)[convertedPost valueForKey:KEY_DESCRIPTION]) rangeOfString:@"buisness card!"].location != NSNotFound, @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_DATE], [NSNumber numberWithInt:1301180400], @"");
+    NSString *key = [NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, 0];
+    GHAssertEqualObjects([convertedPost valueForKey:key], @"http://www.devmaster.net/snapshot/images/11-03-25.jpg", @"");
     GHAssertEqualObjects([convertedPost valueForKey:KEY_IMAGES_COUNT], [NSNumber numberWithInt:1], @"");
     
+    //method_exchangeImplementations(m1, m2);
     [converter release];
 }
 
-- (void)TODO_test_convertPostExactDate
+- (void)test_convertPostExactDate
 {
     // given
     DevMasterHtmlConverter *converter = [[DevMasterHtmlConverter alloc] init];
@@ -186,7 +197,7 @@
     
     // then
     GHAssertNotNil(timestamp, @"");
-    GHAssertEquals([timestamp intValue], 1301194800, @"");
+    GHAssertEquals([timestamp intValue], 1301180400, @"");
     
     [converter release];
 }

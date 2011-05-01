@@ -11,15 +11,17 @@
 
 @implementation Utilities
 
-+ (NSString*)getSubstringFrom:(NSString*)string range:(NSRange*)range after:(NSString*)after before:(NSString*)before {
-    
-    if ((*range).length >= string.length) {
++ (NSString*)getSubstringFrom:(NSString*)string range:(NSRange*)range after:(NSString*)after before:(NSString*)before 
+{    
+    if ((*range).length >= string.length) 
+    {
         return nil;
     }
     
     (*range) = [string rangeOfString:after options:0 range:(*range)];
     
-    if ((*range).location > string.length) {
+    if ((*range).location > string.length) 
+    {
         return nil;
     }
     
@@ -31,7 +33,8 @@
     
     (*range) = [string rangeOfString:before options:0 range:(*range)];
     
-    if ((*range).location > string.length - 1 || (*range).location < final.location) {
+    if ((*range).location > string.length - 1 || (*range).location < final.location) 
+    {
         return nil;
     }
     

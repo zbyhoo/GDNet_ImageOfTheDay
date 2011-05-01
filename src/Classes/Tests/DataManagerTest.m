@@ -12,11 +12,15 @@
 #import "../DBHelper.h"
 #import "../GDArchiveHtmlStringConverter.h"
 
-#import <objc/objc.h>
-#import <objc/runtime.h>
-#import <objc/message.h>
+@interface DataManagerTest : GHTestCase
+@end
 
-@interface DataManagerTest : GHTestCase {
+@interface DataManagerMock : DataManager 
+@end
+@implementation DataManagerMock
+- (NSMutableArray*)posts 
+{    
+    return [[[NSMutableArray alloc] initWithObjects:@"single object", nil] autorelease];
 }
 @end
 
@@ -74,18 +78,10 @@
     GHAssertTrue(shouldDownload, @"should download data");
 }
 
-- (NSArray*)getPostsMock {
-
-    return [[NSMutableArray alloc] initWithObjects:@"single object", nil];
-}
-
 - (void)test_shouldDownloadData_postCountGreaterThenZero {
     
     // given
-    DataManager *manager = [[[DataManager alloc] init] autorelease];
-    Method m1 = class_getInstanceMethod(manager.class, @selector(posts));
-    Method m2 = class_getInstanceMethod(self.class, @selector(getPostsMock));
-    method_exchangeImplementations(m1, m2);
+    DataManager *manager = [[[DataManagerMock alloc] init] autorelease];
     GHAssertEquals(manager.posts.count, (NSUInteger)1, @"mocked posts count");
     
     // when

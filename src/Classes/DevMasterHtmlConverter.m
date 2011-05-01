@@ -140,18 +140,13 @@ NSString * const DM_POST_DESC_END       = @"</div>";
 
 - (NSNumber*)convertPostExactDate:(NSString*)dateString
 {
-    NSInteger i = 0;
-    while ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[dateString characterAtIndex:i]]) 
-    {
-        i++;
-    }
-    dateString = [dateString substringFromIndex:i];
+    NSString *trimmedString = [dateString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     NSLocale* usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en-US"];
     [df setLocale:usLocale];
     [df setDateFormat:@"MM-dd-yyyy, HH:mm a"];
-    double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
+    double timestamp = [[df dateFromString: trimmedString] timeIntervalSince1970];
     
     [df release];
     
