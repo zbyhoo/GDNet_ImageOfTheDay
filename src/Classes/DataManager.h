@@ -22,10 +22,13 @@
     DBHelper *_dbHelper;
     NSMutableArray *_posts;
     int _downloadingDataCounter;
+    
+    NSObject<GDDataConverter> *_converter;
 }
 
 @property (retain, nonatomic) NSMutableArray *posts;
 @property (retain, nonatomic) DBHelper *dbHelper;
+@property (retain, nonatomic) NSObject<GDDataConverter> *converter;
 
 - (id)initWithDbHelper:(DBHelper*)dbHelper;
 - (id)init;

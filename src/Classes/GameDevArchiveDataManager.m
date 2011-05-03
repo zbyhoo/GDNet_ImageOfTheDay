@@ -11,6 +11,17 @@
 
 @implementation GameDevArchiveDataManager
 
+- (id)init 
+{
+    if ((self = [super init])) 
+    {
+        GDArchiveHtmlStringConverter *gdConverter = [[GDArchiveHtmlStringConverter alloc] init];
+        self.converter = gdConverter;
+        [gdConverter release];
+    }
+    return self;
+}
+
 - (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted 
 {    
     NSString *predicateString = [NSString stringWithFormat:@"(type like '%@') AND (deleted==%d) AND (favourite==0)", 

@@ -15,27 +15,15 @@
 #import "PostDetailsController.h"
 #import "ImagesListViewController.h"
 
-#import "ConvertersManager.h"
-
 @interface DataManager (Private)
 - (BOOL)saveModifiedContext;
 @end
 
 @implementation DataManager
 
-static ConvertersManager *convertersManager = nil;
-
-+ (ConvertersManager*)getConvertersManager 
-{
-    if (!convertersManager) 
-    {
-        convertersManager = [[ConvertersManager alloc] init];
-    }
-    return convertersManager;
-}
-
 @synthesize posts       = _posts;
 @synthesize dbHelper    = _dbHelper;
+@synthesize converter   = _converter;
 
 - (id)initWithDbHelper:(DBHelper*)dbHelper 
 {
@@ -61,6 +49,7 @@ static ConvertersManager *convertersManager = nil;
 {
     self.posts = nil;
     self.dbHelper = nil;
+    self.converter = nil;
     [super dealloc];
 }
 
@@ -315,10 +304,7 @@ static ConvertersManager *convertersManager = nil;
     @synchronized(view.tableView)
     {        
         [self dataDownloadStarted];
-        for (NSObject<GDDataConverter> *converter in [[DataManager getConvertersManager] getConverters])
-        {
-            [self getPostsFromConverter:converter timestamp:[timestamp intValue] view:view latest:newData];
-        }
+        [self getPostsFromConverter:self.converter timestamp:[timestamp intValue] view:view latest:newData];
         [self dataDownloadEnded];
     }
     
@@ -400,7 +386,7 @@ static ConvertersManager *convertersManager = nil;
     GDImagePost *post = [array objectAtIndex:0];
     
     [self dataDownloadStarted];
-    NSDictionary *postDict = [[[DataManager getConvertersManager] getConverterType:post.type] convertPost:postId];
+    NSDictionary *postDict = [self.converter convertPost:postId];
     [self dataDownloadEnded];
     
     if (!postDict) 

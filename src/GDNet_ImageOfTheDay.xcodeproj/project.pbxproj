@@ -80,8 +80,6 @@
 		26DEDD4412F0B77E003BBAEC /* ImagesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */; };
 		26DEDDC512F0BFF2003BBAEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */; };
 		26DEDDC612F0BFF2003BBAEC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */; };
-		26E73C4513487043008ACB18 /* ConvertersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E73C4413487043008ACB18 /* ConvertersManager.m */; };
-		26E73C4613487043008ACB18 /* ConvertersManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E73C4413487043008ACB18 /* ConvertersManager.m */; };
 		26E73C491348782A008ACB18 /* ConvertersManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E73C481348782A008ACB18 /* ConvertersManagerTest.m */; };
 		26E81A781321A45900FD3D52 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E81A771321A45900FD3D52 /* TableViewCell.m */; };
 		26E81A9D1321A66C00FD3D52 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E81A9C1321A66C00FD3D52 /* TableViewCell.xib */; };
@@ -175,8 +173,6 @@
 		26DEDDC212F0BFF2003BBAEC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
-		26E73C4313487043008ACB18 /* ConvertersManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertersManager.h; sourceTree = "<group>"; };
-		26E73C4413487043008ACB18 /* ConvertersManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertersManager.m; sourceTree = "<group>"; };
 		26E73C481348782A008ACB18 /* ConvertersManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertersManagerTest.m; sourceTree = "<group>"; };
 		26E81A761321A45900FD3D52 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		26E81A771321A45900FD3D52 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
@@ -294,8 +290,6 @@
 				26AF99F0131EF10B0096C002 /* Utilities.m */,
 				2678BF5E132816E9003CF4C7 /* DBHelper.h */,
 				2678BF5F132816E9003CF4C7 /* DBHelper.m */,
-				26E73C4313487043008ACB18 /* ConvertersManager.h */,
-				26E73C4413487043008ACB18 /* ConvertersManager.m */,
 				26105572134E477D00513008 /* FavoritesDataManager.h */,
 				26105573134E477D00513008 /* FavoritesDataManager.m */,
 				269AA4031367425F00C7618E /* GameDevArchiveDataManager.h */,
@@ -569,7 +563,6 @@
 				262637E01336463A00366FB2 /* WebView.m in Sources */,
 				2647D7B5133AA22100540BFB /* ZoomedImageViewController.m in Sources */,
 				2647D7B9133AA6C400540BFB /* ImageButton.m in Sources */,
-				26E73C4513487043008ACB18 /* ConvertersManager.m in Sources */,
 				26105571134E389300513008 /* FavoritesListViewController.m in Sources */,
 				26105574134E477D00513008 /* FavoritesDataManager.m in Sources */,
 				26105578134E4EB500513008 /* FavoritePostDetailsController.m in Sources */,
@@ -599,7 +592,6 @@
 				264A60521332B63900037CEA /* GDPicture.m in Sources */,
 				264A60561332B63A00037CEA /* GDImagePost.m in Sources */,
 				264A605B1332CE8800037CEA /* DBHelperTest.m in Sources */,
-				26E73C4613487043008ACB18 /* ConvertersManager.m in Sources */,
 				26E73C491348782A008ACB18 /* ConvertersManagerTest.m in Sources */,
 				26105575134E477D00513008 /* FavoritesDataManager.m in Sources */,
 				269AA4061367425F00C7618E /* GameDevArchiveDataManager.m in Sources */,
