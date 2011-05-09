@@ -9,8 +9,5 @@
 #import "ImagesListViewController.h"
 
 
-@interface FavoritesListViewController : ImagesListViewController {
-    
-}
-
+@interface FavoritesListViewController : ImagesListViewController
 @end

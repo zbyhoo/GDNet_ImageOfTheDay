@@ -331,6 +331,50 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		2691276413786F31003E0891 /* GameDevArchive */ = {
+			isa = PBXGroup;
+			children = (
+				2691275A13786BDD003E0891 /* GameDevArchivePostDetailsController.h */,
+				2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */,
+				2691275E13786C88003E0891 /* GameDevArchiveListViewController.h */,
+				2691275F13786C88003E0891 /* GameDevArchiveListViewController.m */,
+			);
+			name = GameDevArchive;
+			sourceTree = "<group>";
+		};
+		2691276513786F63003E0891 /* DevMaster */ = {
+			isa = PBXGroup;
+			children = (
+				268B1B1E1370834F00ADF75A /* DevMasterListViewController.h */,
+				268B1B1F1370834F00ADF75A /* DevMasterListViewController.m */,
+				2691276113786D27003E0891 /* DevMasterPostDetailsController.h */,
+				2691276213786D27003E0891 /* DevMasterPostDetailsController.m */,
+			);
+			name = DevMaster;
+			sourceTree = "<group>";
+		};
+		2691276613786F84003E0891 /* RefreshFooterAndHeader */ = {
+			isa = PBXGroup;
+			children = (
+				26FBA5911354EB3E00B919A6 /* EGORefreshTableFooterView.h */,
+				26FBA5921354EB6300B919A6 /* EGORefreshTableFooterView.m */,
+				26BE1CD41324306B00596340 /* EGORefreshTableHeaderView.h */,
+				26BE1CD51324306B00596340 /* EGORefreshTableHeaderView.m */,
+			);
+			name = RefreshFooterAndHeader;
+			sourceTree = "<group>";
+		};
+		2691276713786FB4003E0891 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				2610556F134E389300513008 /* FavoritesListViewController.h */,
+				26105570134E389300513008 /* FavoritesListViewController.m */,
+				26105576134E4EB500513008 /* FavoritePostDetailsController.h */,
+				26105577134E4EB500513008 /* FavoritePostDetailsController.m */,
+			);
+			name = Favorites;
+			sourceTree = "<group>";
+		};
 		26BE1CD71324310D00596340 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,10 +393,10 @@
 		26DEDD3212F0B47A003BBAEC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				26FBA5911354EB3E00B919A6 /* EGORefreshTableFooterView.h */,
-				26FBA5921354EB6300B919A6 /* EGORefreshTableFooterView.m */,
-				26BE1CD41324306B00596340 /* EGORefreshTableHeaderView.h */,
-				26BE1CD51324306B00596340 /* EGORefreshTableHeaderView.m */,
+				2691276413786F31003E0891 /* GameDevArchive */,
+				2691276513786F63003E0891 /* DevMaster */,
+				2691276613786F84003E0891 /* RefreshFooterAndHeader */,
+				2691276713786FB4003E0891 /* Favorites */,
 				1D3623240D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.h */,
 				1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */,
 				26DEDD4012F0B77E003BBAEC /* ImagesListViewController.h */,
@@ -369,18 +413,6 @@
 				2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */,
 				2647D7B7133AA6C300540BFB /* ImageButton.h */,
 				2647D7B8133AA6C300540BFB /* ImageButton.m */,
-				2610556F134E389300513008 /* FavoritesListViewController.h */,
-				26105570134E389300513008 /* FavoritesListViewController.m */,
-				26105576134E4EB500513008 /* FavoritePostDetailsController.h */,
-				26105577134E4EB500513008 /* FavoritePostDetailsController.m */,
-				268B1B1E1370834F00ADF75A /* DevMasterListViewController.h */,
-				268B1B1F1370834F00ADF75A /* DevMasterListViewController.m */,
-				2691275A13786BDD003E0891 /* GameDevArchivePostDetailsController.h */,
-				2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */,
-				2691275E13786C88003E0891 /* GameDevArchiveListViewController.h */,
-				2691275F13786C88003E0891 /* GameDevArchiveListViewController.m */,
-				2691276113786D27003E0891 /* DevMasterPostDetailsController.h */,
-				2691276213786D27003E0891 /* DevMasterPostDetailsController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
