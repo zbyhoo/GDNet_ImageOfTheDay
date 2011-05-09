@@ -25,7 +25,9 @@ NSString * const DM_IMG_URL_START       = @"src=\"";
 NSString * const DM_IMG_URL_END         = @"\"></a>";
 NSString * const DM_POST_DATE_START     = @"alt=\"Old\" border=\"0\" /></a>";
 NSString * const DM_POST_DATE_END       = @"<!-- / status icon and date -->";
-NSString * const DM_POST_IMGS_START     = @"<div id=\"post_message_82392\"><div align=\"center\"><img src=\"";
+NSString * const DM_POST_PRE_IMGS_START = @"<!-- message -->";
+NSString * const DM_POST_PRE_IMGS_END   = @"id=\"post_message";
+NSString * const DM_POST_IMGS_START     = @"<div align=\"center\"><img src=\"";
 NSString * const DM_POST_IMGS_END       = @"\" border";
 NSString * const DM_POST_DESC_START     = @"Description</font></b><br />";
 NSString * const DM_POST_DESC_END       = @"</div>";
@@ -165,9 +167,13 @@ NSString * const DM_POST_DESC_END       = @"</div>";
     range.location = 0;
     range.length = page.length - 1;
     
+    NSLog(@"%@", page);
+    
     @try {
         dateString = [Utilities getSubstringFrom:page range:&range after:DM_POST_DATE_START before:DM_POST_DATE_END];
         LogDebug(@"Post date: %@", dateString);
+        
+        [Utilities getSubstringFrom:page range:&range after:DM_POST_PRE_IMGS_START before:DM_POST_PRE_IMGS_END];
         
         imageUrl = [Utilities getSubstringFrom:page range:&range after:DM_POST_IMGS_START before:DM_POST_IMGS_END];
         LogDebug(@"Images URLs:\n%@", imageUrl);

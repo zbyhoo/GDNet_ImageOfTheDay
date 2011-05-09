@@ -12,6 +12,7 @@
 + (NSString*)readSampleMainPageFile;
 + (NSString*)readSamplePostFile;
 + (NSString*)readPostPageFile;
++ (NSString*)readSecondPostPageFile;
 @end
 
 @interface DevMasterHtmlConverterMock : DevMasterHtmlConverter 
@@ -25,6 +26,15 @@
 - (NSString*)getData:(NSString*)urlString
 {
     return [DevMasterHtmlConverterTest readPostPageFile];
+}
+@end
+
+@interface DevMasterHtmlConverterMock2 : DevMasterHtmlConverter 
+@end
+@implementation DevMasterHtmlConverterMock2
+- (NSString*)getData:(NSString*)urlString
+{
+    return [DevMasterHtmlConverterTest readSecondPostPageFile];
 }
 @end
 
@@ -45,6 +55,12 @@
 + (NSString*)readPostPageFile 
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"devmaster_post_page" ofType:@"html"]; 
+    return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+}
+
++ (NSString*)readSecondPostPageFile 
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"devmaster_post_page2" ofType:@"html"]; 
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
@@ -166,9 +182,6 @@
 {
     // given
     DevMasterHtmlConverter *converter = [[DevMasterHtmlConverterMock alloc] init];
-    //Method m1 = class_getInstanceMethod(converter.class, @selector(getData:));
-    //Method m2 = class_getInstanceMethod(self.class, @selector(getDataMock:));
-    //method_exchangeImplementations(m1, m2);
     
     // when
     NSDictionary *convertedPost = [converter convertPost:nil];
@@ -199,6 +212,27 @@
     GHAssertNotNil(timestamp, @"");
     GHAssertEquals([timestamp intValue], 1301180400, @"");
     
+    [converter release];
+}
+
+- (void)test_convertPost_differentOne
+{
+    // given
+    DevMasterHtmlConverter *converter = [[DevMasterHtmlConverterMock2 alloc] init];
+    
+    // when
+    NSDictionary *convertedPost = [converter convertPost:nil];
+    
+    // then
+    GHAssertNotNil(convertedPost, @"");
+    GHAssertTrue([((NSString*)[convertedPost valueForKey:KEY_DESCRIPTION]) rangeOfString:@"These are three different"].location != NSNotFound, @"");
+    GHAssertTrue([((NSString*)[convertedPost valueForKey:KEY_DESCRIPTION]) rangeOfString:@"Nunes."].location != NSNotFound, @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_DATE], [NSNumber numberWithInt:1303941600], @"");
+    NSString *key = [NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, 0];
+    GHAssertEqualObjects([convertedPost valueForKey:key], @"http://www.devmaster.net/snapshot/images/11-04-28.jpg", @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_IMAGES_COUNT], [NSNumber numberWithInt:1], @"");
+    
+    //method_exchangeImplementations(m1, m2);
     [converter release];
 }
 
