@@ -24,7 +24,7 @@
     DataManager *_dataManager;
 }
 
-@property (nonatomic, retain) DataManager *dataManager;
+@property (retain) DataManager *dataManager;
 @property (nonatomic, retain) EGORefreshTableHeaderView *refreshHeaderView;
 @property (nonatomic, retain) EGORefreshTableFooterView *refreshFooterView;
 @property (nonatomic, assign) BOOL reloadingHeader;

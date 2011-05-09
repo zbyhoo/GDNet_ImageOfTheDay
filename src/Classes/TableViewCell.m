@@ -25,6 +25,9 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    return [self retain];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     

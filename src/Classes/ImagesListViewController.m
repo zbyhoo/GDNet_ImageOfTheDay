@@ -20,7 +20,7 @@
 
 @interface ImagesListViewController (Protected)
 
-- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell;
+- (void)updateCellAtIndex:(NSDictionary*)params;
 - (BOOL)isRefreshHeaderNeeded;
 - (BOOL)isRefreshFooterNeeded;
 - (void)createRefreshHeader;
@@ -217,8 +217,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    TableViewCell *cell = [self createCell:tableView];    
-    [self updatePostAtIndex:indexPath cell:cell];
+    TableViewCell *cell = [self createCell:tableView];  
+    
+    //NSDictionary *params = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"indexPath", @"cell", nil] forKeys:[NSArray arrayWithObjects:indexPath, cell, nil]];
+    
+    NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
+    [params setValue:cell forKey:@"cell"];
+    [params setValue:indexPath forKey:@"indexPath"]; // TODO memory leak
+    
+    [self performSelectorInBackground:@selector(updateCellAtIndex:) withObject:params];
     
     return cell;
 }
@@ -243,14 +250,27 @@
     return nil;
 }
 
-- (void)updatePostAtIndex:(NSIndexPath*)indexPath cell:(TableViewCell*)cell 
+- (void)updateCellAtIndex:(NSDictionary*)params
 {    
-    GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    cell.titleLabel.text        = post.title;
-    cell.authorLabel.text       = post.author;
-    cell.dateLabel.text         = [self getDateFromPost:post];
-    cell.postImageView.image    = [self getMainPicture:post];
+    @synchronized(self)
+    {
+        NSIndexPath *indexPath = [params objectForKey:@"indexPath"];
+        TableViewCell *cell = [params objectForKey:@"cell"];
+    
+        GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
+    
+        [cell.titleLabel performSelectorOnMainThread:@selector(setText:) withObject:post.title waitUntilDone:YES];
+        [cell.authorLabel performSelectorOnMainThread:@selector(setText:) withObject:post.author waitUntilDone:YES];
+    
+        NSString *postDate = [self getDateFromPost:post];
+        [cell.dateLabel performSelectorOnMainThread:@selector(setText:) withObject:postDate waitUntilDone:YES];
+    
+        UIImage *postImage = [self getMainPicture:post];
+        [cell.postImageView performSelectorOnMainThread:@selector(setImage:) withObject:postImage waitUntilDone:YES];
+    }
+    [pool drain];
 }
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath
