@@ -55,7 +55,6 @@
 		268B1B231370839400ADF75A /* DevMasterDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B221370839400ADF75A /* DevMasterDataManager.m */; };
 		268B1B241370839400ADF75A /* DevMasterDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B221370839400ADF75A /* DevMasterDataManager.m */; };
 		2691275C13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */; };
-		2691275D13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */; };
 		2691276013786C88003E0891 /* GameDevArchiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691275F13786C88003E0891 /* GameDevArchiveListViewController.m */; };
 		2691276313786D27003E0891 /* DevMasterPostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691276213786D27003E0891 /* DevMasterPostDetailsController.m */; };
 		269AA4051367425F00C7618E /* GameDevArchiveDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */; };
@@ -87,7 +86,6 @@
 		26DEDD4412F0B77E003BBAEC /* ImagesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */; };
 		26DEDDC512F0BFF2003BBAEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */; };
 		26DEDDC612F0BFF2003BBAEC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */; };
-		26E73C491348782A008ACB18 /* ConvertersManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E73C481348782A008ACB18 /* ConvertersManagerTest.m */; };
 		26E81A781321A45900FD3D52 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26E81A771321A45900FD3D52 /* TableViewCell.m */; };
 		26E81A9D1321A66C00FD3D52 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26E81A9C1321A66C00FD3D52 /* TableViewCell.xib */; };
 		26FBA5931354EB6300B919A6 /* EGORefreshTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FBA5921354EB6300B919A6 /* EGORefreshTableFooterView.m */; };
@@ -190,7 +188,6 @@
 		26DEDDC212F0BFF2003BBAEC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = Classes/SettingsViewController.xib; sourceTree = "<group>"; };
-		26E73C481348782A008ACB18 /* ConvertersManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvertersManagerTest.m; sourceTree = "<group>"; };
 		26E81A761321A45900FD3D52 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		26E81A771321A45900FD3D52 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		26E81A9C1321A66C00FD3D52 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
@@ -264,7 +261,6 @@
 				26AF9A01131EF4990096C002 /* UtilitiesTest.m */,
 				267AE028132E928E00C25A85 /* DataManagerTest.m */,
 				264A605A1332CE8800037CEA /* DBHelperTest.m */,
-				26E73C481348782A008ACB18 /* ConvertersManagerTest.m */,
 				269AA40C13674EDD00C7618E /* DevMasterHtmlConverterTest.m */,
 			);
 			name = Tests;
@@ -680,13 +676,11 @@
 				264A60521332B63900037CEA /* GDPicture.m in Sources */,
 				264A60561332B63A00037CEA /* GDImagePost.m in Sources */,
 				264A605B1332CE8800037CEA /* DBHelperTest.m in Sources */,
-				26E73C491348782A008ACB18 /* ConvertersManagerTest.m in Sources */,
 				26105575134E477D00513008 /* FavoritesDataManager.m in Sources */,
 				269AA4061367425F00C7618E /* GameDevArchiveDataManager.m in Sources */,
 				269AA40A13674C5300C7618E /* DevMasterHtmlConverter.m in Sources */,
 				269AA40D13674EDD00C7618E /* DevMasterHtmlConverterTest.m in Sources */,
 				268B1B241370839400ADF75A /* DevMasterDataManager.m in Sources */,
-				2691275D13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
