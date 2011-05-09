@@ -250,12 +250,24 @@
     return nil;
 }
 
+- (void)fadeInImageForCell:(NSDictionary*)params
+{
+    TableViewCell *cell = [params objectForKey:@"cell"];
+    UIImage *image = [params objectForKey:@"image"];
+    
+    cell.postImageView.alpha = 0.0f;
+    cell.postImageView.image = image;
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3f];
+    cell.postImageView.alpha = 1.0f;    
+    [UIView commitAnimations];
+    
+}
+
 - (void)updateCellAtIndex:(NSDictionary*)params
 {    
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    @synchronized(self)
-    {
         NSIndexPath *indexPath = [params objectForKey:@"indexPath"];
         TableViewCell *cell = [params objectForKey:@"cell"];
     
@@ -268,8 +280,11 @@
         [cell.dateLabel performSelectorOnMainThread:@selector(setText:) withObject:postDate waitUntilDone:YES];
     
         UIImage *postImage = [self getMainPicture:post];
-        [cell.postImageView performSelectorOnMainThread:@selector(setImage:) withObject:postImage waitUntilDone:YES];
-    }
+        NSMutableDictionary *fadeParams = [[[NSMutableDictionary alloc] init] autorelease];
+        [fadeParams setValue:postImage forKey:@"image"];
+        [fadeParams setValue:cell forKey:@"cell"];
+        [self performSelectorOnMainThread:@selector(fadeInImageForCell:) withObject:fadeParams waitUntilDone:YES];
+    
     [pool drain];
 }
 
