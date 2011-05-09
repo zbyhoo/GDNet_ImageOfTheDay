@@ -31,7 +31,8 @@ NSString * const GD_POST_SEPARATOR  = @"<div class='gallery_album";
 
 - (NSString*)getData:(NSString*)urlString {
     NSError *error = nil;
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+    LogDebug(@"getting data from: %@", url);
     return [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
 }
 

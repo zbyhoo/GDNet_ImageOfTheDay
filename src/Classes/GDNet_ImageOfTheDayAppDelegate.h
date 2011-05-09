@@ -15,6 +15,7 @@
     UITabBarController *tabBarController;
     UINavigationController *imagesNavigationController;
     UINavigationController *favouritesNavigationController;
+    UINavigationController *devMasterNavigationController;
     
 @private
     NSManagedObjectContext *managedObjectContext_;

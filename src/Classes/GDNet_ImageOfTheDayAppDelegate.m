@@ -14,6 +14,8 @@
 #import "GDArchiveHtmlStringConverter.h"
 #import "DBHelper.h"
 #import "FavoritesListViewController.h"
+#import "DevMasterListViewController.h"
+#import "GameDevArchiveListViewController.h"
 
 @implementation GDNet_ImageOfTheDayAppDelegate
 
@@ -31,9 +33,9 @@
     [DBHelper setManagedContext:[self managedObjectContext]];
     
     // Initializing Images list view controller
-    ImagesListViewController *imagesListViewController = [[ImagesListViewController alloc] 
+    GameDevArchiveListViewController *imagesListViewController = [[GameDevArchiveListViewController alloc] 
                                                            initWithNibName:@"ImagesListViewController" bundle:nil];
-    imagesListViewController.title = @"Image of the Day";
+    imagesListViewController.title = @"GameDev Archive";
     
     // Initializing navigation controller for main "Image of the Day" view
     imagesNavigationController = [[UINavigationController alloc] init];
@@ -41,6 +43,18 @@
     imagesNavigationController.tabBarItem.image = [UIImage imageNamed:@"121-landscape.png"];
     [imagesNavigationController pushViewController:imagesListViewController animated:NO];
     [imagesListViewController release];
+    
+    // Initializing DevMaster list view controller
+    DevMasterListViewController *devMasterListViewController = [[DevMasterListViewController alloc] 
+                                                          initWithNibName:@"ImagesListViewController" bundle:nil];
+    devMasterListViewController.title = @"DevMaster";
+    
+    // Initializing navigation controller for main "DevMaster" view
+    devMasterNavigationController = [[UINavigationController alloc] init];
+    devMasterNavigationController.navigationBar.tintColor = [UIColor blackColor];
+    devMasterNavigationController.tabBarItem.image = [UIImage imageNamed:@"121-landscape.png"];
+    [devMasterNavigationController pushViewController:devMasterListViewController animated:NO];
+    [devMasterListViewController release];
     
     // Initializing Favourites view controller
     FavoritesListViewController *favouritesViewController = [[FavoritesListViewController alloc] 
@@ -62,7 +76,8 @@
     
     // Initializing main bar controller
 	tabBarController = [[UITabBarController alloc] init];
-    tabBarController.viewControllers = [NSArray arrayWithObjects:imagesNavigationController, 
+    tabBarController.viewControllers = [NSArray arrayWithObjects:imagesNavigationController,
+                                                                 devMasterNavigationController,
                                                                  favouritesNavigationController, 
                                                                  settingsViewController,
                                                                  nil];
@@ -234,6 +249,7 @@
 - (void)dealloc {
     
     [tabBarController release];
+    [devMasterNavigationController release];
     [favouritesNavigationController release];
     [imagesNavigationController release];
     

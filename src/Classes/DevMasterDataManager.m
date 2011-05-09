@@ -1,21 +1,21 @@
 //
-//  GameDevDataManager.m
+//  DevMasterDataManager.m
 //  GDNet_ImageOfTheDay
 //
-//  Created by Zbigniew Kominek on 4/26/11.
+//  Created by Zbigniew Kominek on 5/3/11.
 //  Copyright 2011 zbyhoo. All rights reserved.
 //
 
-#import "GameDevArchiveDataManager.h"
-#import "GDArchiveHtmlStringConverter.h"
+#import "DevMasterDataManager.h"
+#import "DevMasterHtmlConverter.h"
 
-@implementation GameDevArchiveDataManager
+@implementation DevMasterDataManager
 
 - (id)init 
 {
     if ((self = [super init])) 
     {
-        GDArchiveHtmlStringConverter *gdConverter = [[GDArchiveHtmlStringConverter alloc] init];
+        DevMasterHtmlConverter *gdConverter = [[DevMasterHtmlConverter alloc] init];
         self.converter = gdConverter;
         [gdConverter release];
     }
@@ -25,7 +25,7 @@
 - (NSPredicate*)getPredicateWithDeleted:(BOOL)deleted 
 {    
     NSString *predicateString = [NSString stringWithFormat:@"(type like '%@') AND (deleted==%d) AND (favourite==0)", 
-                                 NSStringFromClass([GDArchiveHtmlStringConverter class]), 
+                                 NSStringFromClass([DevMasterHtmlConverter class]), 
                                  deleted];
     return [NSPredicate predicateWithFormat:predicateString];
 }
@@ -33,7 +33,7 @@
 - (NSPredicate*)getPredicate
 {
     NSString *predicateString = [NSString stringWithFormat:@"(type like '%@')", 
-                                 NSStringFromClass([GDArchiveHtmlStringConverter class])];
+                                 NSStringFromClass([DevMasterHtmlConverter class])];
     return [NSPredicate predicateWithFormat:predicateString];
 }
 

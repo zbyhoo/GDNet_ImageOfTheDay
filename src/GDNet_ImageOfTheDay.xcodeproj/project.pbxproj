@@ -51,6 +51,13 @@
 		2678BF60132816E9003CF4C7 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
 		267AE029132E928E00C25A85 /* DataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 267AE028132E928E00C25A85 /* DataManagerTest.m */; };
 		267AE02A132E9B6000C25A85 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
+		268B1B201370834F00ADF75A /* DevMasterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B1F1370834F00ADF75A /* DevMasterListViewController.m */; };
+		268B1B231370839400ADF75A /* DevMasterDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B221370839400ADF75A /* DevMasterDataManager.m */; };
+		268B1B241370839400ADF75A /* DevMasterDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B221370839400ADF75A /* DevMasterDataManager.m */; };
+		2691275C13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */; };
+		2691275D13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */; };
+		2691276013786C88003E0891 /* GameDevArchiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691275F13786C88003E0891 /* GameDevArchiveListViewController.m */; };
+		2691276313786D27003E0891 /* DevMasterPostDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2691276213786D27003E0891 /* DevMasterPostDetailsController.m */; };
 		269AA4051367425F00C7618E /* GameDevArchiveDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */; };
 		269AA4061367425F00C7618E /* GameDevArchiveDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */; };
 		269AA40913674C5300C7618E /* DevMasterHtmlConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */; };
@@ -142,6 +149,16 @@
 		2678BF5E132816E9003CF4C7 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
 		2678BF5F132816E9003CF4C7 /* DBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHelper.m; sourceTree = "<group>"; };
 		267AE028132E928E00C25A85 /* DataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManagerTest.m; path = Tests/DataManagerTest.m; sourceTree = "<group>"; };
+		268B1B1E1370834F00ADF75A /* DevMasterListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevMasterListViewController.h; sourceTree = "<group>"; };
+		268B1B1F1370834F00ADF75A /* DevMasterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevMasterListViewController.m; sourceTree = "<group>"; };
+		268B1B211370839400ADF75A /* DevMasterDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevMasterDataManager.h; sourceTree = "<group>"; };
+		268B1B221370839400ADF75A /* DevMasterDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevMasterDataManager.m; sourceTree = "<group>"; };
+		2691275A13786BDD003E0891 /* GameDevArchivePostDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDevArchivePostDetailsController.h; sourceTree = "<group>"; };
+		2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDevArchivePostDetailsController.m; sourceTree = "<group>"; };
+		2691275E13786C88003E0891 /* GameDevArchiveListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDevArchiveListViewController.h; sourceTree = "<group>"; };
+		2691275F13786C88003E0891 /* GameDevArchiveListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDevArchiveListViewController.m; sourceTree = "<group>"; };
+		2691276113786D27003E0891 /* DevMasterPostDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevMasterPostDetailsController.h; sourceTree = "<group>"; };
+		2691276213786D27003E0891 /* DevMasterPostDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevMasterPostDetailsController.m; sourceTree = "<group>"; };
 		269AA4031367425F00C7618E /* GameDevArchiveDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDevArchiveDataManager.h; sourceTree = "<group>"; };
 		269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDevArchiveDataManager.m; sourceTree = "<group>"; };
 		269AA40713674C5200C7618E /* DevMasterHtmlConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevMasterHtmlConverter.h; sourceTree = "<group>"; };
@@ -296,6 +313,8 @@
 				269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */,
 				269AA40713674C5200C7618E /* DevMasterHtmlConverter.h */,
 				269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */,
+				268B1B211370839400ADF75A /* DevMasterDataManager.h */,
+				268B1B221370839400ADF75A /* DevMasterDataManager.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -354,6 +373,14 @@
 				26105570134E389300513008 /* FavoritesListViewController.m */,
 				26105576134E4EB500513008 /* FavoritePostDetailsController.h */,
 				26105577134E4EB500513008 /* FavoritePostDetailsController.m */,
+				268B1B1E1370834F00ADF75A /* DevMasterListViewController.h */,
+				268B1B1F1370834F00ADF75A /* DevMasterListViewController.m */,
+				2691275A13786BDD003E0891 /* GameDevArchivePostDetailsController.h */,
+				2691275B13786BDD003E0891 /* GameDevArchivePostDetailsController.m */,
+				2691275E13786C88003E0891 /* GameDevArchiveListViewController.h */,
+				2691275F13786C88003E0891 /* GameDevArchiveListViewController.m */,
+				2691276113786D27003E0891 /* DevMasterPostDetailsController.h */,
+				2691276213786D27003E0891 /* DevMasterPostDetailsController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -569,6 +596,11 @@
 				26FBA5931354EB6300B919A6 /* EGORefreshTableFooterView.m in Sources */,
 				269AA4051367425F00C7618E /* GameDevArchiveDataManager.m in Sources */,
 				269AA40913674C5300C7618E /* DevMasterHtmlConverter.m in Sources */,
+				268B1B201370834F00ADF75A /* DevMasterListViewController.m in Sources */,
+				268B1B231370839400ADF75A /* DevMasterDataManager.m in Sources */,
+				2691275C13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */,
+				2691276013786C88003E0891 /* GameDevArchiveListViewController.m in Sources */,
+				2691276313786D27003E0891 /* DevMasterPostDetailsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +629,8 @@
 				269AA4061367425F00C7618E /* GameDevArchiveDataManager.m in Sources */,
 				269AA40A13674C5300C7618E /* DevMasterHtmlConverter.m in Sources */,
 				269AA40D13674EDD00C7618E /* DevMasterHtmlConverterTest.m in Sources */,
+				268B1B241370839400ADF75A /* DevMasterDataManager.m in Sources */,
+				2691275D13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

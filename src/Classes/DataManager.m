@@ -156,9 +156,14 @@
     [self.posts removeObjectAtIndex:position.row];
 }
 
+- (NSPredicate*)getPredicate
+{
+    return nil;
+}
+
 - (NSNumber*)mostRecentPostDate
 {    
-    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:nil sorting:[self getDateSortDescriptor]];
+    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:[self getPredicate] sorting:[self getDateSortDescriptor]];
     
     if ([objects count] > 0) 
     {
@@ -299,8 +304,6 @@
 
 - (void)downloadData:(ImagesListViewController*)view new:(BOOL)newData timestamp:(NSNumber*)timestamp
 {    
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    
     @synchronized(view.tableView)
     {        
         [self dataDownloadStarted];
@@ -309,23 +312,29 @@
     }
     
     [view performSelectorOnMainThread:@selector(doneLoadingTableViewData) withObject:nil waitUntilDone:NO];
-    
-    [pool drain];
 }
 
 - (void)downloadNewData:(ImagesListViewController*)view 
 {    
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
     NSNumber *timestamp = [self mostRecentPostDate];
     LogDebug(@"most recent post date timestamp: %d", [timestamp intValue]);
     
     [self downloadData:view new:YES timestamp:timestamp];
+    
+    [pool drain];
 }
 
 - (void)downloadOldData:(ImagesListViewController*)view 
 {   
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
     NSNumber *timestamp = [self oldestPostDate];
     LogDebug(@"oldest post date timestamp: %d", [timestamp intValue]);
     [self downloadData:view new:NO timestamp:timestamp];
+    
+    [pool drain];
 }
 
 - (void)refreshFromWeb:(ImagesListViewController*)view 
