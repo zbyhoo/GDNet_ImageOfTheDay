@@ -294,12 +294,13 @@
 		265F736612F212AF00DF9DF4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2691276913787105003E0891 /* GameDevArchive */,
+				26912768137870E5003E0891 /* DevMaster */,
+				2691276A1378712A003E0891 /* Favorites */,
 				2648CF131301C1F2006941E9 /* Constants.h */,
 				2648CFE91301EF49006941E9 /* Constants.m */,
 				265F738312F21B8200DF9DF4 /* DataManager.h */,
 				265F738412F21B8200DF9DF4 /* DataManager.m */,
-				264F31AF130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.h */,
-				264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */,
 				265F738A12F21BFD00DF9DF4 /* GDDataConverter.h */,
 				265F738B12F21C1600DF9DF4 /* GDHtmlStringConverter.h */,
 				265F738C12F21C1600DF9DF4 /* GDHtmlStringConverter.m */,
@@ -307,14 +308,6 @@
 				26AF99F0131EF10B0096C002 /* Utilities.m */,
 				2678BF5E132816E9003CF4C7 /* DBHelper.h */,
 				2678BF5F132816E9003CF4C7 /* DBHelper.m */,
-				26105572134E477D00513008 /* FavoritesDataManager.h */,
-				26105573134E477D00513008 /* FavoritesDataManager.m */,
-				269AA4031367425F00C7618E /* GameDevArchiveDataManager.h */,
-				269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */,
-				269AA40713674C5200C7618E /* DevMasterHtmlConverter.h */,
-				269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */,
-				268B1B211370839400ADF75A /* DevMasterDataManager.h */,
-				268B1B221370839400ADF75A /* DevMasterDataManager.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -371,6 +364,37 @@
 				26105570134E389300513008 /* FavoritesListViewController.m */,
 				26105576134E4EB500513008 /* FavoritePostDetailsController.h */,
 				26105577134E4EB500513008 /* FavoritePostDetailsController.m */,
+			);
+			name = Favorites;
+			sourceTree = "<group>";
+		};
+		26912768137870E5003E0891 /* DevMaster */ = {
+			isa = PBXGroup;
+			children = (
+				269AA40713674C5200C7618E /* DevMasterHtmlConverter.h */,
+				269AA40813674C5200C7618E /* DevMasterHtmlConverter.m */,
+				268B1B211370839400ADF75A /* DevMasterDataManager.h */,
+				268B1B221370839400ADF75A /* DevMasterDataManager.m */,
+			);
+			name = DevMaster;
+			sourceTree = "<group>";
+		};
+		2691276913787105003E0891 /* GameDevArchive */ = {
+			isa = PBXGroup;
+			children = (
+				264F31AF130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.h */,
+				264F31B0130C69DF00BEB7C7 /* GDArchiveHtmlStringConverter.m */,
+				269AA4031367425F00C7618E /* GameDevArchiveDataManager.h */,
+				269AA4041367425F00C7618E /* GameDevArchiveDataManager.m */,
+			);
+			name = GameDevArchive;
+			sourceTree = "<group>";
+		};
+		2691276A1378712A003E0891 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				26105572134E477D00513008 /* FavoritesDataManager.h */,
+				26105573134E477D00513008 /* FavoritesDataManager.m */,
 			);
 			name = Favorites;
 			sourceTree = "<group>";
