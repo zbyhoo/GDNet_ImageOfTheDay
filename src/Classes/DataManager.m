@@ -138,9 +138,19 @@
     }
 }
 
+- (void)removeDataFromPost:(GDImagePost*)post
+{
+    NSMutableSet *pictureSet = [NSMutableSet setWithSet:post.pictures];
+    for (GDPicture *picture in pictureSet)
+        if ([self.dbHelper deleteObject:picture] == NO)
+            LogError(@"unable to delete picture");
+    post.pictures = nil;
+}
+
 - (void)markDeleted:(NSIndexPath*)position
 {    
     GDImagePost* post = [self.posts objectAtIndex:position.row];
+    [self removeDataFromPost:post];
     post.deleted = [NSNumber numberWithBool:YES];
     [self saveModifiedContext];
     [self.posts removeObjectAtIndex:position.row];
