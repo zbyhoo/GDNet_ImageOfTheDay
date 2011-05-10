@@ -19,6 +19,8 @@
 		262B64DE1336AC7D0086EB20 /* sample_archive_post.html in Resources */ = {isa = PBXBuildFile; fileRef = 262B64DD1336AC7D0086EB20 /* sample_archive_post.html */; };
 		262B64E21336C5DA0086EB20 /* zbyhoo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E11336C5DA0086EB20 /* zbyhoo.png */; };
 		262B64E41336C5ED0086EB20 /* zbyhoo_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E31336C5ED0086EB20 /* zbyhoo_test.png */; };
+		262CB9121379AB7B0051E090 /* devmaster_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9101379AB7B0051E090 /* devmaster_logo.png */; };
+		262CB9131379AB7B0051E090 /* gamedev_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9111379AB7B0051E090 /* gamedev_logo.png */; };
 		263E1FDF1309810000775E2B /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263E1FDE1309810000775E2B /* GHUnitIOS.framework */; };
 		2647D7B5133AA22100540BFB /* ZoomedImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */; };
 		2647D7B6133AA22100540BFB /* ZoomedImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2647D7B4133AA22100540BFB /* ZoomedImageViewController.xib */; };
@@ -43,7 +45,6 @@
 		264F31C4130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */; };
 		26577F4F133C0B9800CBDA3C /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 26577F4E133C0B9800CBDA3C /* 20-gear2.png */; };
 		26577F51133C0BC700CBDA3C /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 26577F50133C0BC700CBDA3C /* 28-star.png */; };
-		26577F53133C0C2F00CBDA3C /* 121-landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 26577F52133C0C2F00CBDA3C /* 121-landscape.png */; };
 		265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265F738512F21B8200DF9DF4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
@@ -113,6 +114,8 @@
 		262B64DD1336AC7D0086EB20 /* sample_archive_post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = sample_archive_post.html; path = Tests/data/sample_archive_post.html; sourceTree = "<group>"; };
 		262B64E11336C5DA0086EB20 /* zbyhoo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zbyhoo.png; sourceTree = "<group>"; };
 		262B64E31336C5ED0086EB20 /* zbyhoo_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zbyhoo_test.png; sourceTree = "<group>"; };
+		262CB9101379AB7B0051E090 /* devmaster_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devmaster_logo.png; sourceTree = "<group>"; };
+		262CB9111379AB7B0051E090 /* gamedev_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gamedev_logo.png; sourceTree = "<group>"; };
 		263E1FDE1309810000775E2B /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		2647D7B2133AA22100540BFB /* ZoomedImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedImageViewController.h; sourceTree = "<group>"; };
 		2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomedImageViewController.m; sourceTree = "<group>"; };
@@ -136,7 +139,6 @@
 		264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDArchiveHtmlStringConverterTest.m; path = Tests/GDArchiveHtmlStringConverterTest.m; sourceTree = "<group>"; };
 		26577F4E133C0B9800CBDA3C /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		26577F50133C0BC700CBDA3C /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
-		26577F52133C0C2F00CBDA3C /* 121-landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "121-landscape.png"; sourceTree = "<group>"; };
 		265A6DA2130483AA00FDED1F /* SimpleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleLogger.h; sourceTree = "<group>"; };
 		265A6DA3130483AA00FDED1F /* SimpleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleLogger.m; sourceTree = "<group>"; };
 		265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests_Prefix.pch; sourceTree = "<group>"; };
@@ -466,7 +468,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				26577F52133C0C2F00CBDA3C /* 121-landscape.png */,
+				262CB9101379AB7B0051E090 /* devmaster_logo.png */,
+				262CB9111379AB7B0051E090 /* gamedev_logo.png */,
 				26577F50133C0BC700CBDA3C /* 28-star.png */,
 				26577F4E133C0B9800CBDA3C /* 20-gear2.png */,
 				262B64E31336C5ED0086EB20 /* zbyhoo_test.png */,
@@ -584,7 +587,8 @@
 				2647D7B6133AA22100540BFB /* ZoomedImageViewController.xib in Resources */,
 				26577F4F133C0B9800CBDA3C /* 20-gear2.png in Resources */,
 				26577F51133C0BC700CBDA3C /* 28-star.png in Resources */,
-				26577F53133C0C2F00CBDA3C /* 121-landscape.png in Resources */,
+				262CB9121379AB7B0051E090 /* devmaster_logo.png in Resources */,
+				262CB9131379AB7B0051E090 /* gamedev_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

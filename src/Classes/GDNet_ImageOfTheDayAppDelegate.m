@@ -40,7 +40,7 @@
     // Initializing navigation controller for main "Image of the Day" view
     imagesNavigationController = [[UINavigationController alloc] init];
     imagesNavigationController.navigationBar.tintColor = [UIColor blackColor];
-    imagesNavigationController.tabBarItem.image = [UIImage imageNamed:@"121-landscape.png"];
+    imagesNavigationController.tabBarItem.image = [UIImage imageNamed:@"gamedev_logo.png"];
     [imagesNavigationController pushViewController:imagesListViewController animated:NO];
     [imagesListViewController release];
     
@@ -52,7 +52,7 @@
     // Initializing navigation controller for main "DevMaster" view
     devMasterNavigationController = [[UINavigationController alloc] init];
     devMasterNavigationController.navigationBar.tintColor = [UIColor blackColor];
-    devMasterNavigationController.tabBarItem.image = [UIImage imageNamed:@"121-landscape.png"];
+    devMasterNavigationController.tabBarItem.image = [UIImage imageNamed:@"devmaster_logo.png"];
     [devMasterNavigationController pushViewController:devMasterListViewController animated:NO];
     [devMasterListViewController release];
     
