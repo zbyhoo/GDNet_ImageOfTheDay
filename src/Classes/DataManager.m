@@ -307,7 +307,6 @@
         if ([self shouldAddNewPost:objectDict timestamp:timestamp])
         {
             [self addToDatabase:objectDict];
-            [self updateTableView:view];
         }
     }
 }
@@ -319,6 +318,7 @@
         [self dataDownloadStarted];
         [self getPostsFromConverter:self.converter timestamp:[timestamp intValue] view:view latest:newData];
         [self dataDownloadEnded];
+        [self updateTableView:view];
     }
     
     [view performSelectorOnMainThread:@selector(doneLoadingTableViewData) withObject:nil waitUntilDone:NO];
