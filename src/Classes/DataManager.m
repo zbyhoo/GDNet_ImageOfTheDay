@@ -396,13 +396,15 @@
     
     [self dataDownloadStarted];
     NSDictionary *postDict = [self.converter convertPost:postId];
-    [self dataDownloadEnded];
     
     if (!postDict) 
     {
+        [self dataDownloadEnded];
         return nil;
     }
     [self updatePost:post withData:postDict];
+    
+    [self dataDownloadEnded];
     
     return post;
 }
@@ -482,7 +484,7 @@
     
     @synchronized(self)
     {
-        NSLog(@"DD -- : %d", _downloadingDataCounter);
+        NSLog(@"start DD -- : %d", _downloadingDataCounter);
         if (_downloadingDataCounter == 0)
         {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -502,6 +504,7 @@
 {
     @synchronized(self)
     {
+        NSLog(@"end DD -- : %d", _downloadingDataCounter);
         --_downloadingDataCounter;
         if (_downloadingDataCounter == 0)
         {
