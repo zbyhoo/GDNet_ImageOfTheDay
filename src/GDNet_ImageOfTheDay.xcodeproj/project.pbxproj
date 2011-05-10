@@ -21,6 +21,10 @@
 		262B64E41336C5ED0086EB20 /* zbyhoo_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 262B64E31336C5ED0086EB20 /* zbyhoo_test.png */; };
 		262CB9121379AB7B0051E090 /* devmaster_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9101379AB7B0051E090 /* devmaster_logo.png */; };
 		262CB9131379AB7B0051E090 /* gamedev_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9111379AB7B0051E090 /* gamedev_logo.png */; };
+		262CB9171379CA180051E090 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262CB9151379CA180051E090 /* AboutViewController.m */; };
+		262CB9181379CA180051E090 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9161379CA180051E090 /* AboutViewController.xib */; };
+		262CB91A1379CEDC0051E090 /* about_content.html in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9191379CEDC0051E090 /* about_content.html */; };
+		262CB91C1379D09F0051E090 /* 09-chat-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CB91B1379D09F0051E090 /* 09-chat-2.png */; };
 		263E1FDF1309810000775E2B /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263E1FDE1309810000775E2B /* GHUnitIOS.framework */; };
 		2647D7B5133AA22100540BFB /* ZoomedImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */; };
 		2647D7B6133AA22100540BFB /* ZoomedImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2647D7B4133AA22100540BFB /* ZoomedImageViewController.xib */; };
@@ -116,6 +120,11 @@
 		262B64E31336C5ED0086EB20 /* zbyhoo_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zbyhoo_test.png; sourceTree = "<group>"; };
 		262CB9101379AB7B0051E090 /* devmaster_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devmaster_logo.png; sourceTree = "<group>"; };
 		262CB9111379AB7B0051E090 /* gamedev_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gamedev_logo.png; sourceTree = "<group>"; };
+		262CB9141379CA180051E090 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		262CB9151379CA180051E090 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		262CB9161379CA180051E090 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AboutViewController.xib; path = Classes/AboutViewController.xib; sourceTree = "<group>"; };
+		262CB9191379CEDC0051E090 /* about_content.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_content.html; sourceTree = "<group>"; };
+		262CB91B1379D09F0051E090 /* 09-chat-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "09-chat-2.png"; sourceTree = "<group>"; };
 		263E1FDE1309810000775E2B /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		2647D7B2133AA22100540BFB /* ZoomedImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedImageViewController.h; sourceTree = "<group>"; };
 		2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomedImageViewController.m; sourceTree = "<group>"; };
@@ -438,6 +447,9 @@
 				2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */,
 				2647D7B7133AA6C300540BFB /* ImageButton.h */,
 				2647D7B8133AA6C300540BFB /* ImageButton.m */,
+				262CB9141379CA180051E090 /* AboutViewController.h */,
+				262CB9151379CA180051E090 /* AboutViewController.m */,
+				262CB9191379CEDC0051E090 /* about_content.html */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -468,6 +480,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				262CB91B1379D09F0051E090 /* 09-chat-2.png */,
 				262CB9101379AB7B0051E090 /* devmaster_logo.png */,
 				262CB9111379AB7B0051E090 /* gamedev_logo.png */,
 				26577F50133C0BC700CBDA3C /* 28-star.png */,
@@ -477,6 +490,7 @@
 				26BE1CD71324310D00596340 /* Pictures */,
 				8D1107310486CEB800E47090 /* GDNet_ImageOfTheDay-Info.plist */,
 				2648D0521301F8FB006941E9 /* Tests-Info.plist */,
+				262CB9161379CA180051E090 /* AboutViewController.xib */,
 				26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				26DEDDC412F0BFF2003BBAEC /* SettingsViewController.xib */,
@@ -589,6 +603,9 @@
 				26577F51133C0BC700CBDA3C /* 28-star.png in Resources */,
 				262CB9121379AB7B0051E090 /* devmaster_logo.png in Resources */,
 				262CB9131379AB7B0051E090 /* gamedev_logo.png in Resources */,
+				262CB9181379CA180051E090 /* AboutViewController.xib in Resources */,
+				262CB91A1379CEDC0051E090 /* about_content.html in Resources */,
+				262CB91C1379D09F0051E090 /* 09-chat-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,6 +678,7 @@
 				2691275C13786BDD003E0891 /* GameDevArchivePostDetailsController.m in Sources */,
 				2691276013786C88003E0891 /* GameDevArchiveListViewController.m in Sources */,
 				2691276313786D27003E0891 /* DevMasterPostDetailsController.m in Sources */,
+				262CB9171379CA180051E090 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

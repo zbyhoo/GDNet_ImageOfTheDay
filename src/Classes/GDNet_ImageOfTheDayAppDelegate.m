@@ -16,6 +16,7 @@
 #import "FavoritesListViewController.h"
 #import "DevMasterListViewController.h"
 #import "GameDevArchiveListViewController.h"
+#import "AboutViewController.h"
 
 @implementation GDNet_ImageOfTheDayAppDelegate
 
@@ -69,19 +70,26 @@
     [favouritesViewController release];
     
     // Initializing settings controller
-    SettingsViewController *settingsViewController = [[SettingsViewController alloc]
-                                                       initWithNibName:@"SettingsViewController" bundle:nil];
-    settingsViewController.title = @"Settings";
-    settingsViewController.tabBarItem.image = [UIImage imageNamed:@"20-gear2.png"];
+    //SettingsViewController *settingsViewController = [[SettingsViewController alloc]
+    //                                                   initWithNibName:@"SettingsViewController" bundle:nil];
+    //settingsViewController.title = @"Settings";
+    //settingsViewController.tabBarItem.image = [UIImage imageNamed:@"20-gear2.png"];
+    
+    // Initializing about controller
+    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+    aboutViewController.title = @"About";
+    aboutViewController.tabBarItem.image = [UIImage imageNamed:@"09-chat-2.png"];
     
     // Initializing main bar controller
 	tabBarController = [[UITabBarController alloc] init];
     tabBarController.viewControllers = [NSArray arrayWithObjects:imagesNavigationController,
                                                                  devMasterNavigationController,
                                                                  favouritesNavigationController, 
-                                                                 settingsViewController,
+    //                                                             settingsViewController,
+                                                                 aboutViewController,
                                                                  nil];
-    [settingsViewController release];
+    //[settingsViewController release];
+    [aboutViewController release];
     
     [window addSubview: tabBarController.view];
     [window makeKeyAndVisible];
