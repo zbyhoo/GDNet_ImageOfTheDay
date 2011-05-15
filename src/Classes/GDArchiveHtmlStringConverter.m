@@ -92,9 +92,7 @@ NSString * const GD_ARCHIVE_LAST_OLD_URL_STEP = @"GD_ARCHIVE_LAST_OLD_URL_STEP";
         [chunks replaceObjectAtIndex:([chunks count] - 1) withObject:last];
     }
     
-    LogDebug(@"before filtering:\n%@", chunks);
     [chunks filterUsingPredicate:[self isPostLikePredicate]];
-    LogDebug(@"after filtering:\n%@", chunks);
     
     return chunks;
 }

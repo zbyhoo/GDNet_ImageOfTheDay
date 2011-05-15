@@ -184,7 +184,7 @@
 
 - (NSNumber*)oldestPostDate
 {    
-    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:nil sorting:[self getDateSortDescriptor]];
+    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:[self getPredicate] sorting:[self getDateSortDescriptor]];
     
     if ([objects count] > 0) 
     {
