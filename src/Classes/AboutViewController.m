@@ -43,6 +43,8 @@
     // Do any additional setup after loading the view from its nib.
     NSString *path = [[NSBundle mainBundle] pathForResource:@"about_content" ofType:@"html"]; 
     NSString *content = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+    self.webView.multipleTouchEnabled = NO;
+    [[[self.webView subviews] lastObject] setScrollEnabled:NO];
     [self.webView loadHTMLString:content baseURL:nil];
 }
 
