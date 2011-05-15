@@ -31,6 +31,7 @@ NSString * const DM_POST_IMGS_START     = @"<div align=\"center\"><img src=\"";
 NSString * const DM_POST_IMGS_END       = @"\" border";
 NSString * const DM_POST_DESC_START     = @"Description</font></b><br />";
 NSString * const DM_POST_DESC_END       = @"</div>";
+NSString * const DM_LAST_OLD_URL_STEP   = @"DM_LAST_OLD_URL_STEP";
 
 
 @implementation DevMasterHtmlConverter
@@ -53,6 +54,25 @@ NSString * const DM_POST_DESC_END       = @"</div>";
 - (void)resetUrlCounter
 {
     _currentPage = -_step;
+}
+
+- (void)resetOldUrlCounter
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:DM_LAST_OLD_URL_STEP])
+    {
+        NSString *setting = [[NSUserDefaults standardUserDefaults] objectForKey:DM_LAST_OLD_URL_STEP];
+        _currentPage = [setting intValue];
+    }
+    else
+    {
+        _currentPage = -_step;
+    }
+}
+
+- (void)setOldUrlCounter
+{
+    NSString *setting = [NSString stringWithFormat:@"%d", _currentPage - _step];
+    [[NSUserDefaults standardUserDefaults] setObject:setting forKey:DM_LAST_OLD_URL_STEP];
 }
 
 - (NSString*)getNextUrl

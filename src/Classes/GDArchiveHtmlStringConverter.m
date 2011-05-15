@@ -35,6 +35,7 @@ NSString * const GD_ARCHIVE_POST_IMGS_END   = @"<!--StartImageData-->";
 NSString * const GD_ARCHIVE_POST_PRE_URL    = @"http://archive.gamedev.net/community/forums/";
 NSString * const GD_ARCHIVE_POST_DESC_START = @"EndImageData-->";
 NSString * const GD_ARCHIVE_POST_DESC_END   = @"<x x=\"\"></x><x x=\"\"></x></td>";
+NSString * const GD_ARCHIVE_LAST_OLD_URL_STEP = @"GD_ARCHIVE_LAST_OLD_URL_STEP";
 
 
 @implementation GDArchiveHtmlStringConverter
@@ -51,6 +52,25 @@ NSString * const GD_ARCHIVE_POST_DESC_END   = @"<x x=\"\"></x><x x=\"\"></x></td
 - (void)resetUrlCounter
 {
     _currentPage = 0;
+}
+
+- (void)resetOldUrlCounter
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:GD_ARCHIVE_LAST_OLD_URL_STEP])
+    {
+        NSString *setting = [[NSUserDefaults standardUserDefaults] objectForKey:GD_ARCHIVE_LAST_OLD_URL_STEP];
+        _currentPage = [setting intValue];
+    }
+    else
+    {
+        _currentPage = 0;
+    }
+}
+
+- (void)setOldUrlCounter
+{
+    NSString *setting = [NSString stringWithFormat:@"%d", _currentPage];
+    [[NSUserDefaults standardUserDefaults] setObject:setting forKey:GD_ARCHIVE_LAST_OLD_URL_STEP];
 }
 
 - (NSString*)getNextUrl

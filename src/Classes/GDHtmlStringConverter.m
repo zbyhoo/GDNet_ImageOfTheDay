@@ -63,6 +63,14 @@ NSString * const GD_POST_SEPARATOR  = @"<div class='gallery_album";
 {
 }
 
+- (void)resetOldUrlCounter
+{
+}
+
+- (void)setOldUrlCounter
+{
+}
+
 - (NSString*)getNextUrl
 {
     return nil;
@@ -114,7 +122,7 @@ NSString * const GD_POST_SEPARATOR  = @"<div class='gallery_album";
 
 - (NSArray*)getOldPostsStartingFrom:(NSNumber*)timestamp
 {
-    [self resetUrlCounter];
+    [self resetOldUrlCounter];
     NSMutableArray *posts = [[NSMutableArray alloc] init];
     
     while (posts.count < (NSUInteger)10)
@@ -123,8 +131,9 @@ NSString * const GD_POST_SEPARATOR  = @"<div class='gallery_album";
         [posts filterUsingPredicate:[self getOlderPostsPredicate:timestamp]];
     }
     
+    [self setOldUrlCounter];
+    
     return [posts autorelease];
-
 }
 
 - (NSPredicate*)getNewerPostsPredicate:(NSNumber*)timestamp
