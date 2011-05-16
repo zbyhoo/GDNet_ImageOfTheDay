@@ -11,6 +11,8 @@
 
 @implementation GameDevArchiveDataManager
 
+NSString * const GD_ARCHIVE_LASTEST_POST_DATE = @"GD_ARCHIVE_LASTEST_POST_DATE";
+
 - (id)init 
 {
     if ((self = [super init])) 
@@ -35,6 +37,11 @@
     NSString *predicateString = [NSString stringWithFormat:@"(type like '%@')", 
                                  NSStringFromClass([GDArchiveHtmlStringConverter class])];
     return [NSPredicate predicateWithFormat:predicateString];
+}
+
+- (NSString*)getLastestPostDateKey
+{
+    return GD_ARCHIVE_LASTEST_POST_DATE;
 }
 
 @end

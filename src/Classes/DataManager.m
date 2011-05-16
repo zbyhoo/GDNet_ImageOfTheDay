@@ -171,15 +171,26 @@
     return nil;
 }
 
-- (NSNumber*)mostRecentPostDate
-{    
-    NSArray* objects = [self.dbHelper fetchObjects:@"GDImagePost" predicate:[self getPredicate] sorting:[self getDateSortDescriptor]];
-    
-    if ([objects count] > 0) 
-    {
-        return ((GDImagePost*)[objects objectAtIndex:0]).postDate;
-    }
+- (NSString*)getLastestPostDateKey
+{
     return nil;
+}
+
+- (NSNumber*)getLatestPostDate
+{
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:[self getLastestPostDateKey]])
+    {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:[self getLastestPostDateKey]];
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (void)setLatestPostDate:(NSNumber*)timestamp
+{
+    [[NSUserDefaults standardUserDefaults] setObject:timestamp forKey:[self getLastestPostDateKey]];
 }
 
 - (NSNumber*)oldestPostDate
@@ -328,10 +339,16 @@
 {    
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
     
-    NSNumber *timestamp = [self mostRecentPostDate];
+    NSNumber *timestamp = [self getLatestPostDate];
     LogDebug(@"most recent post date timestamp: %d", [timestamp intValue]);
     
     [self downloadData:view new:YES timestamp:timestamp];
+    
+    if ([self postsCount] > 0)
+    {
+        GDImagePost *post = [self.posts objectAtIndex:(NSUInteger)0];
+        [self setLatestPostDate:post.postDate];
+    }
     
     [pool drain];
 }

@@ -11,6 +11,8 @@
 
 @implementation DevMasterDataManager
 
+NSString * const DM_LASTEST_POST_DATE = @"DM_LASTEST_POST_DATE";
+
 - (id)init 
 {
     if ((self = [super init])) 
@@ -35,6 +37,11 @@
     NSString *predicateString = [NSString stringWithFormat:@"(type like '%@')", 
                                  NSStringFromClass([DevMasterHtmlConverter class])];
     return [NSPredicate predicateWithFormat:predicateString];
+}
+
+- (NSString*)getLastestPostDateKey
+{
+    return DM_LASTEST_POST_DATE;
 }
 
 @end
