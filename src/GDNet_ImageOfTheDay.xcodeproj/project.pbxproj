@@ -49,6 +49,8 @@
 		26577F4F133C0B9800CBDA3C /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 26577F4E133C0B9800CBDA3C /* 20-gear2.png */; };
 		26577F51133C0BC700CBDA3C /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 26577F50133C0BC700CBDA3C /* 28-star.png */; };
 		26595208138AE1EC0092085A /* face_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 26595207138AE1EC0092085A /* face_logo.png */; };
+		2659520F138AFE850092085A /* iotd.png in Resources */ = {isa = PBXBuildFile; fileRef = 2659520E138AFE850092085A /* iotd.png */; };
+		26595213138AFF5C0092085A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 26595212138AFF5C0092085A /* Default.png */; };
 		265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265F738512F21B8200DF9DF4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
@@ -148,6 +150,8 @@
 		26577F4E133C0B9800CBDA3C /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		26577F50133C0BC700CBDA3C /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
 		26595207138AE1EC0092085A /* face_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_logo.png; sourceTree = "<group>"; };
+		2659520E138AFE850092085A /* iotd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iotd.png; sourceTree = "<group>"; };
+		26595212138AFF5C0092085A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		265A6DA2130483AA00FDED1F /* SimpleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleLogger.h; sourceTree = "<group>"; };
 		265A6DA3130483AA00FDED1F /* SimpleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleLogger.m; sourceTree = "<group>"; };
 		265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests_Prefix.pch; sourceTree = "<group>"; };
@@ -456,6 +460,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				26595212138AFF5C0092085A /* Default.png */,
 				26BE1CE81324335200596340 /* QuartzCore.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -479,6 +484,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2659520E138AFE850092085A /* iotd.png */,
 				26595207138AE1EC0092085A /* face_logo.png */,
 				262CB91B1379D09F0051E090 /* 09-chat-2.png */,
 				262CB9101379AB7B0051E090 /* devmaster_logo.png */,
@@ -606,6 +612,8 @@
 				262CB9181379CA180051E090 /* AboutViewController.xib in Resources */,
 				262CB91C1379D09F0051E090 /* 09-chat-2.png in Resources */,
 				26595208138AE1EC0092085A /* face_logo.png in Resources */,
+				2659520F138AFE850092085A /* iotd.png in Resources */,
+				26595213138AFF5C0092085A /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,7 +732,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GDNet_ImageOfTheDay_Prefix.pch;
 				INFOPLIST_FILE = "GDNet_ImageOfTheDay-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = GDNet_ImageOfTheDay;
 				SDKROOT = iphoneos;
@@ -741,7 +749,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GDNet_ImageOfTheDay_Prefix.pch;
 				INFOPLIST_FILE = "GDNet_ImageOfTheDay-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = GDNet_ImageOfTheDay;
 				SDKROOT = iphoneos;
 				SYMROOT = ../build;
