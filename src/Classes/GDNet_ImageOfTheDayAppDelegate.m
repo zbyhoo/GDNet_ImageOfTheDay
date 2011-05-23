@@ -69,12 +69,6 @@
     [favouritesNavigationController pushViewController:favouritesViewController animated:NO];
     [favouritesViewController release];
     
-    // Initializing settings controller
-    //SettingsViewController *settingsViewController = [[SettingsViewController alloc]
-    //                                                   initWithNibName:@"SettingsViewController" bundle:nil];
-    //settingsViewController.title = @"Settings";
-    //settingsViewController.tabBarItem.image = [UIImage imageNamed:@"20-gear2.png"];
-    
     // Initializing about controller
     AboutViewController *aboutViewController = [[AboutViewController alloc] init];
     aboutViewController.title = @"About";
@@ -82,10 +76,9 @@
     
     // Initializing main bar controller
 	tabBarController = [[UITabBarController alloc] init];
-    tabBarController.viewControllers = [NSArray arrayWithObjects:imagesNavigationController,
-                                                                 devMasterNavigationController,
+    tabBarController.viewControllers = [NSArray arrayWithObjects:devMasterNavigationController,
+                                                                 imagesNavigationController,
                                                                  favouritesNavigationController, 
-    //                                                             settingsViewController,
                                                                  aboutViewController,
                                                                  nil];
     //[settingsViewController release];
