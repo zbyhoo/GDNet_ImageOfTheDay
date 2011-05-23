@@ -107,7 +107,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDNet_ImageOfTheDayAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* GDNet_ImageOfTheDayAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNet_ImageOfTheDayAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDNet_ImageOfTheDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Devs Share.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Devs Share.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2610556F134E389300513008 /* FavoritesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesListViewController.h; sourceTree = "<group>"; };
 		26105570134E389300513008 /* FavoritesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesListViewController.m; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 		2647D7B8133AA6C300540BFB /* ImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageButton.m; sourceTree = "<group>"; };
 		2648CF131301C1F2006941E9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2648CFE91301EF49006941E9 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		2648D0501301F8FB006941E9 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2648D0501301F8FB006941E9 /* Devs Share (T).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Devs Share (T).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2648D0521301F8FB006941E9 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		2648D0681301FA5A006941E9 /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitIOSTestMain.m; path = Tests/GHUnitIOSTestMain.m; sourceTree = "<group>"; };
 		2648D0BA1301FED8006941E9 /* GDHtmlStringConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDHtmlStringConverterTest.m; path = Tests/GDHtmlStringConverterTest.m; sourceTree = "<group>"; };
@@ -262,8 +262,8 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */,
-				2648D0501301F8FB006941E9 /* Tests.app */,
+				1D6058910D05DD3D006BFB54 /* Devs Share.app */,
+				2648D0501301F8FB006941E9 /* Devs Share (T).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -536,7 +536,7 @@
 			);
 			name = GDNet_ImageOfTheDay;
 			productName = GDNet_ImageOfTheDay;
-			productReference = 1D6058910D05DD3D006BFB54 /* GDNet_ImageOfTheDay.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Devs Share.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2648D04F1301F8FB006941E9 /* Tests */ = {
@@ -554,7 +554,7 @@
 			);
 			name = Tests;
 			productName = Tests;
-			productReference = 2648D0501301F8FB006941E9 /* Tests.app */;
+			productReference = 2648D0501301F8FB006941E9 /* Devs Share (T).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -734,7 +734,7 @@
 				INFOPLIST_FILE = "GDNet_ImageOfTheDay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_NAME = GDNet_ImageOfTheDay;
+				PRODUCT_NAME = "Devs Share";
 				SDKROOT = iphoneos;
 				SYMROOT = ../build;
 			};
@@ -750,7 +750,7 @@
 				GCC_PREFIX_HEADER = GDNet_ImageOfTheDay_Prefix.pch;
 				INFOPLIST_FILE = "GDNet_ImageOfTheDay-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PRODUCT_NAME = GDNet_ImageOfTheDay;
+				PRODUCT_NAME = "Devs Share";
 				SDKROOT = iphoneos;
 				SYMROOT = ../build;
 				VALIDATE_PRODUCT = YES;
@@ -784,7 +784,7 @@
 					"-all_load",
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = Tests;
+				PRODUCT_NAME = "Devs Share (T)";
 				SDKROOT = iphoneos;
 				SYMROOT = ../build;
 			};
@@ -814,7 +814,7 @@
 					UIKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = Tests;
+				PRODUCT_NAME = "Devs Share (T)";
 				SDKROOT = iphoneos;
 				SYMROOT = ../build;
 				ZERO_LINK = NO;
@@ -830,6 +830,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos4.2;
 			};
 			name = Debug;
@@ -844,6 +845,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos4.2;
 			};
 			name = Release;
