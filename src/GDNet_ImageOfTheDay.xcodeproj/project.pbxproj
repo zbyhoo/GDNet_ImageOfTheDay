@@ -23,7 +23,6 @@
 		262CB9131379AB7B0051E090 /* gamedev_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9111379AB7B0051E090 /* gamedev_logo.png */; };
 		262CB9171379CA180051E090 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262CB9151379CA180051E090 /* AboutViewController.m */; };
 		262CB9181379CA180051E090 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9161379CA180051E090 /* AboutViewController.xib */; };
-		262CB91A1379CEDC0051E090 /* about_content.html in Resources */ = {isa = PBXBuildFile; fileRef = 262CB9191379CEDC0051E090 /* about_content.html */; };
 		262CB91C1379D09F0051E090 /* 09-chat-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 262CB91B1379D09F0051E090 /* 09-chat-2.png */; };
 		263E1FDF1309810000775E2B /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 263E1FDE1309810000775E2B /* GHUnitIOS.framework */; };
 		2647D7B5133AA22100540BFB /* ZoomedImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2647D7B3133AA22100540BFB /* ZoomedImageViewController.m */; };
@@ -49,6 +48,7 @@
 		264F31C4130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */; };
 		26577F4F133C0B9800CBDA3C /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 26577F4E133C0B9800CBDA3C /* 20-gear2.png */; };
 		26577F51133C0BC700CBDA3C /* 28-star.png in Resources */ = {isa = PBXBuildFile; fileRef = 26577F50133C0BC700CBDA3C /* 28-star.png */; };
+		26595208138AE1EC0092085A /* face_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 26595207138AE1EC0092085A /* face_logo.png */; };
 		265A6DA4130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265A6DA5130483AA00FDED1F /* SimpleLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 265A6DA3130483AA00FDED1F /* SimpleLogger.m */; };
 		265F738512F21B8200DF9DF4 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 265F738412F21B8200DF9DF4 /* DataManager.m */; };
@@ -123,7 +123,6 @@
 		262CB9141379CA180051E090 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		262CB9151379CA180051E090 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		262CB9161379CA180051E090 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AboutViewController.xib; path = Classes/AboutViewController.xib; sourceTree = "<group>"; };
-		262CB9191379CEDC0051E090 /* about_content.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about_content.html; sourceTree = "<group>"; };
 		262CB91B1379D09F0051E090 /* 09-chat-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "09-chat-2.png"; sourceTree = "<group>"; };
 		263E1FDE1309810000775E2B /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
 		2647D7B2133AA22100540BFB /* ZoomedImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedImageViewController.h; sourceTree = "<group>"; };
@@ -148,6 +147,7 @@
 		264F31C3130C6DB500BEB7C7 /* GDArchiveHtmlStringConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GDArchiveHtmlStringConverterTest.m; path = Tests/GDArchiveHtmlStringConverterTest.m; sourceTree = "<group>"; };
 		26577F4E133C0B9800CBDA3C /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		26577F50133C0BC700CBDA3C /* 28-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "28-star.png"; sourceTree = "<group>"; };
+		26595207138AE1EC0092085A /* face_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_logo.png; sourceTree = "<group>"; };
 		265A6DA2130483AA00FDED1F /* SimpleLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleLogger.h; sourceTree = "<group>"; };
 		265A6DA3130483AA00FDED1F /* SimpleLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleLogger.m; sourceTree = "<group>"; };
 		265A6E7B1304A51D00FDED1F /* Tests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests_Prefix.pch; sourceTree = "<group>"; };
@@ -449,7 +449,6 @@
 				2647D7B8133AA6C300540BFB /* ImageButton.m */,
 				262CB9141379CA180051E090 /* AboutViewController.h */,
 				262CB9151379CA180051E090 /* AboutViewController.m */,
-				262CB9191379CEDC0051E090 /* about_content.html */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -480,6 +479,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				26595207138AE1EC0092085A /* face_logo.png */,
 				262CB91B1379D09F0051E090 /* 09-chat-2.png */,
 				262CB9101379AB7B0051E090 /* devmaster_logo.png */,
 				262CB9111379AB7B0051E090 /* gamedev_logo.png */,
@@ -604,8 +604,8 @@
 				262CB9121379AB7B0051E090 /* devmaster_logo.png in Resources */,
 				262CB9131379AB7B0051E090 /* gamedev_logo.png in Resources */,
 				262CB9181379CA180051E090 /* AboutViewController.xib in Resources */,
-				262CB91A1379CEDC0051E090 /* about_content.html in Resources */,
 				262CB91C1379D09F0051E090 /* 09-chat-2.png in Resources */,
+				26595208138AE1EC0092085A /* face_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

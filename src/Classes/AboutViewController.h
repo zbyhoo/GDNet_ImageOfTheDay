@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 
 
-@interface AboutViewController : UIViewController <UIWebViewDelegate>
+@interface AboutViewController : UIViewController
 {
-@protected
-    IBOutlet UIWebView *_webView;
+@private
+    IBOutlet UIButton *contactMeButton;
+    IBOutlet UIButton *myBlogButton;
 }
-
-@property (nonatomic, retain) UIWebView *webView;
 
 @end

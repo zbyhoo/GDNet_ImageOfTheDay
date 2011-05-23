@@ -11,8 +11,6 @@
 
 @implementation AboutViewController
 
-@synthesize webView = _webView;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,11 +39,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"about_content" ofType:@"html"]; 
-    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-    self.webView.multipleTouchEnabled = NO;
-    [[[self.webView subviews] lastObject] setScrollEnabled:NO];
-    [self.webView loadHTMLString:content baseURL:nil];
 }
 
 - (void)viewDidUnload
@@ -61,15 +54,16 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType; 
+- (IBAction)contactMeButtonClick:(id)sender
 {
-    NSURL *requestURL =[ [ request URL ] retain ]; 
-    if ( ( [ [ requestURL scheme ] isEqualToString: @"http" ] || [ [ requestURL scheme ] isEqualToString: @"https" ] || [ [ requestURL scheme ] isEqualToString: @"mailto" ]) 
-        && ( navigationType == UIWebViewNavigationTypeLinkClicked ) ) { 
-        return ![ [ UIApplication sharedApplication ] openURL: [ requestURL autorelease ] ]; 
-    } 
-    [ requestURL release ]; 
-    return YES; 
+    NSString *urlString = @"mailto:zbyhoo@gmail.com?subject=Image of the Day - feedback";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[urlString
+       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+}
+
+- (IBAction)myBlogButtonClick:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://zbyhoo.eu"]];
 }
 
 @end
