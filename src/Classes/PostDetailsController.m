@@ -15,6 +15,7 @@
 #import "WebView.h"
 #import "ImageButton.h"
 #import "ZoomedImageViewController.h"
+#import "Utilities.h"
 
 @interface PostDetailsController (Private)
 
@@ -264,7 +265,10 @@ typedef enum {
             
             ImageButton *button = [[ImageButton buttonWithType:UIButtonTypeCustom] retain];
             button.frame = imageFrame;
-            button.bounds = CGRectMake(0, 0, imageFrame.size.width, imageFrame.size.height);
+            //button.bounds = CGRectMake(0, 0, imageFrame.size.width, imageFrame.size.height);
+            CGRect currentBounds = CGRectMake(0, 0, imageFrame.size.width, imageFrame.size.height);
+            button.bounds = [Utilities getResizedFrameForImage:image withCurrentFrame:currentBounds];
+            
             [button setBackgroundImage:image forState:UIControlStateNormal];
             [button addTarget:self action:@selector(imageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             button.picture = picture;

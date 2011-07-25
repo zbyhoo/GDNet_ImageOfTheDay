@@ -46,4 +46,25 @@
     return [string substringWithRange:final];
 }
 
++ (CGRect) getResizedFrameForImage:(UIImage*)image withCurrentFrame:(CGRect)frame
+{
+    CGRect newFrame = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    CGFloat resizeRatio = frame.size.width / image.size.width;
+    newFrame.size.width *= resizeRatio;
+    newFrame.size.height *= resizeRatio;
+    
+    if (newFrame.size.height > frame.size.height)
+    {
+        resizeRatio = frame.size.height / newFrame.size.height;
+        newFrame.size.width *= resizeRatio;
+        newFrame.size.height *= resizeRatio;
+    }
+    
+    newFrame.origin.x = (frame.size.width - newFrame.size.width) / 2.0f;
+    newFrame.origin.y = (frame.size.height - newFrame.size.height) / 2.0f;
+    
+    return newFrame;
+}
+
 @end

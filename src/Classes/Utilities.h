@@ -10,4 +10,6 @@
 
 + (NSString*)getSubstringFrom:(NSString*)string range:(NSRange*)range after:(NSString*)after before:(NSString*)before;
 
++ (CGRect) getResizedFrameForImage:(UIImage*)image withCurrentFrame:(CGRect)frame;
+
 @end

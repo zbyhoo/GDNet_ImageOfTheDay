@@ -14,6 +14,7 @@
 #import "GDArchiveHtmlStringConverter.h"
 #import "GDImagePost.h"
 #import "GDPicture.h"
+#import "Utilities.h"
 
 #import "EGORefreshTableHeaderView.h"
 #import "EGORefreshTableFooterView.h"
@@ -255,6 +256,8 @@
     TableViewCell *cell = [params objectForKey:@"cell"];
     UIImage *image = [params objectForKey:@"image"];
     
+    cell.postImageView.frame = [Utilities getResizedFrameForImage:image withCurrentFrame:cell.postImageView.frame];
+    
     cell.postImageView.alpha = 0.0f;
     cell.postImageView.image = image;
     [UIView beginAnimations:nil context:NULL];
@@ -264,26 +267,52 @@
     
 }
 
+-(UIImage *)resizeImage:(UIImage *)anImage width:(int)width height:(int)height
+{
+    
+    CGImageRef imageRef = [anImage CGImage];
+    
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+    
+    if (alphaInfo == kCGImageAlphaNone)
+        alphaInfo = kCGImageAlphaNoneSkipLast;
+    
+    
+    CGContextRef bitmap = CGBitmapContextCreate(NULL, width, height, CGImageGetBitsPerComponent(imageRef), 4 * width, CGImageGetColorSpace(imageRef), alphaInfo);
+    
+    CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef);
+    
+    CGImageRef ref = CGBitmapContextCreateImage(bitmap);
+    UIImage *result = [UIImage imageWithCGImage:ref];
+    
+    CGContextRelease(bitmap);
+    CGImageRelease(ref);
+    
+    return result;      
+}
+
 - (void)updateCellAtIndex:(NSDictionary*)params
 {    
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-        NSIndexPath *indexPath = [params objectForKey:@"indexPath"];
-        TableViewCell *cell = [params objectForKey:@"cell"];
+    NSIndexPath *indexPath = [params objectForKey:@"indexPath"];
+    TableViewCell *cell = [params objectForKey:@"cell"];
+
+    GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
     
-        GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
+    [cell.titleLabel performSelectorOnMainThread:@selector(setText:) withObject:post.title waitUntilDone:YES];
+    [cell.authorLabel performSelectorOnMainThread:@selector(setText:) withObject:post.author waitUntilDone:YES];
     
-        [cell.titleLabel performSelectorOnMainThread:@selector(setText:) withObject:post.title waitUntilDone:YES];
-        [cell.authorLabel performSelectorOnMainThread:@selector(setText:) withObject:post.author waitUntilDone:YES];
+    NSString *postDate = [self getDateFromPost:post];
+    [cell.dateLabel performSelectorOnMainThread:@selector(setText:) withObject:postDate waitUntilDone:YES];
     
-        NSString *postDate = [self getDateFromPost:post];
-        [cell.dateLabel performSelectorOnMainThread:@selector(setText:) withObject:postDate waitUntilDone:YES];
+    UIImage *postImage = [self getMainPicture:post];
+    //postImage = [self resizeImage:postImage width:10 height:10];
     
-        UIImage *postImage = [self getMainPicture:post];
-        NSMutableDictionary *fadeParams = [[[NSMutableDictionary alloc] init] autorelease];
-        [fadeParams setValue:postImage forKey:@"image"];
-        [fadeParams setValue:cell forKey:@"cell"];
-        [self performSelectorOnMainThread:@selector(fadeInImageForCell:) withObject:fadeParams waitUntilDone:YES];
+    NSMutableDictionary *fadeParams = [[[NSMutableDictionary alloc] init] autorelease];
+    [fadeParams setValue:postImage forKey:@"image"];
+    [fadeParams setValue:cell forKey:@"cell"];
+    [self performSelectorOnMainThread:@selector(fadeInImageForCell:) withObject:fadeParams waitUntilDone:YES];
     
     [pool drain];
 }
