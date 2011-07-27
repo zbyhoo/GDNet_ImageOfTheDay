@@ -11,17 +11,9 @@
 #import "../GDImagePost.h"
 #import "../DBHelper.h"
 #import "../GDArchiveHtmlStringConverter.h"
+#import "Posts.h"
 
 @interface DataManagerTest : GHTestCase
-@end
-
-@interface DataManagerMock : DataManager 
-@end
-@implementation DataManagerMock
-- (NSMutableArray*)posts 
-{    
-    return [[[NSMutableArray alloc] initWithObjects:@"single object", nil] autorelease];
-}
 @end
 
 @implementation DataManagerTest
@@ -76,19 +68,6 @@
     
     // then
     GHAssertTrue(shouldDownload, @"should download data");
-}
-
-- (void)test_shouldDownloadData_postCountGreaterThenZero {
-    
-    // given
-    DataManager *manager = [[[DataManagerMock alloc] init] autorelease];
-    GHAssertEquals(manager.posts.count, (NSUInteger)1, @"mocked posts count");
-    
-    // when
-    BOOL shouldDownload = [manager shouldDownloadData];
-    
-    // then
-    GHAssertFalse(shouldDownload, @"should not download data");
 }
 
 - (void)test_shouldDownloadData_favoritePostsType {
