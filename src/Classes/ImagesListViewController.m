@@ -15,13 +15,13 @@
 #import "GDImagePost.h"
 #import "GDPicture.h"
 #import "Utilities.h"
+#import "ImagesCache.h"
 
 #import "EGORefreshTableHeaderView.h"
 #import "EGORefreshTableFooterView.h"
 
 @interface ImagesListViewController (Protected)
 
-- (void)updateCellAtIndex:(NSDictionary*)params;
 - (BOOL)isRefreshHeaderNeeded;
 - (BOOL)isRefreshFooterNeeded;
 - (void)createRefreshHeader;
@@ -220,13 +220,16 @@
 {    
     TableViewCell *cell = [self createCell:tableView];  
     
-    //NSDictionary *params = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"indexPath", @"cell", nil] forKeys:[NSArray arrayWithObjects:indexPath, cell, nil]];
+    GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
+    cell.titleLabel.text = post.title;
+    cell.authorLabel.text = post.author;
     
-    NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
-    [params setValue:cell forKey:@"cell"];
-    [params setValue:indexPath forKey:@"indexPath"]; // TODO memory leak
+    NSString *postDate = [self getDateFromPost:post];
+    cell.dateLabel.text = postDate;
     
-    [self performSelectorInBackground:@selector(updateCellAtIndex:) withObject:params];
+    UIImage *postImage = [self getMainPicture:post];
+    cell.postImageView.frame = [Utilities getResizedFrameForImage:postImage withCurrentFrame:cell.postImageView.frame];
+    cell.postImageView.image = postImage;
     
     return cell;
 }
@@ -242,29 +245,9 @@
 - (UIImage*)getMainPicture:(GDImagePost*)post
 {
     for (GDPicture *picture in post.pictures) 
-    {
         if (picture.pictureDescription != nil && [picture.pictureDescription compare:MAIN_IMAGE_OBJ] == NSOrderedSame)
-        {
-            return [UIImage imageWithData:picture.smallPictureData];
-        }
-    }
+            return [[ImagesCache instance] getImageForKey:picture.smallPictureUrl];
     return nil;
-}
-
-- (void)fadeInImageForCell:(NSDictionary*)params
-{
-    TableViewCell *cell = [params objectForKey:@"cell"];
-    UIImage *image = [params objectForKey:@"image"];
-    
-    cell.postImageView.frame = [Utilities getResizedFrameForImage:image withCurrentFrame:cell.postImageView.frame];
-    
-    cell.postImageView.alpha = 0.0f;
-    cell.postImageView.image = image;
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3f];
-    cell.postImageView.alpha = 1.0f;    
-    [UIView commitAnimations];
-    
 }
 
 -(UIImage *)resizeImage:(UIImage *)anImage width:(int)width height:(int)height
@@ -289,32 +272,6 @@
     CGImageRelease(ref);
     
     return result;      
-}
-
-- (void)updateCellAtIndex:(NSDictionary*)params
-{    
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    NSIndexPath *indexPath = [params objectForKey:@"indexPath"];
-    TableViewCell *cell = [params objectForKey:@"cell"];
-
-    GDImagePost* post = [self.dataManager getPostAtIndex:indexPath];
-    
-    [cell.titleLabel performSelectorOnMainThread:@selector(setText:) withObject:post.title waitUntilDone:YES];
-    [cell.authorLabel performSelectorOnMainThread:@selector(setText:) withObject:post.author waitUntilDone:YES];
-    
-    NSString *postDate = [self getDateFromPost:post];
-    [cell.dateLabel performSelectorOnMainThread:@selector(setText:) withObject:postDate waitUntilDone:YES];
-    
-    UIImage *postImage = [self getMainPicture:post];
-    //postImage = [self resizeImage:postImage width:10 height:10];
-    
-    NSMutableDictionary *fadeParams = [[[NSMutableDictionary alloc] init] autorelease];
-    [fadeParams setValue:postImage forKey:@"image"];
-    [fadeParams setValue:cell forKey:@"cell"];
-    [self performSelectorOnMainThread:@selector(fadeInImageForCell:) withObject:fadeParams waitUntilDone:YES];
-    
-    [pool drain];
 }
 
 - (void)reloadCellAtIndexPath:(NSIndexPath*)indexPath

@@ -48,6 +48,9 @@
 
 + (CGRect) getResizedFrameForImage:(UIImage*)image withCurrentFrame:(CGRect)frame
 {
+    if (image == nil)
+        return frame;
+    
     CGRect newFrame = CGRectMake(0, 0, image.size.width, image.size.height);
     
     CGFloat resizeRatio = frame.size.width / image.size.width;

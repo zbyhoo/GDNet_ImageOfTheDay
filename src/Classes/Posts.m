@@ -8,6 +8,12 @@
 
 #import "Posts.h"
 #import "GDImagePost.h"
+#import "ImagesCache.h"
+#import "GDPicture.h"
+
+@interface Posts (Private)
+- (void) storePictureOfPost:(GDImagePost*)post;
+@end
 
 @implementation Posts
 
@@ -32,7 +38,12 @@
 - (void) preloadWithPosts:(NSArray*)posts
 {
     [_posts release];
-    _posts = [posts retain];
+    _posts = [[NSMutableArray alloc] init];
+    
+    for (GDImagePost* post in posts)
+    {
+        [self addPostAtProperIndex:post];
+    }
 }
 
 - (NSUInteger)count
@@ -53,11 +64,13 @@
 - (void) insertPost:(GDImagePost*)post atIndex:(NSUInteger)index
 {
     [_posts insertObject:post atIndex:index];
+    [self storePictureOfPost:post];
 }
 
 - (void) addPost:(GDImagePost*)post
 {
     [_posts addObject:post];
+    [self storePictureOfPost:post];
 }
 
 - (void) addPostAtProperIndex:(GDImagePost*)post
@@ -73,6 +86,17 @@
         ++index;
     }
     [self addPost:post];
+}
+
+- (void) storePictureOfPost:(GDImagePost*)post
+{
+    for (GDPicture* picture in post.pictures) 
+    {
+        if (picture.pictureDescription != nil && [picture.pictureDescription compare:MAIN_IMAGE_OBJ] == NSOrderedSame)
+        {
+            [[ImagesCache instance] addImageData:picture.smallPictureData forKey:picture.smallPictureUrl];
+        }
+    }
 }
 
 @end
