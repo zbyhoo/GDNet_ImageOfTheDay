@@ -14,6 +14,7 @@
 #import "DBHelper.h"
 #import "PostDetailsController.h"
 #import "ImagesListViewController.h"
+#import "Posts.h"
 
 @interface DataManager (Private)
 - (BOOL)saveModifiedContext;
@@ -41,6 +42,7 @@
     {
         _dbHelper = [[DBHelper alloc]init];
         _downloadingDataCounter = 0;
+        self.posts = [[Posts alloc] init];
     }
     return self;
 }
@@ -74,10 +76,12 @@
 
 - (void)preloadData:(ImagesListViewController*)view 
 {    
-    self.posts = [self.dbHelper 
+    NSArray* savedPosts = [self.dbHelper 
                   fetchObjects:@"GDImagePost" 
                   predicate:[self getPredicateWithDeleted:NO] 
                   sorting:[self getDateSortDescriptor]];
+    
+    [self.posts preloadWithPosts:savedPosts];
     
     if ([self shouldDownloadData])
     {
@@ -122,19 +126,19 @@
 
 - (void)addToFavourites:(NSIndexPath*)position 
 {    
-    GDImagePost* post = [self.posts objectAtIndex:position.row];
+    GDImagePost* post = [self.posts postAtIndex:position.row];
     if ([self addPostToFavourites:post])
     {
-        [self.posts removeObjectAtIndex:position.row];
+        [self.posts removePostAtIndex:position.row];
     }
 }
 
 - (void)removeFromFavorites:(NSIndexPath *)position
 {    
-    GDImagePost* post = [self.posts objectAtIndex:position.row];
+    GDImagePost* post = [self.posts postAtIndex:position.row];
     if ([self removePostFromFavorites:post])
     {
-        [self.posts removeObjectAtIndex:position.row];
+        [self.posts removePostAtIndex:position.row];
     }
 }
 
@@ -149,21 +153,21 @@
 
 - (void)markDeleted:(NSIndexPath*)position
 {    
-    GDImagePost* post = [self.posts objectAtIndex:position.row];
+    GDImagePost* post = [self.posts postAtIndex:position.row];
     [self removeDataFromPost:post];
     post.deleted = [NSNumber numberWithBool:YES];
     [self saveModifiedContext];
-    [self.posts removeObjectAtIndex:position.row];
+    [self.posts removePostAtIndex:position.row];
 }
 
 - (void)permanentlyDeletePost:(NSIndexPath*)position
 {
-    if ([self.dbHelper deleteObject:[self.posts objectAtIndex:position.row]] == NO)
+    if ([self.dbHelper deleteObject:[self.posts postAtIndex:position.row]] == NO)
     {
         LogError(@"unable to delete post");
         return;
     }
-    [self.posts removeObjectAtIndex:position.row];
+    [self.posts removePostAtIndex:position.row];
 }
 
 - (NSPredicate*)getPredicate
@@ -222,17 +226,7 @@
 
 - (void)addNewPost:(GDImagePost*)post 
 {
-    NSUInteger index = 0;
-    for (GDImagePost *stored in self.posts) 
-    {
-        if ([post.postDate intValue] >= [stored.postDate intValue])
-        {
-            [self.posts insertObject:post atIndex:index];
-            return;
-        }
-        ++index;
-    }
-    [self.posts addObject:post];
+    [self.posts addPostAtProperIndex:post];
 }
 
 - (NSData*)downloadImageFromUrl:(NSString*)url
@@ -346,7 +340,7 @@
     
     if ([self postsCount] > 0)
     {
-        GDImagePost *post = [self.posts objectAtIndex:(NSUInteger)0];
+        GDImagePost *post = [self.posts postAtIndex:(NSUInteger)0];
         [self setLatestPostDate:post.postDate];
     }
     
@@ -487,19 +481,19 @@
 
 - (NSString*)getTitleOfPostAtIndex:(NSIndexPath*)indexPath 
 {
-    GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
+    GDImagePost *post = [self.posts postAtIndex:indexPath.row];
     return post.title;
 }
 
 - (NSString*)getPostIdAtIndex:(NSIndexPath*)indexPath 
 {
-    GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
+    GDImagePost *post = [self.posts postAtIndex:indexPath.row];
     return post.url;
 }
 
 - (GDImagePost*)getPostAtIndex:(NSIndexPath*)indexPath 
 {
-    GDImagePost *post = [self.posts objectAtIndex:indexPath.row];
+    GDImagePost *post = [self.posts postAtIndex:indexPath.row];
     return post;
 }
 

@@ -16,17 +16,18 @@
 @class GDImagePost;
 @class GDPicture;
 @class ImagesListViewController;
+@class Posts;
 
 @interface DataManager : NSObject {
 @private
     DBHelper *_dbHelper;
-    NSMutableArray *_posts;
+    Posts *_posts;
     int _downloadingDataCounter;
     
     NSObject<GDDataConverter> *_converter;
 }
 
-@property (retain, nonatomic) NSMutableArray *posts;
+@property (retain, nonatomic) Posts *posts;
 @property (retain, nonatomic) DBHelper *dbHelper;
 @property (retain, nonatomic) NSObject<GDDataConverter> *converter;
 

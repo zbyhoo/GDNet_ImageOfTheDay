@@ -90,6 +90,8 @@
 		26BE1CE61324314A00596340 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDE1324314A00596340 /* whiteArrow.png */; };
 		26BE1CE71324314A00596340 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26BE1CDF1324314A00596340 /* whiteArrow@2x.png */; };
 		26BE1CE91324335200596340 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26BE1CE81324335200596340 /* QuartzCore.framework */; };
+		26CDBC9A13E07AB4000C8A89 /* Posts.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CDBC9913E07AB4000C8A89 /* Posts.m */; };
+		26CDBC9B13E07AB4000C8A89 /* Posts.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CDBC9913E07AB4000C8A89 /* Posts.m */; };
 		26DEDD4312F0B77E003BBAEC /* ImagesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */; };
 		26DEDD4412F0B77E003BBAEC /* ImagesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */; };
 		26DEDDC512F0BFF2003BBAEC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26DEDDC312F0BFF2003BBAEC /* SettingsViewController.m */; };
@@ -199,6 +201,8 @@
 		26BE1CDE1324314A00596340 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		26BE1CDF1324314A00596340 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		26BE1CE81324335200596340 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		26CDBC9813E07AB4000C8A89 /* Posts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Posts.h; sourceTree = "<group>"; };
+		26CDBC9913E07AB4000C8A89 /* Posts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Posts.m; sourceTree = "<group>"; };
 		26DEDD4012F0B77E003BBAEC /* ImagesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesListViewController.h; sourceTree = "<group>"; };
 		26DEDD4112F0B77E003BBAEC /* ImagesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesListViewController.m; sourceTree = "<group>"; };
 		26DEDD4212F0B77E003BBAEC /* ImagesListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ImagesListViewController.xib; path = Classes/ImagesListViewController.xib; sourceTree = "<group>"; };
@@ -322,6 +326,8 @@
 				26AF99F0131EF10B0096C002 /* Utilities.m */,
 				2678BF5E132816E9003CF4C7 /* DBHelper.h */,
 				2678BF5F132816E9003CF4C7 /* DBHelper.m */,
+				26CDBC9813E07AB4000C8A89 /* Posts.h */,
+				26CDBC9913E07AB4000C8A89 /* Posts.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -688,6 +694,7 @@
 				2691276013786C88003E0891 /* GameDevArchiveListViewController.m in Sources */,
 				2691276313786D27003E0891 /* DevMasterPostDetailsController.m in Sources */,
 				262CB9171379CA180051E090 /* AboutViewController.m in Sources */,
+				26CDBC9A13E07AB4000C8A89 /* Posts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +723,7 @@
 				269AA40A13674C5300C7618E /* DevMasterHtmlConverter.m in Sources */,
 				269AA40D13674EDD00C7618E /* DevMasterHtmlConverterTest.m in Sources */,
 				268B1B241370839400ADF75A /* DevMasterDataManager.m in Sources */,
+				26CDBC9B13E07AB4000C8A89 /* Posts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
