@@ -23,6 +23,7 @@
 - (UITableViewCell*)getDescriptionCell:(UITableView*)tableView;
 - (UITableViewCell*)getFavoriteCell:(UITableView*)tableView;
 - (UITableViewCell*)getCommentsCell:(UITableView*)tableView;
+- (void)updateImagesCell:(GDImagePost*)post;
 
 @end
 
@@ -124,6 +125,8 @@ typedef enum {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    GDImagePost* post = [self.dataManager getPostWithId:self.postId];
+    [self updateImagesCell:post];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -245,6 +248,8 @@ typedef enum {
 
 - (void)updateImagesCell:(GDImagePost*)post {
 
+    //TODO scrollView subview delete only ImageButton
+    
     UITableViewCell *cell = [self getImagesCell:self.tableView];
     
     int imageSpacing = 4;
@@ -256,16 +261,20 @@ typedef enum {
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
     
     int imageCount = 0;
-    for (GDPicture *picture in post.pictures) {
-        if (picture.smallPictureData) {
-            UIImage *image = [[UIImage alloc] initWithData:picture.smallPictureData];
+    for (GDPicture *picture in post.pictures) 
+    {
+        NSData* pictureData = picture.largePictureData;
+        if (pictureData == nil)
+            pictureData = picture.smallPictureData;
+        
+        if (pictureData != nil) {
+            UIImage *image = [[UIImage alloc] initWithData:pictureData];
             
             int currentPosition = (imageSpacing / 2) + (imageCount * (imageWidth + imageSpacing));
             CGRect imageFrame = CGRectMake(currentPosition, imageSpacing / 2, imageWidth, imageHeight);
             
             ImageButton *button = [[ImageButton buttonWithType:UIButtonTypeCustom] retain];
             button.frame = imageFrame;
-            //button.bounds = CGRectMake(0, 0, imageFrame.size.width, imageFrame.size.height);
             CGRect currentBounds = CGRectMake(0, 0, imageFrame.size.width, imageFrame.size.height);
             button.bounds = [Utilities getResizedFrameForImage:image withCurrentFrame:currentBounds];
             
