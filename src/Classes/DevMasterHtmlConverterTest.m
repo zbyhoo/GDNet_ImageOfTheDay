@@ -38,6 +38,21 @@
 }
 @end
 
+@interface DevMasterHtmlConverterMockData : DevMasterHtmlConverter 
+{
+    NSString* mockedData;
+}
+@property (nonatomic, retain) NSString* mockedData;
+@end
+@implementation DevMasterHtmlConverterMockData
+@synthesize mockedData;
+- (NSString*)getData:(NSString*)urlString
+{
+    return self.mockedData;
+}
+@end
+
+
 @implementation DevMasterHtmlConverterTest
 
 + (NSString*)readSampleMainPageFile 
@@ -61,6 +76,12 @@
 + (NSString*)readSecondPostPageFile 
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"devmaster_post_page2" ofType:@"html"]; 
+    return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+}
+
++ (NSString*)readHtmlFileWithName:(NSString*)fileName
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"html"]; 
     return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
@@ -234,6 +255,25 @@
     
     //method_exchangeImplementations(m1, m2);
     [converter release];
+}
+
+- (void)test_convertPost_oceanSDK
+{
+    // given
+    DevMasterHtmlConverterMockData *converter = [[DevMasterHtmlConverterMockData alloc] init];
+    converter.mockedData = [DevMasterHtmlConverterTest readHtmlFileWithName:@"ocean_sdk_post"];
+    
+    // when
+    NSDictionary* convertedPost = [converter convertPost:nil];
+    
+    // then
+    GHAssertNotNil(convertedPost, @"");
+    GHAssertTrue([((NSString*)[convertedPost valueForKey:KEY_DESCRIPTION]) rangeOfString:@"We've just released version"].location != NSNotFound, @"");
+    GHAssertTrue([((NSString*)[convertedPost valueForKey:KEY_DESCRIPTION]) rangeOfString:@"are available from our"].location != NSNotFound, @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_DATE], [NSNumber numberWithInt:0], @"");
+    NSString *key = [NSString stringWithFormat:@"%@%d", KEY_IMAGE_URL, 0];
+    GHAssertEqualObjects([convertedPost valueForKey:key], @"http://www.devmaster.net/snapshot/images/11-08-01.jpg", @"");
+    GHAssertEqualObjects([convertedPost valueForKey:KEY_IMAGES_COUNT], [NSNumber numberWithInt:1], @""); 
 }
 
 @end

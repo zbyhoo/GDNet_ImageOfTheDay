@@ -58,6 +58,7 @@
 		2678BF60132816E9003CF4C7 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
 		267AE029132E928E00C25A85 /* DataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 267AE028132E928E00C25A85 /* DataManagerTest.m */; };
 		267AE02A132E9B6000C25A85 /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2678BF5F132816E9003CF4C7 /* DBHelper.m */; };
+		2683CF2013E89AB900212FF7 /* ocean_sdk_post.html in Resources */ = {isa = PBXBuildFile; fileRef = 2683CF1F13E89AB900212FF7 /* ocean_sdk_post.html */; };
 		268B1B201370834F00ADF75A /* DevMasterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B1F1370834F00ADF75A /* DevMasterListViewController.m */; };
 		268B1B231370839400ADF75A /* DevMasterDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B221370839400ADF75A /* DevMasterDataManager.m */; };
 		268B1B241370839400ADF75A /* DevMasterDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 268B1B221370839400ADF75A /* DevMasterDataManager.m */; };
@@ -167,6 +168,7 @@
 		2678BF5E132816E9003CF4C7 /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
 		2678BF5F132816E9003CF4C7 /* DBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHelper.m; sourceTree = "<group>"; };
 		267AE028132E928E00C25A85 /* DataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManagerTest.m; path = Tests/DataManagerTest.m; sourceTree = "<group>"; };
+		2683CF1F13E89AB900212FF7 /* ocean_sdk_post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = ocean_sdk_post.html; path = Tests/data/ocean_sdk_post.html; sourceTree = "<group>"; };
 		268B1B1E1370834F00ADF75A /* DevMasterListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevMasterListViewController.h; sourceTree = "<group>"; };
 		268B1B1F1370834F00ADF75A /* DevMasterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevMasterListViewController.m; sourceTree = "<group>"; };
 		268B1B211370839400ADF75A /* DevMasterDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevMasterDataManager.h; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				269AA41013675B0000C7618E /* devmaster_post.html */,
 				269AA4121368822100C7618E /* devmaster_post_page.html */,
 				2691276B137877FC003E0891 /* devmaster_post_page2.html */,
+				2683CF1F13E89AB900212FF7 /* ocean_sdk_post.html */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				269AA41113675B0000C7618E /* devmaster_post.html in Resources */,
 				269AA4131368822100C7618E /* devmaster_post_page.html in Resources */,
 				2691276C137877FC003E0891 /* devmaster_post_page2.html in Resources */,
+				2683CF2013E89AB900212FF7 /* ocean_sdk_post.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

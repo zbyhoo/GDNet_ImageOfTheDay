@@ -376,7 +376,17 @@
 - (void)updatePost:(GDImagePost*)post withData:(NSDictionary*)postDict
 {
     post.postDescription = [postDict objectForKey:KEY_DESCRIPTION];
-    post.postDate = [postDict objectForKey:KEY_DATE];
+    
+    NSNumber* timestamp = [postDict objectForKey:KEY_DATE];
+    if (timestamp.intValue <= 0)
+    {
+        if (post.postDate.intValue == 0)
+        {
+            post.postDate = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]];
+        }
+    }
+    else
+        post.postDate = timestamp;
     
     NSMutableSet *picturesSet = [NSMutableSet setWithSet:post.pictures];
     

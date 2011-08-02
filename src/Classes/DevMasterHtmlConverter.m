@@ -110,6 +110,7 @@ NSString * const DM_LAST_OLD_URL_STEP   = @"DM_LAST_OLD_URL_STEP";
     double timestamp = [[df dateFromString: dateString] timeIntervalSince1970];
     NSNumber *date = [NSNumber numberWithDouble:timestamp];
     [df release];
+    
     return date;
 }
 

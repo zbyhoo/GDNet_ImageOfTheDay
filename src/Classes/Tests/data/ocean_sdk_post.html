@@ -1,0 +1,1641 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <meta name="generator" content="vBulletin 3.5.3" />
+        
+        <meta name="keywords" content="The Triton Ocean SDK, game development, game programming, graphics programming, OpenGL, DirectX, Direct3D, Engine, 3D, Graphics, AI, artificial intelligence, game design, game, gamedev, development, programming, c++, games, create, design, shading, tutorial, art, devmaster, articles, forum" />
+        <meta name="description" content="The Triton Ocean SDK Code &amp; Snapshot Discussion" />
+        
+        
+        <!-- CSS Stylesheet -->
+        <style type="text/css" id="vbulletin_css">
+            <!--
+            /* vBulletin 3 CSS For Style 'Default Style' (styleid: 2) */
+            body
+            {
+                background: #E1E1E2;
+                color: #000000;
+                font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                margin: 5px 10px 10px 10px;
+                padding: 0px;
+            }
+            a:link
+            {
+                color: #22229C;
+            }
+            a:visited
+            {
+                color: #22229C;
+            }
+            a:hover, a:active
+            {
+                color: #FF4400;
+            }
+            .page
+            {
+                background: #FFFFFF;
+                color: #000000;
+            }
+            td, th, p, li
+            {
+                font-family: verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .tborder
+            {
+                background: #D1D1E1;
+                color: #000000;
+                border: 1px solid #0B198C;
+            }
+            .tcat
+            {
+                background: #869BBF url(/forums/images/gradients/gradient_tcat.gif) repeat-x top left;
+                color: #FFFFFF;
+                font: bold 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .tcat a:link
+            {
+                color: #ffffff;
+                text-decoration: none;
+            }
+            .tcat a:visited
+            {
+                color: #ffffff;
+                text-decoration: none;
+            }
+            .tcat a:hover, .tcat a:active
+            {
+                color: #FFFF66;
+                text-decoration: underline;
+            }
+            .thead
+            {
+                background: #5C7099 url(/forums/images/gradients/gradient_thead.gif) repeat-x top left;
+                color: #FFFFFF;
+                font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .thead a:link
+            {
+                color: #FFFFFF;
+            }
+            .thead a:visited
+            {
+                color: #FFFFFF;
+            }
+            .thead a:hover, .thead a:active
+            {
+                color: #FFFF00;
+            }
+            .tfoot
+            {
+                background: #3E5C92;
+                color: #E0E0F6;
+            }
+            .tfoot a:link
+            {
+                color: #E0E0F6;
+            }
+            .tfoot a:visited
+            {
+                color: #E0E0F6;
+            }
+            .tfoot a:hover, .tfoot a:active
+            {
+                color: #FFFF66;
+            }
+            .alt1, .alt1Active
+            {
+                background: #F5F5FF;
+                color: #000000;
+            }
+            .alt2, .alt2Active
+            {
+                background: #E1E4F2;
+                color: #000000;
+            }
+            td.inlinemod
+            {
+                background: #FFFFCC;
+                color: #000000;
+            }
+            .wysiwyg
+            {
+                background: #F5F5FF;
+                color: #000000;
+                font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            textarea, .bginput
+            {
+                font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .button
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            select
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            option, optgroup
+            {
+                font-size: 11px;
+                font-family: verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .smallfont
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .time
+            {
+                color: #666686;
+            }
+            .navbar
+            {
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .highlight
+            {
+                color: #FF0000;
+                font-weight: bold;
+            }
+            .fjsel
+            {
+                background: #3E5C92;
+                color: #E0E0F6;
+            }
+            .fjdpth0
+            {
+                background: #F7F7F7;
+                color: #000000;
+            }
+            .panel
+            {
+                background: #E4E7F5 url(images/gradients/gradient_panel.gif) repeat-x top left;
+                color: #000000;
+                padding: 10px;
+                border: 2px outset;
+            }
+            .panelsurround
+            {
+                background: #D5D8E5 url(images/gradients/gradient_panelsurround.gif) repeat-x top left;
+                color: #000000;
+            }
+            legend
+            {
+                color: #22229C;
+                font: 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+            }
+            .vbmenu_control
+            {
+                background: #738FBF;
+                color: #FFFFFF;
+                font: bold 11px tahoma, verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                padding: 3px 6px 3px 6px;
+                white-space: nowrap;
+            }
+            .vbmenu_control a:link
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_control a:visited
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_control a:hover, .vbmenu_control a:active
+            {
+                color: #FFFFFF;
+                text-decoration: underline;
+            }
+            .vbmenu_popup
+            {
+                background: #FFFFFF;
+                color: #000000;
+                border: 1px solid #0B198C;
+            }
+            .vbmenu_option
+            {
+                background: #BBC7CE;
+                color: #000000;
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+            .vbmenu_option a:link
+            {
+                color: #22229C;
+                text-decoration: none;
+            }
+            .vbmenu_option a:visited
+            {
+                color: #22229C;
+                text-decoration: none;
+            }
+            .vbmenu_option a:hover, .vbmenu_option a:active
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_hilite
+            {
+                background: #8A949E;
+                color: #FFFFFF;
+                font: 11px verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+            .vbmenu_hilite a:link
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_hilite a:visited
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .vbmenu_hilite a:hover, .vbmenu_hilite a:active
+            {
+                color: #FFFFFF;
+                text-decoration: none;
+            }
+            .headerStyle { background: #FFFFFF; }
+            
+            /* ***** styling for 'big' usernames on postbit etc. ***** */
+            .bigusername { font-size: 14pt; }
+            
+            /* ***** small padding on 'thead' elements ***** */
+            td.thead, div.thead { padding: 4px; }
+            
+            /* ***** basic styles for multi-page nav elements */
+            .pagenav a { text-decoration: none; }
+            .pagenav td { padding: 2px 4px 2px 4px; }
+            
+            /* ***** define margin and font-size for elements inside panels ***** */
+            .fieldset { margin-bottom: 6px; }
+            .fieldset, .fieldset td, .fieldset p, .fieldset li { font-size: 11px; }
+            
+            /* ***** don't change the following ***** */
+            form { display: inline; }
+            label { cursor: default; }
+            .normal { font-weight: normal; }
+            .inlineimg { vertical-align: middle; }
+            
+            H1 {
+                FONT-WEIGHT: bold; FONT-SIZE: 12pt; COLOR: #00006f;
+            }
+            H2 {
+                FONT-WEIGHT: bold; FONT-SIZE: 11pt; MARGIN-BOTTOM: 0.2em; FONT-FAMILY: Tahoma, Sans-serif
+            }
+            H3 {
+                FONT-WEIGHT: bold; FONT-SIZE: 10pt; MARGIN-BOTTOM: 0.2em; FONT-FAMILY: Tahoma, Sans-serif
+            }
+            H5 {
+                FONT-WEIGHT: bold; MARGIN-BOTTOM: 0.2em; BORDER-BOTTOM: black 0.1em solid; FONT-FAMILY: Tahoma, Sans-serif
+            }
+            -->
+            </style>
+        
+        <!-- / CSS Stylesheet -->
+        
+        <script type="text/javascript">
+            <!--
+            var SESSIONURL = "";
+            var IMGDIR_MISC = "images/misc";
+            var vb_disable_ajax = parseInt("0", 10);
+            // -->
+            </script>
+        
+        <script type="text/javascript" src="clientscript/vbulletin_global.js"></script>
+        <script type="text/javascript" src="clientscript/vbulletin_menu.js"></script>
+        <link rel="alternate" type="application/rss+xml" title="DevMaster.net Forums RSS Feed" href="external.php?type=RSS" />
+        
+        <script type="text/javascript">
+            
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-20324558-1']);
+            _gaq.push(['_trackPageview']);
+            
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+            
+            </script>
+        <title>The Triton Ocean SDK - DevMaster.net Forums</title>
+    </head>
+    <body onload="">
+        <!-- logo -->
+        <a name="top"></a>
+        <table border="0" width="100%" class="headerStyle" cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <td align="left"><a href="http://www.devmaster.net"><img src="http://www.devmaster.net/logo.gif" border="0" alt="DevMaster.net Forums" /></a></td>
+                <td align="right">
+                    <!-- ad -->
+                    <script type='text/javascript'><!--//<![CDATA[
+                        var m3_u = (location.protocol=='https:'?'https://www.devmaster.net/adsrvr/www/delivery/ajs.php':'http://www.devmaster.net/adsrvr/www/delivery/ajs.php');
+                        var m3_r = Math.floor(Math.random()*99999999999);
+                        if (!document.MAX_used) document.MAX_used = ',';
+                        document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                        document.write ("?zoneid=1");
+                        document.write ('&amp;cb=' + m3_r);
+                        if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                        document.write ("&amp;loc=" + escape(window.location));
+                        if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+                        if (document.context) document.write ("&context=" + escape(document.context));
+                        if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                        document.write ("'><\/scr"+"ipt>");
+                        //]]>--></script><noscript><a href='http://www.devmaster.net/adsrvr/www/delivery/ck.php?n=afba2a08&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://www.devmaster.net/adsrvr/www/delivery/avw.php?zoneid=1&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=afba2a08' border='0' alt='' /></a></noscript>
+                            <!-- /ad -->
+                            </td>
+                            </tr>
+                            </table>
+                            <!-- /logo -->
+                            
+                            <table class="tborder" cellpadding="6" cellspacing="1" width="100%">
+                            <tbody><tr>
+                            <td class="tcat" style="color: rgb(255, 193, 37);" colspan="2" align="center" nowrap="nowrap" width="60%">
+                            [[ <b><a href="/">Home</a> |
+                            <a href="./">Forums</a> | 
+                            <a href="../engines/">3D Engines Database</a> | 
+                            <a href="../articles.php">Articles/Tutorials</a> | 
+                            <a href="../jobs.php">Game Dev Jobs</a> | 
+                            <a href="../chat/">IRC Chat Network</a> |
+                            <a href="sendmessage.php">Contact Us</a></b> ]]
+                            </td>
+                            </tr>
+                            </tbody></table>
+                            
+                            <!-- content table -->
+                            <!-- open content container -->
+                            
+                            <div align="center">
+                            <div class="page" style="width:100%; text-align:left">
+                            <div style="padding:0px 25px 0px 25px">
+                            
+                            
+                            
+                            <script type="text/javascript">
+                            <!--
+                            function log_out()
+                            {
+                            ht = document.getElementsByTagName("html");
+                            ht[0].style.filter = "progid:DXImageTransform.Microsoft.BasicImage(grayscale=1)";
+                            if (confirm('Are you sure you want to log out?'))
+                            {
+                            return true;
+                            }
+                            else
+                            {
+                            ht[0].style.filter = "";
+                            return false;
+                            }
+                            }
+                            //-->
+                            </script>
+                            
+                            <br />
+                            
+                            <!-- breadcrumb, login, pm info -->
+                            <table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center">
+                            <tr>
+                            <td class="alt1" width="100%">
+                            
+                            <table cellpadding="0" cellspacing="0" border="0">
+                            <tr valign="bottom">
+                            <td><a href="#" onclick="history.back(1); return false;"><img src="images/misc/navbits_start.gif" alt="Go Back" border="0" /></a></td>
+                            <td>&nbsp;</td>
+                            <td width="100%"><span class="navbar"><a href="index.php" accesskey="1">DevMaster.net Forums</a></span> 
+                            <span class="navbar">&gt; <a href="forumdisplay.php?f=10">Site Discussions</a></span>
+                            
+                            
+                            <span class="navbar">&gt; <a href="forumdisplay.php?f=40">Code &amp; Snapshot Discussion</a></span>
+                            
+                            </td>
+                            </tr>
+                            <tr>
+                            <td class="navbar" style="font-size:10pt; padding-top:1px" colspan="3"><a href="/forums/showthread.php?t=17826"><img class="inlineimg" src="images/misc/navbits_finallink.gif" alt="Reload this Page" border="0" /></a> <strong>
+                            The Triton Ocean SDK
+                            
+                            </strong></td>
+                            </tr>
+                            </table>			
+                            
+                            </td>	
+                            
+                            
+                            
+                            <td class="alt2" nowrap="nowrap" style="padding:0px">
+                            
+                            <!-- login form -->
+                            <form action="login.php" method="post" onsubmit="md5hash(vb_login_password, vb_login_md5password, vb_login_md5password_utf, 0)">
+                            <script type="text/javascript" src="clientscript/vbulletin_md5.js"></script>
+                            <table cellpadding="0" cellspacing="3" border="0">
+                            <tr>
+                            <td class="smallfont">User Name</td>
+                            <td><input type="text" class="bginput" style="font-size: 11px" name="vb_login_username" id="navbar_username" size="10" accesskey="u" tabindex="101" value="User Name" onfocus="if (this.value == 'User Name') this.value = '';" /></td>
+                            <td class="smallfont" colspan="2" nowrap="nowrap"><label for="cb_cookieuser_navbar"><input type="checkbox" name="cookieuser" value="1" tabindex="103" id="cb_cookieuser_navbar" accesskey="c" checked="checked"/>Remember Me?</label></td>
+                            </tr>
+                            <tr>
+                            <td class="smallfont">Password</td>
+                            <td><input type="password" class="bginput" style="font-size: 11px" name="vb_login_password" size="10" accesskey="p" tabindex="102" /></td>
+                            <td><input type="submit" class="button" value="Log in" tabindex="104" title="Enter your username and password in the boxes provided to login, or click the 'register' button to create a profile for yourself." accesskey="s" /></td>
+                            </tr>
+                            </table>
+                            <input type="hidden" name="s" value="" />
+                            <input type="hidden" name="do" value="login" />		
+                            <input type="hidden" name="vb_login_md5password" />
+                            <input type="hidden" name="vb_login_md5password_utf" />
+                            </form>
+                            <!-- / login form -->
+                            
+                            </td>
+                            
+                            
+                            
+                            </tr>
+                            </table>
+                            <!-- / breadcrumb, login, pm info -->
+                            
+                            <!-- nav buttons bar -->
+                            <div align="center">
+                            <table class="tborder" cellpadding="6" cellspacing="0" border="0" width="100%" align="center" style="border-top-width:0px">
+                            <tr align="center">
+                            
+                            
+                            <td class="vbmenu_control"><a href="register.php" rel="nofollow">Register</a></td>
+                            
+                            <td class="vbmenu_control"><a href="faq.php" accesskey="5">FAQ</a></td>
+                            <td class="vbmenu_control"><a href="memberlist.php">Members List</a></td>
+                            
+                            
+                            
+                            
+                            <td class="vbmenu_control"><a href="search.php?do=getdaily" accesskey="2">Today's Posts</a></td>
+				
+				<td id="navbar_search" class="vbmenu_control"><a href="search.php" accesskey="4" rel="nofollow">Search</a> <script type="text/javascript"> vbmenu_register("navbar_search"); </script></td>
+                
+                
+                
+                
+            </tr>
+        </table>
+        </div>
+        <!-- / nav buttons bar -->
+        
+        <br />
+        
+        
+        
+        <!-- NAVBAR POPUP MENUS -->
+        
+        
+        <!-- header quick search form -->
+        <div class="vbmenu_popup" id="navbar_search_menu" style="display:none">
+            <table cellpadding="4" cellspacing="1" border="0">
+                <tr>
+                    <td class="thead">Search Forums</td>
+                </tr>
+                <tr>
+                    <td class="vbmenu_option" title="nohilite">
+                        <form action="search.php" method="post">
+                            <input type="hidden" name="do" value="process" />
+                            <input type="hidden" name="showposts" value="0" />
+                            <input type="hidden" name="quicksearch" value="1" />
+                            <input type="hidden" name="s" value="" />
+                            Guests cannot use Quick Search.<br />
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vbmenu_option"><a href="search.php" accesskey="4" rel="nofollow">Advanced Search</a></td>
+                </tr>
+            </table>
+        </div>
+        <!-- / header quick search form -->
+        
+        
+        
+        <!-- / NAVBAR POPUP MENUS -->
+        
+        <!-- PAGENAV POPUP -->
+        
+        <div class="vbmenu_popup" id="pagenav_menu" style="display:none">
+            <table cellpadding="4" cellspacing="1" border="0">
+                <tr>
+                    <td class="thead" nowrap="nowrap">Go to Page...</td>
+                </tr>
+                <tr>
+                    <td class="vbmenu_option" title="nohilite">
+                        <form action="index.php" method="get" onsubmit="return this.gotopage()" id="pagenav_form">
+                            <input type="text" class="bginput" id="pagenav_itxt" style="font-size:11px" size="4" />
+                            <input type="button" class="button" id="pagenav_ibtn" value="Go" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- / PAGENAV POPUP -->
+        
+        
+        
+        
+        <div align="center">
+            <script type='text/javascript'><!--//<![CDATA[
+                var m3_u = (location.protocol=='https:'?'https://www.devmaster.net/adsrvr/www/delivery/ajs.php':'http://www.devmaster.net/adsrvr/www/delivery/ajs.php');
+                var m3_r = Math.floor(Math.random()*99999999999);
+                if (!document.MAX_used) document.MAX_used = ',';
+                document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                document.write ("?zoneid=3");
+                document.write ('&amp;cb=' + m3_r);
+                if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                document.write ("&amp;loc=" + escape(window.location));
+                if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+                if (document.context) document.write ("&context=" + escape(document.context));
+                if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                document.write ("'><\/scr"+"ipt>");
+                //]]>--></script><noscript><a href='http://www.devmaster.net/adsrvr/www/delivery/ck.php?n=ac876c25&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://www.devmaster.net/adsrvr/www/delivery/avw.php?zoneid=3&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ac876c25' border='0' alt='' /></a></noscript>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <a name="poststop" id="poststop"></a>
+                    
+                    <script language='javascript'>
+                    <!--
+                    function confirmReplyAction()
+                    {
+                    msg = "Warning: this is an old post. Are you sure you want to reply?";
+                    formCheck = confirm(msg);
+                    if (formCheck == true)
+                    return true;
+                    else
+                    return false;
+                    }
+                    //-->
+                    </script>
+                    
+                    <!-- controls above postbits -->
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:3px">
+                    <tr valign="bottom">
+                    
+                    <td class="smallfont"><a href="newreply.php?do=newreply&amp;noquote=1&amp;p=84852" rel="nofollow"  ><img src="images/buttons/reply.gif" alt="Reply" border="0" /></a></td>
+                    
+                    
+                    </tr>
+                    </table>
+                    <!-- / controls above postbits -->
+                    
+                    <!-- toolbar -->
+                    <table class="tborder" cellpadding="6" cellspacing="1" border="0" width="100%" align="center" style="border-bottom-width:0px">
+                    <tr>
+                    <td class="tcat" width="100%">
+                    <div class="smallfont">
+                    
+                    &nbsp;
+                    </div>
+                    </td>
+                    <td class="vbmenu_control" id="threadtools" nowrap="nowrap">
+                    <a href="/forums/showthread.php?t=17826&amp;nojs=1#goto_threadtools">Thread Tools</a>
+                    <script type="text/javascript"> vbmenu_register("threadtools"); </script>
+                    </td>
+                    
+                    <td class="vbmenu_control" id="threadsearch" nowrap="nowrap">
+                    <a href="/forums/showthread.php?t=17826&amp;nojs=1#goto_threadsearch">Search this Thread</a>
+                    <script type="text/javascript"> vbmenu_register("threadsearch"); </script>
+                    </td>
+                    
+                    
+                    
+                    <td class="vbmenu_control" id="displaymodes" nowrap="nowrap">
+                    <a href="/forums/showthread.php?t=17826&amp;nojs=1#goto_displaymodes">Display Modes</a>
+                    <script type="text/javascript"> vbmenu_register("displaymodes"); </script>
+                    </td>
+                    
+                    
+                    
+                    
+                    </tr>
+                    </table>
+                    <!-- / toolbar -->
+                    
+                    
+                    
+                    <!-- end content table -->
+                    
+                    </div>	
+                    </div>
+                    </div>
+                    
+                    <!-- / close content container -->
+                    <!-- / end content table -->
+                    
+                    
+                    
+                    <div id="posts"><!-- post #84852 -->
+                    
+                    <!-- open content container -->
+                    
+                    <div align="center">
+                    <div class="page" style="width:100%; text-align:left">
+                    <div style="padding:0px 25px 0px 25px">
+                    
+                    <div id="edit84852" style="padding:0px 0px 6px 0px">
+                    <!-- this is not the last post shown on the page -->	
+                    
+                    
+                    <table id="post84852" class="tborder" cellpadding="6" cellspacing="0" border="0" width="100%" align="center">
+                    <tr>
+                    
+                    <td class="thead" style="font-weight:normal" >		
+                    <!-- status icon and date -->
+                    <a name="post84852"><img class="inlineimg" src="images/statusicon/post_old.gif" alt="Old" border="0" /></a>
+                    Yesterday, 02:00 AM
+                    
+                    <!-- / status icon and date -->				
+                    </td>
+                    <td class="thead" style="font-weight:normal" align="right">
+                    &nbsp;
+                    #<a href="showpost.php?p=84852&amp;postcount=1" target="new" rel="nofollow" id="postcount84852" name="1"><strong>1</strong></a>
+                    
+                    </td>
+                    
+                    </tr>
+                    <tr valign="top">
+                    <td class="alt2" width="175">
+                    
+                    <div id="postmenu_84852">
+                    
+                    Frank Kane
+                    
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="smallfont">
+                    &nbsp;<br />
+                    
+                    
+                    
+                    <div>
+					Posts: n/a
+                    </div>
+                    
+                    <div>    </div>
+                    </div>					
+                    
+                    </td>
+                    
+                    <td class="alt1" id="td_post_84852">
+                    
+                    
+                    
+                    <!-- icon and title -->
+                    <div class="smallfont">
+                    <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+                    
+                    </div>
+                    <hr size="1" style="color:#D1D1E1" />
+                    <!-- / icon and title -->
+                    
+                    
+                    <!-- message -->
+                    <div id="post_message_84852"><div align="center"><img src="http://www.devmaster.net/snapshot/images/11-08-01.jpg" border="0" alt="" /></div> 
+                    <br /> 
+                    <b><font size="4">Description</font></b><br /> 
+                    We've just released version 1.0 of the <a href="http://sundog-soft.com/sds/features/ocean-and-water-rendering-with-triton/" target="_blank">Triton Ocean SDK</a> at <a href="http://www.sundog-soft.com" target="_blank">www.sundog-soft.com</a>. Triton integrates with OpenGL, DirectX9, or DirectX11 based engines to provide real-time simulations of oceans and large bodies of water. It maintains high framerates - hundreds per second on modern hardware - by automatically detecting the GPGPU capabilities of the system and adapting to it. Triton ships with the ability to take advantage of CUDA, OpenCL, DirectX11 Compute Shaders (DirectCompute,) as well as multi-core CPU technologies such as the Intel Integrated Performance Primitives and OpenMP. By integrating GPGPU API's with Triton's vertex and fragment shaders, the entire simulation of thousands of waves at once can take place on the GPU from setting up the waves in the frequency domain, conducting the inverse fast Fourier transforms, and applying this data to a projected grid and applying a full Fresnel refraction and reflection shader to the final output, with foam effects.<br />
+                    <br />
+                    In addition to the FFT-based ocean simulation, Triton also offers a simpler sum-of-Gerstner-waves mode that's appropriate for shallower water simulations. It also allows the user to pass in an environmental cube map for more accurate water reflections.<br />
+                    <br />
+                    Triton's tailored for serious game applications as well, and is able to take any given wind conditions or Beaufort scale and produce matching water visuals automatically.<br />
+                    <br />
+                    Maintaining system compatibility was one of the biggest challenges during the development of Triton; GPGPU API's are still young, and much care had to be taken when selecting the API best suited to the user's system. Integrations between the GPGPU and OpenGL / DirectX API's were particularly challenging. We avoided runtime DLL errors by encapsulating our GPGPU code within DLL's of their own, and dynamically loading them only after verifying that their DLL dependencies are present on the system.<br />
+                    <br />
+                    This is Triton's initial release, and we're definitely interested in constructive feedback! A <a href="http://sundog-soft.com/sds/demos/" target="_blank">demo</a>, <a href="http://sundog-soft.com/sds/download/" target="_blank">free evaluation SDK</a>, and <a href="http://sundog-soft.com/sds/purchase-a-license/" target="_blank">licensing information</a> are available from our <a href="http://www.sundog-soft.com" target="_blank">website</a>.</div>
+		<!-- / message -->
+        
+		
+		
+		
+		
+		
+        
+        </td>
+        </tr>
+        <tr>
+            <td class="alt2">
+                
+                
+                
+                
+                
+                
+                &nbsp;
+            </td>
+            
+            <td class="alt1" align="right">
+                
+                <!-- controls -->
+                
+                <!-- decimator -->
+                
+                
+                
+                
+                
+                <a href="newreply.php?do=newreply&amp;p=84852" rel="nofollow"  ><img src="images/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+                
+                
+                
+                <!-- / controls -->
+            </td>
+        </tr>
+        </table>
+        
+        <!-- post 84852 popup menu -->
+        <div class="vbmenu_popup" id="postmenu_84852_menu" style="display:none">
+            <table cellpadding="4" cellspacing="1" border="0">
+                <tr>
+                    <td class="thead">Frank Kane</td>
+                </tr>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </table>
+        </div>
+        <!-- / post 84852 popup menu -->
+        
+        
+        </div>
+        
+		</div>	
+        </div>
+        </div>
+        
+        <!-- / close content container -->
+        
+        <!-- / post #84852 --><!-- post #84865 -->
+        
+        <!-- open content container -->
+        
+        <div align="center">
+            <div class="page" style="width:100%; text-align:left">
+                <div style="padding:0px 25px 0px 25px">
+                    
+                    <div id="edit84865" style="padding:0px 0px 6px 0px">
+                        <!-- this is not the last post shown on the page -->	
+                        
+                        
+                        <table id="post84865" class="tborder" cellpadding="6" cellspacing="0" border="0" width="100%" align="center">
+                            <tr>
+                                
+                                <td class="thead" style="font-weight:normal" >		
+                                    <!-- status icon and date -->
+                                    <a name="post84865"><img class="inlineimg" src="images/statusicon/post_old.gif" alt="Old" border="0" /></a>
+                                    Yesterday, 07:23 AM
+                                    
+                                    <!-- / status icon and date -->				
+                                </td>
+                                <td class="thead" style="font-weight:normal" align="right">
+                                    &nbsp;
+                                    #<a href="showpost.php?p=84865&amp;postcount=2" target="new" rel="nofollow" id="postcount84865" name="2"><strong>2</strong></a>
+                                    
+                                </td>
+                                
+                            </tr>
+                            <tr valign="top">
+                                <td class="alt2" width="175">
+                                    
+                                    <div id="postmenu_84865">
+                                        
+                                        <a href="member.php?u=947">TheNut</a>
+                                        <script type="text/javascript"> vbmenu_register("postmenu_84865", true); </script>
+                                        
+                                    </div>
+                                    
+                                    <div class="smallfont">Senior Member</div>
+                                    
+                                    
+                                    
+                                    <div class="smallfont">
+                                        &nbsp;<br /><a href="member.php?u=947"><img src="image.php?u=947&amp;dateline=1153619583" alt="TheNut's Avatar" border="0" /></a>
+                                    </div>
+                                    
+                                    
+                                    <div class="smallfont">
+                                        &nbsp;<br />
+                                        <div>Join Date: Aug 2004</div>
+                                        <div>Location: Thornhill, ON</div>
+                                        
+                                        <div>
+                                            Posts: 1,249
+                                        </div>
+                                        
+                                        <div>    </div>
+                                    </div>					
+                                    
+                                </td>
+                                
+                                <td class="alt1" id="td_post_84865">
+                                    
+                                    
+                                    
+                                    <!-- icon and title -->
+                                    <div class="smallfont">
+                                        <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+                                        <strong>Re: The Triton Ocean SDK</strong>
+                                    </div>
+                                    <hr size="1" style="color:#D1D1E1" />
+                                    <!-- / icon and title -->
+                                    
+                                    
+                                    <!-- message -->
+                                    <div id="post_message_84865">Awesome work Frank. With just 500K triangles, the results are great looking. Your lighting based on the time of day feels fairly realistic too, especially at night time with a (presumably) bright moon. How long did you spend on this? Do you (or will you) take advantage of DX11 hardware tessellation to push it even further?<br />
+                                        <br />
+                                        I can see something like this being used outside of the game industry. Real time water rendering is useful in video production.</div>
+                                    <!-- / message -->
+                                    
+                                    
+                                    
+                                    
+                                    <!-- sig -->
+                                    <div>
+                                        ___________________________________________<br />
+                                        <small><font size="1"><font face="Book Antiqua"><a href="http://www.nutty.ca" target="_blank">http://www.nutty.ca</a> - Being a nut has its advantages.</font></font></small>
+                                    </div>
+                                    <!-- / sig -->
+                                    
+                                    
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="alt2">
+                                    <img class="inlineimg" src="images/statusicon/user_offline.gif" alt="TheNut is offline" border="0" />
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    &nbsp;
+                                </td>
+                                
+                                <td class="alt1" align="right">
+                                    
+                                    <!-- controls -->
+                                    
+                                    <!-- decimator -->
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <a href="newreply.php?do=newreply&amp;p=84865" rel="nofollow"  ><img src="images/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+                                    
+                                    
+                                    
+                                    <!-- / controls -->
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- post 84865 popup menu -->
+                        <div class="vbmenu_popup" id="postmenu_84865_menu" style="display:none">
+                            <table cellpadding="4" cellspacing="1" border="0">
+                                <tr>
+                                    <td class="thead">TheNut</td>
+                                </tr>
+                                
+                                <tr><td class="vbmenu_option"><a href="member.php?u=947">View Public Profile</a></td></tr>
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=947" rel="nofollow">Send a private message to TheNut</a></td></tr>
+                                
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="http://www.nutty.ca">Visit TheNut's homepage!</a></td></tr>
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=947" rel="nofollow">Find More Posts by TheNut</a></td></tr>
+                                
+                                
+                                
+                                
+                                
+                            </table>
+                        </div>
+                        <!-- / post 84865 popup menu -->
+                        
+                        
+                    </div>
+                    
+                </div>	
+            </div>
+        </div>
+        
+        <!-- / close content container -->
+        
+        <!-- / post #84865 --><!-- post #84868 -->
+        
+        <!-- open content container -->
+        
+        <div align="center">
+            <div class="page" style="width:100%; text-align:left">
+                <div style="padding:0px 25px 0px 25px">
+                    
+                    <div id="edit84868" style="padding:0px 0px 6px 0px">
+                        <!-- this is not the last post shown on the page -->	
+                        
+                        
+                        <table id="post84868" class="tborder" cellpadding="6" cellspacing="0" border="0" width="100%" align="center">
+                            <tr>
+                                
+                                <td class="thead" style="font-weight:normal" >		
+                                    <!-- status icon and date -->
+                                    <a name="post84868"><img class="inlineimg" src="images/statusicon/post_old.gif" alt="Old" border="0" /></a>
+                                    Yesterday, 08:18 AM
+                                    
+                                    <!-- / status icon and date -->				
+                                </td>
+                                <td class="thead" style="font-weight:normal" align="right">
+                                    &nbsp;
+                                    #<a href="showpost.php?p=84868&amp;postcount=3" target="new" rel="nofollow" id="postcount84868" name="3"><strong>3</strong></a>
+                                    
+                                </td>
+                                
+                            </tr>
+                            <tr valign="top">
+                                <td class="alt2" width="175">
+                                    
+                                    <div id="postmenu_84868">
+                                        
+                                        <a href="member.php?u=5173">tobeythorn</a>
+                                        <script type="text/javascript"> vbmenu_register("postmenu_84868", true); </script>
+                                        
+                                    </div>
+                                    
+                                    <div class="smallfont">Valued Member</div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="smallfont">
+                                        &nbsp;<br />
+                                        <div>Join Date: Jun 2006</div>
+                                        <div>Location: Boston</div>
+                                        
+                                        <div>
+                                            Posts: 163
+                                        </div>
+                                        
+                                        <div>    </div>
+                                    </div>					
+                                    
+                                </td>
+                                
+                                <td class="alt1" id="td_post_84868">
+                                    
+                                    
+                                    
+                                    <!-- icon and title -->
+                                    <div class="smallfont">
+                                        <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+                                        <strong>Re: The Triton Ocean SDK</strong>
+                                    </div>
+                                    <hr size="1" style="color:#D1D1E1" />
+                                    <!-- / icon and title -->
+                                    
+                                    
+                                    <!-- message -->
+                                    <div id="post_message_84868">Frank,<br /> 
+                                        Really stunning work! Do you have videos?<br /> 
+                                        <br /> 
+                                        The license fees seem really fair/low compared to a lot of other libraries.<br /> 
+                                        <br /> 
+                                        Also, I noticed a typo on your licensing page (librarys should be libraries):<br /> 
+                                        <br /> 
+                                        Triton Pricing<br /> 
+                                        Royalty-free licenses for a single application are available at an introductory price of $995 USD for binary-only Triton<font color="Red"> librarys</font>, or $1,495 USD for an SDK including Triton&#8217;s full source code.<br /> 
+                                        Purchase a license &gt;&gt;</div>
+                                    <!-- / message -->
+                                    
+                                    
+                                    
+                                    
+                                    <!-- sig -->
+                                    <div>
+                                        ___________________________________________<br />
+                                        <small><a href="http://tobeythorn.com" target="_blank">tobeythorn.com</a><br />
+                                            <a href="http://tobeythorn.com/flow/" target="_blank">tobeythorn.com/flow/</a></small>
+                                    </div>
+                                    <!-- / sig -->
+                                    
+                                    
+                                    
+                                    <!-- edit note -->
+                                    <div class="smallfont">			<hr size="1" style="color:#D1D1E1" />
+                                        <em>
+                                            Last edited by tobeythorn : Yesterday at <span class="time">08:27 AM</span>.
+                                            
+                                        </em>
+                                    </div>
+                                    <!-- / edit note -->
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="alt2">
+                                    <img class="inlineimg" src="images/statusicon/user_offline.gif" alt="tobeythorn is offline" border="0" />
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    &nbsp;
+                                </td>
+                                
+                                <td class="alt1" align="right">
+                                    
+                                    <!-- controls -->
+                                    
+                                    <!-- decimator -->
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <a href="newreply.php?do=newreply&amp;p=84868" rel="nofollow"  ><img src="images/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+                                    
+                                    
+                                    
+                                    <!-- / controls -->
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- post 84868 popup menu -->
+                        <div class="vbmenu_popup" id="postmenu_84868_menu" style="display:none">
+                            <table cellpadding="4" cellspacing="1" border="0">
+                                <tr>
+                                    <td class="thead">tobeythorn</td>
+                                </tr>
+                                
+                                <tr><td class="vbmenu_option"><a href="member.php?u=5173">View Public Profile</a></td></tr>
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=5173" rel="nofollow">Send a private message to tobeythorn</a></td></tr>
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="sendmessage.php?do=mailmember&amp;u=5173" rel="nofollow">Send email to tobeythorn</a></td></tr>
+                                
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=5173" rel="nofollow">Find More Posts by tobeythorn</a></td></tr>
+                                
+                                
+                                
+                                
+                                
+                            </table>
+                        </div>
+                        <!-- / post 84868 popup menu -->
+                        
+                        
+                    </div>
+                    
+                </div>	
+            </div>
+        </div>
+        
+        <!-- / close content container -->
+        
+        <!-- / post #84868 --><!-- post #84872 -->
+        
+        <!-- open content container -->
+        
+        <div align="center">
+            <div class="page" style="width:100%; text-align:left">
+                <div style="padding:0px 25px 0px 25px">
+                    
+                    <div id="edit84872" style="padding:0px 0px 6px 0px">
+                        
+                        
+                        
+                        <table id="post84872" class="tborder" cellpadding="6" cellspacing="0" border="0" width="100%" align="center">
+                            <tr>
+                                
+                                <td class="thead" style="font-weight:normal" >		
+                                    <!-- status icon and date -->
+                                    <a name="post84872"><img class="inlineimg" src="images/statusicon/post_old.gif" alt="Old" border="0" /></a>
+                                    Yesterday, 09:23 AM
+                                    
+                                    <!-- / status icon and date -->				
+                                </td>
+                                <td class="thead" style="font-weight:normal" align="right">
+                                    &nbsp;
+                                    #<a href="showpost.php?p=84872&amp;postcount=4" target="new" rel="nofollow" id="postcount84872" name="4"><strong>4</strong></a>
+                                    
+                                </td>
+                                
+                            </tr>
+                            <tr valign="top">
+                                <td class="alt2" width="175">
+                                    
+                                    <div id="postmenu_84872">
+                                        
+                                        <a href="member.php?u=6088">sundogsoft</a>
+                                        <script type="text/javascript"> vbmenu_register("postmenu_84872", true); </script>
+                                        
+                                    </div>
+                                    
+                                    <div class="smallfont">New Member</div>
+                                    
+                                    
+                                    
+                                    
+                                    <div class="smallfont">
+                                        &nbsp;<br />
+                                        <div>Join Date: Oct 2006</div>
+                                        <div>Location: Sammamish, WA</div>
+                                        
+                                        <div>
+                                            Posts: 1
+                                        </div>
+                                        
+                                        <div>    </div>
+                                    </div>					
+                                    
+                                </td>
+                                
+                                <td class="alt1" id="td_post_84872">
+                                    
+                                    
+                                    
+                                    <!-- icon and title -->
+                                    <div class="smallfont">
+                                        <img class="inlineimg" src="images/icons/icon1.gif" alt="Default" border="0" />
+                                        <strong>Re: The Triton Ocean SDK</strong>
+                                    </div>
+                                    <hr size="1" style="color:#D1D1E1" />
+                                    <!-- / icon and title -->
+                                    
+                                    
+                                    <!-- message -->
+                                    <div id="post_message_84872">Thank you for catching that typo! It's fixed now. We appreciate the feedback. TheNut: Triton was about a 6 month project, although the sky and clouds are powered by our other library, SilverLining, which has been evolving since 2006. It takes advantage of DX11 Compute Shaders when using the DX11 renderer, but hardware tesselation isn't really needed with the projected grid approach currently being used. As we expand it to work well for smaller bodies of water, we may end up going into geometry shaders / hardware tesselation though.<br /> 
+                                        <br /> 
+                                        No videos yet, but watch for them on our website soon. Meanwhile installing the demo application from our website can let you see it in action.</div>
+                                    <!-- / message -->
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <!-- edit note -->
+                                    <div class="smallfont">			<hr size="1" style="color:#D1D1E1" />
+                                        <em>
+                                            Last edited by sundogsoft : Yesterday at <span class="time">09:30 AM</span>.
+                                            
+                                        </em>
+                                    </div>
+                                    <!-- / edit note -->
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="alt2">
+                                    <img class="inlineimg" src="images/statusicon/user_offline.gif" alt="sundogsoft is offline" border="0" />
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    &nbsp;
+                                </td>
+                                
+                                <td class="alt1" align="right">
+                                    
+                                    <!-- controls -->
+                                    
+                                    <!-- decimator -->
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <a href="newreply.php?do=newreply&amp;p=84872" rel="nofollow"  ><img src="images/buttons/quote.gif" alt="Reply With Quote" border="0" /></a>
+                                    
+                                    
+                                    
+                                    <!-- / controls -->
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- post 84872 popup menu -->
+                        <div class="vbmenu_popup" id="postmenu_84872_menu" style="display:none">
+                            <table cellpadding="4" cellspacing="1" border="0">
+                                <tr>
+                                    <td class="thead">sundogsoft</td>
+                                </tr>
+                                
+                                <tr><td class="vbmenu_option"><a href="member.php?u=6088">View Public Profile</a></td></tr>
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="private.php?do=newpm&amp;u=6088" rel="nofollow">Send a private message to sundogsoft</a></td></tr>
+                                
+                                
+                                
+                                
+                                <tr><td class="vbmenu_option"><a href="search.php?do=finduser&amp;u=6088" rel="nofollow">Find More Posts by sundogsoft</a></td></tr>
+                                
+                                
+                                
+                                
+                                
+                            </table>
+                        </div>
+                        <!-- / post 84872 popup menu -->
+                        
+                        
+                    </div>
+                    
+                </div>	
+            </div>
+        </div>
+        
+        <!-- / close content container -->
+        
+        <!-- / post #84872 --><div id="lastpost"></div></div>
+        
+        <!-- start content table -->
+        <!-- open content container -->
+        
+        <div align="center">
+            <div class="page" style="width:100%; text-align:left">
+                <div style="padding:0px 25px 0px 25px">
+                    
+                    <!-- / start content table -->
+                    
+                    <!-- controls below postbits -->
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr valign="top">
+                            
+                            <td class="smallfont"><a href="newreply.php?do=newreply&amp;noquote=1&amp;p=84872" rel="nofollow"  ><img src="images/buttons/reply.gif" alt="Reply" border="0" /></a></td>
+                            
+                            
+                        </tr>
+                    </table>
+                    <!-- / controls below postbits -->
+                    
+                    
+                    
+                    
+                    <br />
+                    
+                    
+                    
+                    <div align="center">
+                        <script type='text/javascript'><!--//<![CDATA[
+                            var m3_u = (location.protocol=='https:'?'https://www.devmaster.net/adsrvr/www/delivery/ajs.php':'http://www.devmaster.net/adsrvr/www/delivery/ajs.php');
+                            var m3_r = Math.floor(Math.random()*99999999999);
+                            if (!document.MAX_used) document.MAX_used = ',';
+                            document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+                            document.write ("?zoneid=3");
+                            document.write ('&amp;cb=' + m3_r);
+                            if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+                            document.write ("&amp;loc=" + escape(window.location));
+                            if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+                            if (document.context) document.write ("&context=" + escape(document.context));
+                            if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+                            document.write ("'><\/scr"+"ipt>");
+                            //]]>--></script><noscript><a href='http://www.devmaster.net/adsrvr/www/delivery/ck.php?n=ac876c25&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://www.devmaster.net/adsrvr/www/delivery/avw.php?zoneid=3&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=ac876c25' border='0' alt='' /></a></noscript>
+                                </div>
+                                
+                                
+                                
+                                <div class="smallfont" align="center">
+                                <strong>&laquo;</strong>
+                                <a href="showthread.php?t=17826&amp;goto=nextoldest">Previous Thread</a>
+                                |
+                                <a href="showthread.php?t=17826&amp;goto=nextnewest">Next Thread</a>
+                                <strong>&raquo;</strong>
+                                </div>
+                                
+                                
+                                <br />
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                <!-- currently active users -->
+                                <!-- end currently active users -->
+                                
+                                
+                                <!-- popup menu contents -->
+                                <br />
+                                
+                                <!-- thread tools menu -->
+                                <div class="vbmenu_popup" id="threadtools_menu" style="display:none">
+                                <form action="postings.php" method="post" name="threadadminform">
+                                <table cellpadding="4" cellspacing="1" border="0">
+                                <tr>
+                                <td class="thead">Thread Tools<a name="goto_threadtools"></a></td>
+                                </tr>
+                                <tr>
+                                <td class="vbmenu_option"><img class="inlineimg" src="images/buttons/printer.gif" alt="Show Printable Version" /> <a href="printthread.php?t=17826" accesskey="3" rel="nofollow">Show Printable Version</a></td>
+                                </tr>
+                                <tr>
+                                <td class="vbmenu_option"><img class="inlineimg" src="images/buttons/sendtofriend.gif" alt="Email this Page" /> <a href="sendmessage.php?do=sendtofriend&amp;t=17826" rel="nofollow">Email this Page</a></td>
+                                </tr>
+                                
+                                
+                                
+                                </table>
+                                </form>
+                                </div>
+                                <!-- / thread tools menu -->
+                                
+                                <!-- **************************************************** -->
+                                
+                                <!-- thread display mode menu -->
+                                <div class="vbmenu_popup" id="displaymodes_menu" style="display:none">
+                                <table cellpadding="4" cellspacing="1" border="0">
+                                <tr>
+                                <td class="thead">Display Modes<a name="goto_displaymodes"></a></td>
+                                </tr>
+                                <tr>
+                                
+                                <td class="vbmenu_option" title="nohilite"><img class="inlineimg" src="images/buttons/mode_linear.gif" alt="Linear Mode" /> <strong>Linear Mode</strong></td>
+                                
+                                </tr>
+                                <tr>
+                                
+                                <td class="vbmenu_option"><img class="inlineimg" src="images/buttons/mode_hybrid.gif" alt="Hybrid Mode" /> <a href="showthread.php?mode=hybrid&amp;t=17826">Switch to Hybrid Mode</a></td>
+                                
+                                </tr>
+                                <tr>
+                                
+                                <td class="vbmenu_option"><img class="inlineimg" src="images/buttons/mode_threaded.gif" alt="Threaded Mode" /> <a href="showthread.php?p=84852&amp;mode=threaded#post84852">Switch to Threaded Mode</a></td>
+                                
+                                </tr>
+                                </table>
+                                </div>
+                                <!-- / thread display mode menu -->
+                                
+                                <!-- **************************************************** -->
+                                
+                                
+                                <!-- thread search menu -->
+                                <div class="vbmenu_popup" id="threadsearch_menu" style="display:none">
+                                <form action="search.php" method="post">
+                                <table cellpadding="4" cellspacing="1" border="0">
+                                <tr>
+                                <td class="thead">Search this Thread<a name="goto_threadsearch"></a></td>
+                                </tr>
+                                <tr>
+                                <td class="vbmenu_option" title="nohilite">
+                                <input type="hidden" name="s" value="" />
+                                <input type="hidden" name="do" value="process" />
+                                <input type="hidden" name="searchthread" value="1" />
+                                <input type="hidden" name="showposts" value="1" />
+                                <input type="hidden" name="searchthreadid" value="17826" />
+                                Guests cannot use Quick Search.<br />
+                                </td>
+                                </tr>
+                                <tr>
+                                <td class="vbmenu_option"><a href="search.php">Advanced Search</a></td>
+                                </tr>
+                                </table>
+                                </form>
+                                </div>
+                                <!-- / thread search menu -->
+                                
+                                
+                                <!-- **************************************************** -->
+                                
+                                <!-- thread rating menu -->
+                                <div class="vbmenu_popup" id="threadrating_menu" style="display:none">
+                                <form action="threadrate.php" method="post">
+                                <table cellpadding="4" cellspacing="1" border="0">
+                                <tr>
+                                <td class="thead">Rate This Thread<a name="goto_threadrating"></a></td>
+                                </tr>
+                                
+                                <tr>
+                                <td>You have already rated this thread</td>
+                                </tr>
+                                
+                                </table>
+                                </form>
+                                </div>
+                                <!-- / thread rating menu -->
+                                
+                                
+                                <!-- / popup menu contents -->
+                                
+                                
+                                <!-- forum rules and admin links -->
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                                <tr valign="bottom">
+                                <td class="smallfont" align="left">
+                                <!-- <table class="tborder" cellpadding="6" cellspacing="1" border="0" width="180">
+                                <thead>
+                                <tr>
+                                <td class="thead">
+                                <a style="float:right" href="#top" onclick="return toggle_collapse('forumrules')"><img id="collapseimg_forumrules" src="images/buttons/collapse_thead.gif" alt="" border="0" /></a>
+                                Posting Rules
+                                </td>
+                                </tr>
+                                </thead>
+                                <tbody id="collapseobj_forumrules" style="">
+                                <tr>
+                                <td class="alt1" nowrap="nowrap"><div class="smallfont">
+                                
+                                <div>You <strong>may not</strong> post new threads</div>
+                                <div>You <strong>may not</strong> post replies</div>
+                                <div>You <strong>may not</strong> post attachments</div>
+                                <div>You <strong>may not</strong> edit your posts</div>
+                                <hr />
+                                
+                                <div><a href="misc.php?do=bbcode" target="_blank">vB code</a> is <strong>On</strong></div>
+                                <div><a href="misc.php?do=showsmilies" target="_blank">Smilies</a> are <strong>On</strong></div>
+                                <div><a href="misc.php?do=bbcode#imgcode" target="_blank">[IMG]</a> code is <strong>On</strong></div>
+                                <div>HTML code is <strong>Off</strong></div>
+                                </div></td>
+                                </tr>
+                                </tbody>
+                                </table> -->
+                                </td>
+                                <td class="smallfont" align="right">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                
+                                <tr>
+                                <td>
+                                <div class="smallfont" style="text-align:left; white-space:nowrap">
+                                <form action="forumdisplay.php" method="get">
+                                <input type="hidden" name="s" value="" />
+                                <input type="hidden" name="daysprune" value="" />
+                                <strong>Forum Jump</strong><br />
+                                <select name="f" onchange="this.form.submit();">
+                                <optgroup label="Site Areas">
+                                <option value="cp" >User Control Panel</option>
+                                <option value="pm" >Private Messages</option>
+                                <option value="subs" >Subscriptions</option>
+                                <option value="wol" >Who's Online</option>
+                                <option value="search" >Search Forums</option>
+                                <option value="home" >Forums Home</option>
+                                </optgroup>
+                                <optgroup label="Forums">
+                                    <option value="3" class="fjdpth0" > Programming &amp; Development</option>
+                                    <option value="12" class="fjdpth1" >&nbsp; &nbsp;  General Development</option>
+                                    <option value="11" class="fjdpth1" >&nbsp; &nbsp;  Graphics Theory &amp; Programming</option>
+                                    <option value="29" class="fjdpth1" >&nbsp; &nbsp;  Math &amp; Physics</option>
+                                    <option value="25" class="fjdpth1" >&nbsp; &nbsp;  Languages</option>
+                                    <option value="37" class="fjdpth1" >&nbsp; &nbsp;  Sound and Music Programming</option>
+                                    <option value="30" class="fjdpth1" >&nbsp; &nbsp;  Game Design</option>
+                                    <option value="32" class="fjdpth1" >&nbsp; &nbsp;  Artificial Intelligence</option>
+                                    <option value="7" class="fjdpth0" > General</option>
+                                    <option value="24" class="fjdpth1" >&nbsp; &nbsp;  DevMaster Lounge</option>
+                                    <option value="19" class="fjdpth1" >&nbsp; &nbsp;  Suggestions &amp; Feedback</option>
+                                    <option value="15" class="fjdpth1" >&nbsp; &nbsp;  Personal Announcements</option>
+                                    <option value="43" class="fjdpth1" >&nbsp; &nbsp;  Recruitment Requests</option>
+                                    
+                                </optgroup>
+                                </select><input type="submit" class="button" value="Go"  />
+                                </form>
+                    </div>
+                    </td>
+                    </tr>		
+                    </table>
+                    </td>
+                    </tr>
+                    </table>
+                    <!-- /forum rules and admin links -->
+                    
+                    <br />
+                    
+                    
+                    
+                    <br />
+                    <div class="smallfont" align="center">All times are GMT -7. The time now is <span class="time">01:52 PM</span>.</div>
+                    <br />
+                    
+                    
+                </div>	
+            </div>
+        </div>
+        
+        <!-- / close content container -->
+        <!-- /content area table -->
+        
+        <form action="index.php" method="get">
+            
+            <table cellpadding="6" cellspacing="0" border="0" width="100%" class="page" align="center">
+                <tr>
+                    
+                    <td class="tfoot">
+                        <select name="styleid" onchange="switch_id(this, 'style')">
+                            <optgroup label="Quick Style Chooser">
+                                <option value="2" class="" selected="selected">-- Default Style</option>
+                                <option value="3" class="" >---- NightBlue Master</option>
+                                
+                            </optgroup>
+                        </select>
+                    </td>
+                    
+                    
+                    <td class="tfoot" align="right" width="100%">
+                        <div class="smallfont">
+                            <strong>
+                                <a href="sendmessage.php" rel="nofollow">Contact Us</a> -
+                                <a href="http://www.devmaster.net">DevMaster.net</a> -
+                                
+                                
+                                <a href="archive/index.php">Archive</a> -
+                                <a href="http://www.devmaster.net/legal.html">Privacy Statement</a> -
+                                <a href="#top" onclick="self.scrollTo(0, 0); return false;">Top</a>
+                            </strong>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            
+            <br />
+            
+            <div align="center">
+                <div class="smallfont" align="center">
+                    <!-- Do not remove this copyright notice -->
+                    Powered by vBulletin<br />Copyright &copy;2000 - 2011, Jelsoft Enterprises Ltd.
+                    <!-- Do not remove this copyright notice -->
+                </div>
+                
+                <div class="smallfont" align="center">
+                    <!-- Do not remove  or your scheduled tasks will cease to function -->
+                    
+                    <!-- Do not remove  or your scheduled tasks will cease to function -->
+                    
+                    
+                </div>
+            </div>
+            
+        </form>
+        
+        
+        <script type="text/javascript">
+            <!--
+            // Main vBulletin Javascript Initialization
+            vBulletin_init();
+            //-->
+            </script>
+        
+        <!-- temp -->
+        <div style="display:none">
+            <!-- thread rate -->
+            
+            
+            
+            <!-- / thread rate -->
+        </div>
+        
+    </body>
+</html>
