@@ -19,5 +19,6 @@
 - (void) addImageData:(NSData*)data forKey:(NSString*)key;
 - (UIImage*) getImageForKey:(NSString*)key;
 - (void) removeImageForKey:(NSString*)key;
+- (void) removeAllImages;
 
 @end

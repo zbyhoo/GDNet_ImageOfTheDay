@@ -74,4 +74,13 @@ static ImagesCache* sharedImagesCache = nil;
     }
 }
 
+- (void) removeAllImages
+{
+    @synchronized(self)
+    {
+        LogWarning(@"removing all images");
+        [_uiImages removeAllObjects];
+    }
+}
+
 @end
